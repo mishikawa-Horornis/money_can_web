@@ -1,0 +1,279 @@
+/* CSS Document */
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		margin: 0;
+		padding: 0;
+		align-content: center;
+	}
+	#header ul {
+		width: 100%
+	}
+	li.l1 {
+		text-align: left;
+	}
+	li.l2 {
+		text-align: right;
+		width: 12em;
+		display:inline-block;
+		align-items: center;
+	}
+	div.site-header{
+		width: 100%;
+		position: fixed !important;
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		align-self: center;
+		background: #fff;
+		border-bottom: medium solid darkgreen;
+		vertical-align: middle;
+		height: 2em;
+	}
+	.site-header ul li {
+		list-style: none;
+		display: inline;
+	}
+	.site-header ul {
+		list-style: none;
+		display: inline;
+	}
+	div.header3 {
+		justify-content: space-between;
+		align-self: center;
+		height: auto;
+		width: 100%;
+		background-color: #fff;
+		border-top: medium solid darkgreen;
+		border-bottom: 1px solid gray;
+		vertical-align:baseline;
+		text-align: right;
+		margin-left: auto;
+		overflow-x: scroll;
+		overflow-y: hidden;
+		-webkit-overflow-scrolling: touch;
+		display: inline-block;
+		white-space: nowrap;
+	}
+	.tbl li {
+		list-style: none;
+		display: inline;
+	}
+	div.wrap {
+		width: auto;
+		padding: auto;
+		margin: auto;
+	}
+	div.ft {
+		padding: 2em;
+		text-align: center;
+	}
+	div.ft_txt {
+		padding: 0;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		width: auto;
+		height: auto;
+		align-content: center;
+		color: white;
+		background-color: green;
+	}
+	table.htable {
+		border: 0;
+		align-self: center;
+		width: 480pt;
+	}
+	.htable tr {
+		position: absolute;
+		right: 0;
+		left: 0;
+		width: 480pt;
+	}
+	div.dummy {
+		padding: 3em;
+	}
+	img.titlelogo {
+		border: 0;
+		height: 22pt;
+	}
+	img.image {
+		width: 80pt;
+		height: 80pt;
+		vertical-align: bottom;
+	}
+	input.val {
+		height: 80px;
+		width: 80px;
+	}
+    input.cst {
+        height: 1px;
+        width: 1px;
+        font-size: 1px;
+    }
+	div.content {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		height: 100%;
+		padding: auto 2pt 2pt 2pt;
+	}
+    div.row {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		display: inline-block;
+		margin: 0;
+		padding: 8px;
+		width: 330px;
+		border-style: solid;
+		border-width: thin;
+		border-top-color: white;
+		border-left-color: white;
+		border-bottom-color: darkgray;
+		border-right-color: darkgray;
+		background-color: whitesmoke;
+	}
+	li.sum {
+		font-size: 24pt;
+		float: right;
+		text-align: right;
+	}
+	span.right {
+		display: table-column;
+	}
+ 	ul.r1st {
+		list-style: none;
+		display: inline-block;
+		width: 340px;
+	}
+	ul.r2nd {
+		list-style: none;
+		display: inline;
+		padding: 0;
+		width: 340px;
+	}
+	#sumresult {
+		font-family: Arial, Helvetica, "sans-serif";
+		font-size: 18pt;
+		font-weight: normal;
+		width: 12em;
+		color : black;
+	}
+	#sumconst {
+		font-family: Arial, Helvetica, "sans-serif";
+		font-size: 18pt;
+		font-weight: normal;
+		padding: 1pt;
+		color : black;
+	}
+	#sumtitle {
+		font-family: Arial, Helvetica, "sans-serif";
+		font-size: 13pt;
+		font-weight: bold;
+		padding-right: 0.5em;
+		color : black;
+	}
+	.tbl li.del {
+		-webkit-user-select: auto;
+		-moz-user-select: auto;
+		-ms-user-select: auto;
+		user-select: auto;
+		text-align: left;
+		width: auto;
+		margin-left: 8pt;
+		margin-top: 0;
+		font-size: 24pt;
+		font-weight: 900;
+		padding: 2pt;
+		color: dimgray;
+		cursor: pointer;
+		display: inline-flex;
+	}
+	.tbl li.handle {
+		-webkit-user-select: auto;
+		-moz-user-select: auto;
+		-ms-user-select: auto;
+		user-select: auto;
+		text-align: left;
+		width: auto;
+		margin-left: 8pt;
+		margin-top: 0;
+		font-size: 24pt;
+		font-weight: 900;
+		padding: 2pt;
+		color: dimgray;
+		cursor: pointer;
+		display: inline-flex;
+	}
+	.tbl li.name {
+		font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
+		font-size: 10pt;
+		font-weight: bold;
+		width: 4em;
+		display:inline-block;
+	}
+	.tbl li.count {
+		text-align: right;
+		width: 5em;
+		font-size: 12pt;
+		display:inline-block;
+	}
+	input#foo {
+		font-size: 1px;
+		width: 1px;
+		height: 0;
+		border: none;
+	}
+	#hide {
+		font-size: 10pt;
+	}
+	#hide td {
+		background-color: khaki;
+		border-color: dimgray;
+		border-style: solid;
+		border-width: 0.1pt;
+		border-radius: 4pt;        /* CSS3草案 */
+		-webkit-border-radius: 4pt;    /* Safari,Google Chrome用 */
+		-moz-border-radius: 4pt;   /* Firefox用 */
+		padding: 2pt;
+		cursor: pointer;
+	}
+	#hide td.show{
+		border: none;
+		cursor: none;
+		font-weight: 600;
+		padding: 4pt;
+		background-color: white;
+	}
+	button.reset {
+		border-radius: 4pt;        /* CSS3草案 */
+		-webkit-border-radius: 4pt;    /* Safari,Google Chrome用 */
+		-moz-border-radius: 4pt;   /* Firefox用 */
+		cursor: pointer;
+		background-color: lightgray;
+		padding: 0 1pt 0 1pt;
+	}
+	button.foo {
+		background-color: transparent;
+		cursor: pointer;
+		vertical-align: top;
+        text-align: right;
+		width: 300px;
+	}
+	table.hidemenu {
+		max-width: inherit;
+	}
+	p {
+		padding-right: 4pt;
+	}
+	.sortable-chosen {
+		background-color: green;
+	}
+	input.dial {
+		float: right;
+	}
+

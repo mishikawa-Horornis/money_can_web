@@ -1,0 +1,27 @@
+{
+  "version": "2.4.092",
+  "name": "まねかん (money can)",
+  "launch_path": "https://horornis.com/mc/index.html",
+  "description": "いわゆる一つのマネーカウンター",
+  "icons": {
+    "192": "/mc/images/icon-128x128.png"
+  },
+  "developer": {
+    "name": "Masatoshi Ishikawa",
+    "url": "https://develop.horornis.com/"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "ja",
+  "theme_color": "darkgreen",
+  "background_color": "white",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "まねかん",
+      "description": "いわゆる一つのマネーカウンター"
+    }
+  }
+}
