@@ -8,6 +8,7 @@
     <meta charset="utf-8">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -55,6 +56,14 @@
     -->
 </head>
 <body>
+<div class="container">
+    <div class="message alert alert-info fade show　m-0 p-0">
+        クリップボードにコピーしました。
+    </div>
+    <div class="message alert alert-danger fade show m-0 p-0">
+         クリップボードへのコピー似失敗しました。
+    </div>
+</div>
 <!--script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
@@ -86,23 +95,22 @@
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300"/>
                 <span class="right">
-                    <button class="btn btn-outline-primary m-0 p-0 foo"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;0</span><span id="sumconst">📋</span>
+                    <button class="btn btn-outline-primary m-0 p-0 foo"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;0</span><span id="sumconst">&#x1F4CB;</i></span>
                         <input type="hidden" class="foo" value="0">
                         <script>
                             let clipboard = new ClipboardJS('button.foo');
-                            clipboard.on('success', function(e) {
-                                alert("クリップボードにコピーしました。");
-                                e.clearSelection();
+                            clipboard.on('success', function() {
+                                $('div.alert-info').alert();
                             });
-                           clipboard.on('error', function() {
-                                alert("コピーできませんしました…");
+                            clipboard.on('error', function() {
+                               $('div.alert-danger').alert();
                             });
                         </script>
                     </button>
                     <button class="btn btn-outline-danger allClear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
-                    <div class="item">
+                    <div class="item m-1">
                         <table class="hidemenu">
                             <tr id="hide">
                                 <td class="show">

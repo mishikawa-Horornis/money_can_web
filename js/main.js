@@ -33,8 +33,8 @@ const totalvalue = store.get(cookiehead + 'total');
 
 let rows = '<div class="row" id="vv0" alt="vv1">'
     + '   <ul class="r2nd">'
-    + '       <li alt="hidden" class="del">×️️</li>'
-    + '       <li alt="handle" class="handle">≡️</li>'
+    + '       <li alt="hidden" class="del"><i class="fas fa-eraser"></i></i></li>'
+    + '       <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>'
     + '       <li alt="小計" class="sum" align="right">&yen;0</li>'
     + '   </ul>'
     + '   <ul class="r1st">'
@@ -164,5 +164,8 @@ $(function(){
     Sortable.create($('.tbl')[0], {
         handle: '.handle',
         animation: 150  // ミリ秒で指定
+    });
+    $(".alert:not(:animated)").fadeIn("slow",function(){
+        $(this).delay(5000).fadeOut("slow");
     });
 });
