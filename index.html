@@ -56,14 +56,6 @@
     -->
 </head>
 <body>
-<div class="container">
-    <div class="message alert alert-info fade show　m-0 p-0">
-        クリップボードにコピーしました。
-    </div>
-    <div class="message alert alert-danger fade show m-0 p-0">
-         クリップボードへのコピー似失敗しました。
-    </div>
-</div>
 <!--script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
@@ -80,7 +72,7 @@
     <div class="content">
         <div class="dummy">
         </div>
-        <div class="tbl">
+       <div class="tbl">
         </div>
     </div>
     <div class="ft">
@@ -95,18 +87,7 @@
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300"/>
                 <span class="right">
-                    <button class="btn btn-outline-primary m-0 p-0 foo"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;0</span><span id="sumconst">&#x1F4CB;</i></span>
-                        <input type="hidden" class="foo" value="0">
-                        <script>
-                            let clipboard = new ClipboardJS('button.foo');
-                            clipboard.on('success', function() {
-                                $('div.alert-info').alert();
-                            });
-                            clipboard.on('error', function() {
-                               $('div.alert-danger').alert();
-                            });
-                        </script>
-                    </button>
+                    <button class="btn btn-outline-primary m-0 p-0 foo" data-clipboard-text="0"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;0</span><span id="sumconst">&#x1F4CB;</span></button>
                     <button class="btn btn-outline-danger allClear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
@@ -123,6 +104,11 @@
             </nav>
         </span>
     </div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12" id="alert_col"></div>
+    </div>
+</div>
 <script src="./js/main.js"></script>
 </body>
 </html>

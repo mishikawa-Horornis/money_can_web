@@ -161,11 +161,60 @@ $(function(){
         $('button.foo').attr('data-clipboard-text', '0');
         console.log('Clear');
     });
+    let alerts = [
+        { 'type' : 'success', 'message' : 'Success alert' },
+        { 'type' : 'info', 'message' : 'クリップボードにコピーしました。' },
+        { 'type' : 'warning', 'message' : 'Warning alert' },
+        { 'type' : 'danger', 'message' : 'クリップボードへのコピーに失敗しました。' }
+    ];
+
+    let createAlert = function( alert_type, message ) {
+
+        let alert = document.createElement( 'div' );
+        alert.setAttribute( 'id', 'alert_sample' );
+        alert.setAttribute( 'class', 'alert alert-' + alert_type + ' alert-dismissable fixed-top fade show ');
+
+        let button = document.createElement( 'button' );
+        button.setAttribute( 'type', 'button' );
+        button.setAttribute( 'class', 'close' );
+        button.setAttribute( 'data-dismiss', 'alert' );
+        button.setAttribute( 'aria-hidden', 'true' );
+        button.appendChild( document.createTextNode( "×" ) );
+
+        alert.appendChild( button );
+        alert.appendChild( document.createTextNode( message ) );
+
+        return alert;
+    };
+
+    let hideAlert = function() {
+        console.log( 'Hide alert' );
+        $('#alert_sample').alert( 'close' );
+        setTimeout(function() {
+            $('#alert_col').empty();
+        })
+    };
+
+    let showAlert = function(x) {
+        console.log( 'Show alert' );
+        let alert = alerts[x];
+        $('#alert_col').append( createAlert( alert.type, alert.message ) );
+        $('#alert_sample').alert();
+        setTimeout( hideAlert, 1000 );
+    };
+
+    $('.right').on('click', 'button.foo', function () {
+        let clipboard = new ClipboardJS('button.foo');
+        clipboard.on('success', function() {
+            showAlert(1);
+        });
+        clipboard.on('error', function() {
+            showAlert(3);
+        });
+    });
     Sortable.create($('.tbl')[0], {
         handle: '.handle',
         animation: 150  // ミリ秒で指定
     });
-    $(".alert:not(:animated)").fadeIn("slow",function(){
-        $(this).delay(5000).fadeOut("slow");
-    });
 });
+
