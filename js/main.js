@@ -1,6 +1,7 @@
 /**
  * MoneyCounter(Money can) Ver.2.4.82
  */
+/*
 let cookiehead = '.Horornis-moneycounter-v2_4_91-';
 let types = [
     {type: 's1', name: '1円', value: 1},
@@ -45,7 +46,7 @@ let rows = '<div class="row" id="vv0" alt="vv1">'
     + '</div>';
 for (let j = 0; j < types.length; j++) {
     let rows2 = rows;
-    rows2 = rows2.replace('vv0', 's' + types[j].value.toString());
+    rows2 = rows2.replace('vv0', types[j].type);
     rows2 = rows2.replace('vv1', types[j].name);
     rows2 = rows2.replace('vv2', types[j].value.toString());
     rows2 = rows2.replace('vv3', types[j].value.toString()+'.png');
@@ -78,6 +79,10 @@ function toInt(t) {
     x = (x.isNaN) ? 0 : x;
     return x;
 }
+*/
+
+
+
 $(function(){
     $('tr#hide > td').each(function (i, elem) {
         let lclsname = $(elem).attr('class');

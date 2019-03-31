@@ -42,14 +42,17 @@
     <!-- Color the status bar on mobile devices -->
     <meta name="theme-color" content="olivedrab">
     <!-- Vue.js Develop -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script -->
     <script src="js/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="./js/vue-knob-control.min.js"></script>
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
     <link rel="canonical" href="http://horornis.com/">
@@ -68,47 +71,92 @@
         });
     }
 </script -->
-    <div class="wrap">
-    <div class="content">
-        <div class="dummy">
+<div class="wrap">
+    <div class="content" id="app">
+        <div class="dummy"></div>
+        <div class="tbl">
+            <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.name">
+                <ul class="r2nd">
+                    <li alt="hidden" class="del"><i class="fas fa-eraser"></i></li>
+                    <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
+                    <li alt="小計" class="sum" align="right">&yen;{{ item.subtotal }}</li>
+                </ul>
+                <ul class="r1st">
+                    <li><img :alt="item.name + 'の枚数'" class="image" :src="'images/coin-' + item.unit + '.png'"/></li>
+                    <li>
+                        <input :aria-label="item.name" class="dial" type="number" v-model="item.number" data-max="50" data-fgColor="darkgreen"/>
+                        <input class="cst" type="hidden" v-model="item.unit" width="1px" height="1px"/>
+                    </li>
+                </ul>
+            </div>
         </div>
-       <div class="tbl">
+        <div class="ft">
         </div>
-    </div>
-    <div class="ft">
-    </div>
-    <div class="fixed-bottom border-white border-top-2">
-        <div class="ft_txt">
-            © 2019 Horornis.com All Rights Reserved.
+        <div class="fixed-bottom border-white border-top-2">
+            <div class="ft_txt">
+                © 2019 Horornis.com All Rights Reserved.
+            </div>
         </div>
-    </div>
         <!-- As a heading -->
         <span class="fixed-top">
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300"/>
                 <span class="right">
-                    <button class="btn btn-outline-primary m-0 p-0 foo" data-clipboard-text="0"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;0</span><span id="sumconst">&#x1F4CB;</span></button>
+                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalMoney"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
                     <button class="btn btn-outline-danger allClear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
                     <div class="item m-1">
-                        <table class="hidemenu">
-                            <tr id="hide">
-                                <td class="show">
-                                    非表示：
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="hidemenu">
+                            <div class="type">
+                                非表示：
+                            </div>
+                            <div v-for="item in items" :class="'btn btn-outline-primary m-0 p-0 type' + item.type" :visible="!item.visible">
+                                {{ item.name }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
         </span>
     </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-xs-12" id="alert_col"></div>
     </div>
 </div>
-<script src="./js/main.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            items: [
+                {type: 's1', name: '1円', unit: 1, number: 0, visible: true},
+                {type: 's5', name: '5円', unit: 5, number: 0, visible: true},
+                {type: 's10', name: '10円', unit: 10, number: 0, visible: true},
+                {type: 's50', name: '50円', unit: 50, number: 0, visible: true},
+                {type: 's100', name: '100円', unit: 100, number: 0, visible: true},
+                {type: 's500', name: '500円', unit: 500, number: 0, visible: true},
+                {type: 's1000', name: '千円', unit: 1000, number: 0, visible: false},
+                {type: 's2000', name: '弐千円', unit: 2000, number: 0, visible: false},
+                {type: 's5000', name: '五千円', unit: 5000, number: 0, visible: false},
+                {type: 's10000', name: '壱万円', unit: 10000, number: 0, visible: false}
+            ]
+        },
+        computed: {
+            totalMoney: function () {
+                let total = 0;
+                for (let i = 0; i < this.items.length; i++) {
+                    if (this.items[i].visible) {
+                        total += this.items[i].unit * this.items[i].number;
+                    }
+                }
+                console.log(total);
+                return total;
+            }
+        }
+    });
+</script>
+<!-- script src="./js/main.js"></script -->
 </body>
 </html>

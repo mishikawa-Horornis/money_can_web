@@ -57,6 +57,9 @@
 		display: inline-block;
 		white-space: nowrap;
 	}
+	div.type {
+		display: inline;
+	}
 	.tbl li {
 		list-style: none;
 		display: inline;
