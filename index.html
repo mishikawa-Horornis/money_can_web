@@ -52,7 +52,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-    <script src="./js/vue-knob-control.min.js"></script>
+    <!-- script src="./js/vue-knob-control.min.js"></script -->
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
     <link rel="canonical" href="http://horornis.com/">
@@ -79,10 +79,10 @@
                 <ul class="r2nd">
                     <li alt="hidden" class="del"><i class="fas fa-eraser"></i></li>
                     <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
-                    <li alt="小計" class="sum" align="right">&yen;{{ item.subtotal }}</li>
+                    <li alt="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</li>
                 </ul>
                 <ul class="r1st">
-                    <li><img :alt="item.name + 'の枚数'" class="image" :src="'images/coin-' + item.unit + '.png'"/></li>
+                    <li><img :alt="item.name + 'の枚数'" class="image m-0 p-0" :src="'images/coin-' + item.unit + '.png'"/></li>
                     <li>
                         <input :aria-label="item.name" class="dial" type="number" v-model="item.number" data-max="50" data-fgColor="darkgreen"/>
                         <input class="cst" type="hidden" v-model="item.unit" width="1px" height="1px"/>
@@ -102,7 +102,7 @@
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300"/>
                 <span class="right">
-                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalMoney"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
+                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
                     <button class="btn btn-outline-danger allClear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
@@ -151,11 +151,26 @@
                         total += this.items[i].unit * this.items[i].number;
                     }
                 }
-                console.log(total);
+                return Number(total).toLocaleString();
+            },
+            totalValue: function () {
+                let total = 0;
+                for (let i = 0; i < this.items.length; i++) {
+                    if (this.items[i].visible) {
+                        total += this.items[i].unit * this.items[i].number;
+                    }
+                }
                 return total;
+            },
+            subtotalMoney: function () {
+                let ret = [];
+                for (let i = 0; i < this.items.length; i++) {
+                    ret.push(Number(this.items[i].unit * this.items[i].number).toLocaleString());
+                }
+                return ret;
             }
-        }
-    });
+        },
+    })
 </script>
 <!-- script src="./js/main.js"></script -->
 </body>
