@@ -75,7 +75,7 @@
     <div class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl">
-            <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.name">
+            <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.name" v-show="item.visible" >
                 <ul class="r2nd">
                     <li alt="hidden" class="del"><i class="fas fa-eraser"></i></li>
                     <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
@@ -111,7 +111,7 @@
                             <div class="type">
                                 非表示：
                             </div>
-                            <div v-for="item in items" :class="'btn btn-outline-primary m-0 p-0 type' + item.type" :visible="!item.visible">
+                            <div v-for="item in items" :class="'btn btn-outline-primary m-0 p-0 type' + item.type" v-show="!item.visible">
                                 {{ item.name }}
                             </div>
                         </div>
@@ -119,11 +119,6 @@
                 </div>
             </nav>
         </span>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12" id="alert_col"></div>
     </div>
 </div>
 <script>
