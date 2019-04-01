@@ -103,7 +103,7 @@
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300"/>
                 <span class="right">
                     <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
-                    <button class="btn btn-outline-danger allClear"><strong> C </strong></button>
+                    <button class="btn btn-outline-danger allClear" v-on:click="doclear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
                     <div class="item m-1">
@@ -111,7 +111,7 @@
                             <div class="type">
                                 非表示：
                             </div>
-                            <div v-for="(item, index) in items" :class="'btn btn-outline-primary m-0 p-0 type' + item.type" v-show="!item.visible" v-on:click="doshow(index)" >
+                            <div v-for="(item, index) in items" :class="'btn btn-outline-dark btn-warning .text-dark m-0 p-0 type' + item.type" v-show="!item.visible" v-on:click="doshow(index)" >
                                 {{ item.name }}
                             </div>
                         </div>
@@ -172,6 +172,11 @@
             doshow: function (i) {
                 this.items[i].visible = true;
             },
+            doclear: function () {
+                for (let i = 0; i < this.items.length; i++) {
+                    this.items[i].number = 0;
+                }
+            }
        }
     });
 

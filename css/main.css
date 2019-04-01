@@ -276,4 +276,11 @@
 	.sortable-chosen {
 		background-color: green;
 	}
-
+	.right {
+		display: table-column;
+	}
+	.type {
+		display: table-column;
+		padding: 0 1px;
+		margin: 0 1px;
+	}
