@@ -122,21 +122,32 @@
     </div>
 </div>
 <script>
+    function initialState() {
+        let data = {
+           cookiehead: '.Horornis-money_can-v3_0',
+            items: [
+                {id: 0, order: 0, type: 's1', name: '1円', unit: 1, number: 0, visible: true},
+                {id: 1, order: 1, type: 's5', name: '5円', unit: 5, number: 0, visible: true},
+                {id: 2, order: 2, type: 's10', name: '10円', unit: 10, number: 0, visible: true},
+                {id: 3, order: 3, type: 's50', name: '50円', unit: 50, number: 0, visible: true},
+                {id: 4, order: 4, type: 's100', name: '100円', unit: 100, number: 0, visible: true},
+                {id: 5, order: 5, type: 's500', name: '500円', unit: 500, number: 0, visible: true},
+                {id: 6, order: 6, type: 's1000', name: '千円', unit: 1000, number: 0, visible: false},
+                {id: 7, order: 7, type: 's2000', name: '弐千円', unit: 2000, number: 0, visible: false},
+                {id: 8, order: 8, type: 's5000', name: '五千円', unit: 5000, number: 0, visible: false},
+                {id: 9, order: 9, type: 's10000', name: '壱万円', unit: 10000, number: 0, visible: false}
+            ]
+        };
+        let ret = store.has(data.cookiehead) ? JSON.parse(store.get(data.cookiehead)) : [];
+        console.log(ret);
+        if (ret.length === 10) return ret;
+        return data;
+    }
+
     let app = new Vue({
         el: '#app',
-        data: {
-            items: [
-                {type: 's1', name: '1円', unit: 1, number: 0, visible: true},
-                {type: 's5', name: '5円', unit: 5, number: 0, visible: true},
-                {type: 's10', name: '10円', unit: 10, number: 0, visible: true},
-                {type: 's50', name: '50円', unit: 50, number: 0, visible: true},
-                {type: 's100', name: '100円', unit: 100, number: 0, visible: true},
-                {type: 's500', name: '500円', unit: 500, number: 0, visible: true},
-                {type: 's1000', name: '千円', unit: 1000, number: 0, visible: false},
-                {type: 's2000', name: '弐千円', unit: 2000, number: 0, visible: false},
-                {type: 's5000', name: '五千円', unit: 5000, number: 0, visible: false},
-                {type: 's10000', name: '壱万円', unit: 10000, number: 0, visible: false}
-            ]
+        data () {
+            return initialState();
         },
         computed: {
             totalMoney: function () {
@@ -146,6 +157,8 @@
                         total += this.items[i].unit * this.items[i].number;
                     }
                 }
+                store.set(this.cookiehead,JSON.stringify(this.items));
+                console.log(this.cookiehead,JSON.stringify(this.items));
                 return Number(total).toLocaleString();
             },
             totalValue: function () {
@@ -176,8 +189,8 @@
                 for (let i = 0; i < this.items.length; i++) {
                     this.items[i].number = 0;
                 }
-            }
-       }
+            },
+        }
     });
 
     let clipboard = new ClipboardJS('.foo');

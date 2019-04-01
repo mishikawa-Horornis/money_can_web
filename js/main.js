@@ -2,7 +2,7 @@
  * MoneyCounter(Money can) Ver.2.4.82
  */
 /*
-let cookiehead = '.Horornis-moneycounter-v2_4_91-';
+const cookiehead = '.Horornis-moneycounter-v2_4_91-';
 let types = [
     {type: 's1', name: '1円', value: 1},
     {type: 's5', name: '5円', value: 5},
