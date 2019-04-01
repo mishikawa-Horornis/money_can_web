@@ -77,7 +77,7 @@
         <div class="tbl">
             <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.name" v-show="item.visible" >
                 <ul class="r2nd">
-                    <li alt="hidden" class="del"><i class="fas fa-eraser"></i></li>
+                    <li alt="hidden" v-on:click="dohide(index)" class="del"><i class="fas fa-eraser"></i></li>
                     <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
                     <li alt="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</li>
                 </ul>
@@ -111,7 +111,7 @@
                             <div class="type">
                                 非表示：
                             </div>
-                            <div v-for="item in items" :class="'btn btn-outline-primary m-0 p-0 type' + item.type" v-show="!item.visible">
+                            <div v-for="(item, index) in items" :class="'btn btn-outline-primary m-0 p-0 type' + item.type" v-show="!item.visible" v-on:click="doshow(index)" >
                                 {{ item.name }}
                             </div>
                         </div>
@@ -122,7 +122,7 @@
     </div>
 </div>
 <script>
-    var app = new Vue({
+    let app = new Vue({
         el: '#app',
         data: {
             items: [
@@ -165,7 +165,32 @@
                 return ret;
             }
         },
-    })
+        methods: {
+            dohide: function (i) {
+                this.items[i].visible = false;
+            },
+            doshow: function (i) {
+                this.items[i].visible = true;
+            },
+       }
+    });
+
+    let clipboard = new ClipboardJS('.foo');
+    clipboard.on('success', function (e) {
+        alert('クリップボードへコピーしました。');
+    });
+    clipboard.on('error', function (e) {
+        alert('クリップボードへのコピーに失敗しました。');
+    });
+
+
+    $(function () {
+        Sortable.create($('.tbl')[0], {
+            handle: '.handle',
+            animation: 150  // ミリ秒で指定
+        });
+    });
+
 </script>
 <!-- script src="./js/main.js"></script -->
 </body>
