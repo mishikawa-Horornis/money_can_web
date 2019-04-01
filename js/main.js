@@ -79,7 +79,7 @@ function toInt(t) {
     x = (x.isNaN) ? 0 : x;
     return x;
 }
-*/
+
 
 
 
@@ -222,4 +222,4 @@ $(function(){
         animation: 150  // ミリ秒で指定
     });
 });
-
+*/
