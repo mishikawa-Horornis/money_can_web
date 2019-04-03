@@ -77,7 +77,7 @@
         <div class="tbl">
             <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.name" v-show="item.visible" >
                 <ul class="r2nd">
-                    <li alt="hidden" v-on:click="dohide(index)" class="del"><i class="fas fa-eraser"></i></li>
+                    <li alt="hidden" @click="dohide(index)" class="del"><i class="fas fa-eraser"></i></li>
                     <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
                     <li alt="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</li>
                 </ul>
@@ -103,7 +103,7 @@
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300"/>
                 <span class="right">
                     <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
-                    <button class="btn btn-outline-danger allClear" v-on:click="doclear"><strong> C </strong></button>
+                    <button class="btn btn-outline-danger allClear" @click="doclear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
                     <div class="item m-1">
@@ -111,7 +111,7 @@
                             <div class="type">
                                 非表示：
                             </div>
-                            <div v-for="(item, index) in items" :class="'btn btn-outline-dark btn-warning .text-dark m-0 p-0 type' + item.type" v-show="!item.visible" v-on:click="doshow(index)" >
+                            <div v-for="(item, index) in items" :class="'btn btn-outline-dark btn-warning .text-dark m-0 p-0 type' + item.type" v-show="!item.visible" @click="doshow(index)" >
                                 {{ item.name }}
                             </div>
                         </div>
@@ -124,8 +124,7 @@
 <script>
     function initialState() {
         let data = {
-           cookiehead: '.Horornis-money_can-v3_0',
-            items: [
+            cookiehead: '.Horornis-money_can-v3_0', items: [
                 {id: 0, order: 0, type: 's1', name: '1円', unit: 1, number: 0, visible: true},
                 {id: 1, order: 1, type: 's5', name: '5円', unit: 5, number: 0, visible: true},
                 {id: 2, order: 2, type: 's10', name: '10円', unit: 10, number: 0, visible: true},
@@ -180,6 +179,7 @@
         },
         methods: {
             dohide: function (i) {
+                this.items[i].number = 0;
                 this.items[i].visible = false;
             },
             doshow: function (i) {

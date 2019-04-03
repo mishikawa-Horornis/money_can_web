@@ -234,24 +234,6 @@
 	#hide {
 		font-size: 10pt;
 	}
-	#hide td {
-		background-color: khaki;
-		border-color: dimgray;
-		border-style: solid;
-		border-width: 0.1pt;
-		border-radius: 4pt;        /* CSS3草案 */
-		-webkit-border-radius: 4pt;    /* Safari,Google Chrome用 */
-		-moz-border-radius: 4pt;   /* Firefox用 */
-		padding: 2pt;
-		cursor: pointer;
-	}
-	#hide td.show{
-		border: none;
-		cursor: none;
-		font-weight: 600;
-		padding: 4pt;
-		background-color: white;
-	}
 	button.reset {
 		border-radius: 4pt;        /* CSS3草案 */
 		-webkit-border-radius: 4pt;    /* Safari,Google Chrome用 */
@@ -281,6 +263,6 @@
 	}
 	.type {
 		display: table-column;
-		padding: 0 1px;
-		margin: 0 1px;
+		padding: 1px 1px;
+		margin: 1px 1px;
 	}
