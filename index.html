@@ -47,7 +47,7 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
     <script src="js/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
@@ -64,10 +64,10 @@
         navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
             .then(function(reg) {
                 // registration worked
-                console.log('Registration succeeded. Scope is ' + reg.scope);
+                // console.log('Registration succeeded. Scope is ' + reg.scope);
             }).catch(function(error) {
             // registration failed
-            console.log('Registration failed with ' + error);
+            // console.log('Registration failed with ' + error);
         });
     }
 </script -->
@@ -75,17 +75,17 @@
     <div class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl">
-            <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.name" v-show="item.visible" >
+            <div v-for="(item, index) in items" :key="item.id" class="row" :id="item.type" :alt="item.callName" v-show="item.visible" >
                 <ul class="r2nd">
                     <li alt="hidden" @click="dohide(index)" class="del"><i class="fas fa-eraser"></i></li>
                     <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
                     <li alt="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</li>
                 </ul>
                 <ul class="r1st">
-                    <li><img :alt="item.name + 'の枚数'" class="image m-0 p-0" :src="'images/coin-' + item.unit + '.png'"/></li>
+                    <li><img :alt="item.callName + 'の枚数'" class="image m-0 p-0" :src="'images/coin-' + item.unit + '.png'"/></li>
                     <li>
-                        <input :aria-label="item.name" class="dial" type="number" v-model="item.number" data-max="50" data-fgColor="darkgreen"/>
-                        <input class="cst" type="hidden" v-model="item.unit" width="1px" height="1px"/>
+                        <input :aria-label="item.callName" class="dial" type="number" :value="item.number" data-min="0" data-max="50" data-fgColor="darkgreen"/>
+                        <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
                     </li>
                 </ul>
             </div>
@@ -106,12 +106,12 @@
                     <button class="btn btn-outline-danger allClear" @click="doclear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
-                    <div class="item m-1">
+                    <div class="button_item m-1">
                         <div class="hidemenu">
                             <div class="type">
                                 非表示：
                             </div>
-                            <div v-for="(item, index) in items" :class="'btn btn-outline-dark btn-warning .text-dark m-0 p-0 type' + item.type" v-show="!item.visible" @click="doshow(index)" >
+                            <div v-for="(item, index) in items" :key="item.id" :class="'btn btn-outline-dark btn-warning .text-dark m-0 p-0 type' + item.type" v-show="!item.visible" @click="doshow(index)" >
                                 {{ item.name }}
                             </div>
                         </div>
@@ -125,24 +125,22 @@
     function initialState() {
         let data = {
             cookiehead: '.Horornis-money_can-v3_0', items: [
-                {id: 0, order: 0, type: 's1', name: '1円', unit: 1, number: 0, visible: true},
-                {id: 1, order: 1, type: 's5', name: '5円', unit: 5, number: 0, visible: true},
-                {id: 2, order: 2, type: 's10', name: '10円', unit: 10, number: 0, visible: true},
-                {id: 3, order: 3, type: 's50', name: '50円', unit: 50, number: 0, visible: true},
-                {id: 4, order: 4, type: 's100', name: '100円', unit: 100, number: 0, visible: true},
-                {id: 5, order: 5, type: 's500', name: '500円', unit: 500, number: 0, visible: true},
-                {id: 6, order: 6, type: 's1000', name: '千円', unit: 1000, number: 0, visible: false},
-                {id: 7, order: 7, type: 's2000', name: '弐千円', unit: 2000, number: 0, visible: false},
-                {id: 8, order: 8, type: 's5000', name: '五千円', unit: 5000, number: 0, visible: false},
-                {id: 9, order: 9, type: 's10000', name: '壱万円', unit: 10000, number: 0, visible: false}
+                {id: 0, order: 0, type: 's1', callName: '1円', unit: 1, number: 0, visible: true},
+                {id: 1, order: 1, type: 's5', callName: '5円', unit: 5, number: 0, visible: true},
+                {id: 2, order: 2, type: 's10', callName: '10円', unit: 10, number: 0, visible: true},
+                {id: 3, order: 3, type: 's50', callName: '50円', unit: 50, number: 0, visible: true},
+                {id: 4, order: 4, type: 's100', callName: '100円', unit: 100, number: 0, visible: true},
+                {id: 5, order: 5, type: 's500', callName: '500円', unit: 500, number: 0, visible: true},
+                {id: 6, order: 6, type: 's1000', callName: '千円', unit: 1000, number: 0, visible: false},
+                {id: 7, order: 7, type: 's2000', callName: '弐千円', unit: 2000, number: 0, visible: false},
+                {id: 8, order: 8, type: 's5000', callName: '五千円', unit: 5000, number: 0, visible: false},
+                {id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, number: 0, visible: false}
             ]
         };
         let ret = store.has(data.cookiehead) ? JSON.parse(store.get(data.cookiehead)) : [];
-        console.log(ret);
         if (ret.length === 10) return ret;
         return data;
     }
-
     let app = new Vue({
         el: '#app',
         data () {
@@ -157,7 +155,7 @@
                     }
                 }
                 store.set(this.cookiehead,JSON.stringify(this.items));
-                console.log(this.cookiehead,JSON.stringify(this.items));
+                // console.log(this.cookiehead,JSON.stringify(this.items));
                 return Number(total).toLocaleString();
             },
             totalValue: function () {
