@@ -261,8 +261,9 @@
 	.right {
 		display: table-column;
 	}
-	.type {
+	.type_item {
 		display: table-column;
+		font-size: 12pt;
 		padding: 1px 1px;
 		margin: 1px 1px;
 	}

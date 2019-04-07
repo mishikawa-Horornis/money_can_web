@@ -51,10 +51,7 @@
     <script src="js/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-    <script src="./js/vue-knob-control.min.js" type="module">
-        Vue.use(KnobControl);
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- script src="./js/vue-knob-control.min.js" type="module"></script -->
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
@@ -74,21 +71,253 @@
         });
     }
 </script -->
+<script>
+    const RADIUS = 40;
+    const MID_X = 50;
+    const MID_Y = 50;
+    const MIN_RADIANS = 4 * Math.PI / 3;
+    const MAX_RADIANS = -Math.PI / 3;
+
+    // map a value (x) from one range (in min/max) onto another (out min/max)
+    const mapRange = (x, inMin, inMax, outMin, outMax) => {
+        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+    };
+    Vue.component('knob-control', {
+        data() {
+            return {}
+        },
+        template: '<div class="knob-control" :style="{ height: size-5 + \'px\' }">\n' +
+            '   <svg :width="size" :height="size" viewBox="0 0 100 100"\n' +
+            '       @click="onClick"\n' +
+            '       @mousedown="onMouseDown"\n' +
+            '       @mouseup="onMouseUp"\n' +
+            '       @touchstart="onTouchStart"\n' +
+            '       @touchend="onTouchEnd">\n' +
+            '   <path\n' +
+            '       :d="rangePath"\n' +
+            '       :stroke-width="strokeWidth"\n' +
+            '       :stroke="secondaryColor"\n' +
+            '       class="knob-control__range">\n' +
+            '   </path>\n' +
+            '   <path\n' +
+            '   v-if="showValue"\n' +
+            '       :d="valuePath"\n' +
+            '       :stroke-width="strokeWidth"\n' +
+            '       :stroke="primaryColor"\n' +
+            '       class="knob-control__value">\n' +
+            '   </path>\n' +
+            '   <text\n' +
+            '       v-if="showValue"\n' +
+            '       :x="50"\n' +
+            '       :y="57"\n' +
+            '       text-anchor="middle"\n' +
+            '       :fill="textColor"\n' +
+            '       class="knob-control__text-display">\n' +
+            '           {{valueDisplay}}\n' +
+            '   </text>\n' +
+            '   </svg>\n' +
+            '</div>\n',
+        props: {
+            'value': {
+                type: Number,
+                required: true
+            },
+            'max': {
+                type: Number,
+                default: 100
+            },
+            'min': {
+                type: Number,
+                default: 0
+            },
+            'stepSize': {
+                type: Number,
+                default: 1
+            },
+            'disabled': {
+                type: Boolean,
+                default: false
+            },
+            'size': {
+                type: Number,
+                default: 100
+            },
+            'primaryColor': {
+                type: String,
+                default: '#409eff'
+            },
+            'secondaryColor': {
+                type: String,
+                default: '#dcdfe6'
+            },
+            'textColor': {
+                type: String,
+                default: '#000000'
+            },
+            'strokeWidth': {
+                type: Number,
+                default: 17
+            },
+            'valueDisplayFunction': {
+                type: Function,
+                default: (v) => v
+            },
+        },
+        computed: {
+            rangePath() {
+                return `M ${this.minX} ${this.minY} A ${RADIUS} ${RADIUS} 0 1 1 ${this.maxX} ${this.maxY}`;
+            },
+            valuePath() {
+                return `M ${this.zeroX} ${this.zeroY} A ${RADIUS} ${RADIUS} 0 ${this.largeArc} ${this.sweep} ${this.valueX} ${this.valueY}`;
+            },
+            showValue() {
+                return (this.value >= this.min && this.value <= this.max) && !this.disabled;
+            },
+            zeroRadians() {
+                /* this weird little bit of logic below is to handle the fact that usually we
+                    want the value arc to start drawing from the 'zero' point, but, in the case
+                    that the minimum and maximum values are both above zero, we set the 'zero point'
+                    at the supplied minimum, so the value arc renders as the user would expect */
+                if (this.min > 0 && this.max > 0)
+                    return mapRange(this.min, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
+                else
+                    return mapRange(0, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
+            },
+            valueRadians() {
+                return mapRange(this.value, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
+            },
+            minX() {
+                return MID_X + Math.cos(MIN_RADIANS) * RADIUS;
+            },
+            minY() {
+                return MID_Y - Math.sin(MIN_RADIANS) * RADIUS;
+            },
+            maxX() {
+                return MID_X + Math.cos(MAX_RADIANS) * RADIUS;
+            },
+            maxY() {
+                return MID_Y - Math.sin(MAX_RADIANS) * RADIUS;
+            },
+            zeroX() {
+                return MID_X + Math.cos(this.zeroRadians) * RADIUS;
+            },
+            zeroY() {
+                return MID_Y - Math.sin(this.zeroRadians) * RADIUS;
+            },
+            valueX() {
+                return MID_X + Math.cos(this.valueRadians) * RADIUS;
+            },
+            valueY() {
+                return MID_Y - Math.sin(this.valueRadians) * RADIUS;
+            },
+            largeArc() {
+                return Math.abs(this.zeroRadians - this.valueRadians) < Math.PI ? 0 : 1;
+            },
+            sweep() {
+                return this.valueRadians > this.zeroRadians ? 0 : 1;
+            },
+            valueDisplay() {
+                return this.valueDisplayFunction(this.value);
+            },
+        },
+        methods: {
+            updatePosition(offsetX, offsetY) {
+                const dx = offsetX - this.size / 2;
+                const dy = this.size / 2 - offsetY;
+                const angle = Math.atan2(dy, dx);
+                let v;
+                /* bit of weird looking logic to map the angles returned by Math.atan2() onto
+                    our own unconventional coordinate system */
+                const start = -Math.PI / 2 - Math.PI / 6;
+                if (angle > MAX_RADIANS) {
+                    v = mapRange(angle, MIN_RADIANS, MAX_RADIANS, this.min, this.max);
+                } else if (angle < start) {
+                    v = mapRange(angle + 2 * Math.PI, MIN_RADIANS, MAX_RADIANS, this.min, this.max);
+                } else {
+                    return;
+                }
+                this.$emit('input', Math.round((v - this.min) / this.stepSize) * this.stepSize + this.min);
+            },
+            onClick(e) {
+                if (!this.disabled) {
+                    this.updatePosition(e.offsetX, e.offsetY);
+                }
+            },
+            onMouseDown(e) {
+                if (!this.disabled) {
+                    e.preventDefault();
+                    window.addEventListener('mousemove', this.onMouseMove);
+                    window.addEventListener('mouseup', this.onMouseUp);
+                }
+            },
+            onMouseUp(e) {
+                if (!this.disabled) {
+                    e.preventDefault();
+                    window.removeEventListener('mousemove', this.onMouseMove);
+                    window.removeEventListener('mouseup', this.onMouseUp);
+                }
+            },
+            onTouchStart(e) {
+                if (!this.disabled) {
+                    e.preventDefault();
+                    window.addEventListener('touchmove', this.onTouchMove);
+                    window.addEventListener('touchend', this.onTouchEnd);
+                }
+            },
+            onTouchEnd(e) {
+                if (!this.disabled) {
+                    e.preventDefault();
+                    window.removeEventListener('touchmove', this.onTouchMove);
+                    window.removeEventListener('touchend', this.onTouchEnd);
+                }
+            },
+            onMouseMove(e) {
+                if (!this.disabled) {
+                    e.preventDefault();
+                    this.updatePosition(e.offsetX, e.offsetY);
+                }
+            },
+            onTouchMove(e) {
+                if (!this.disabled && e.touches.length == 1) {
+                    const boundingClientRect = this.$el.getBoundingClientRect();
+                    const touch = e.targetTouches.item(0);
+                    const offsetX = touch.clientX - boundingClientRect.left;
+                    const offsetY = touch.clientY - boundingClientRect.top;
+                    this.updatePosition(offsetX, offsetY);
+                }
+            },
+        },
+
+    });
+</script>
+<style>
+    .knob-control__range {
+        fill: none;
+        transition: stroke .1s ease-in;
+    }
+    .knob-control__value {
+        fill: none;
+    }
+    .knob-control__text-display {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+</style>
 <div class="wrap">
     <div class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl">
-            <div v-for="(item, index) in items" :key="item.id" class="row" :id="item.type" :alt="item.callName" v-show="item.visible" >
+            <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.callName" v-show="item.visible" >
                 <ul class="r2nd">
                     <li alt="hidden" @click="dohide(index)" class="del"><i class="fas fa-eraser"></i></li>
                     <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
                     <li alt="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</li>
                 </ul>
                 <ul class="r1st">
-                    <li><img :alt="item.callName + 'の枚数'" class="image m-0 p-0" :src="'images/coin-' + item.unit + '.png'"/></li>
                     <li>
-                        <knob-control primaryColor="darkgreen" class="dial" :size="80" :min="0" :max="50" v-model="item.number"></knob-control>
                         <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
+                        <img :alt="item.callName + 'の枚数'" class="image m-0 p-0" :src="'images/coin-' + item.unit + '.png'"/>
+                        <knob-control class="dial" primaryColor="darkgreen" secondaryColor="gray" :min="0" :max="50" :size="180" v-model="item.number"></knob-control>
                     </li>
                 </ul>
             </div>
@@ -111,10 +340,10 @@
                 <div class="bg-white header3">
                     <div class="button_item m-1">
                         <div class="hidemenu">
-                            <div class="type">
+                            <div class="type_item">
                                 非表示：
                             </div>
-                            <div v-for="(item, index) in items" :key="item.id" :class="'btn btn-outline-dark btn-warning .text-dark m-0 p-0 type' + item.type" v-show="!item.visible" @click="doshow(index)" >
+                            <div v-for="(item, index) in items" class="btn btn-outline-dark btn-warning .text-dark m-0 p-0 type_item" v-show="!item.visible" @click="doshow(index)" >
                                 {{ item.name }}
                             </div>
                         </div>
@@ -126,7 +355,7 @@
 </div>
 <script>
     function initialState() {
-        let data = {
+        const data = {
             cookiehead: '.Horornis-money_can-v3_0', items: [
                 {id: 0, order: 0, type: 's1', callName: '1円', unit: 1, number: 0, visible: true},
                 {id: 1, order: 1, type: 's5', callName: '5円', unit: 5, number: 0, visible: true},
@@ -140,12 +369,13 @@
                 {id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, number: 0, visible: false}
             ]
         };
-        let ret = store.has(data.cookiehead) ? JSON.parse(store.get(data.cookiehead)) : [];
+        let ret= [];
+        if (store.has(data.cookiehead)) ret = store.get(data.cookiehead);
+        console.log(ret);
         if (ret.length === 10) return ret;
         return data;
     }
-
-    let app = new Vue({
+    const app = new Vue({
         el: '#app',
         data () {
             return initialState();
@@ -158,7 +388,7 @@
                         total += this.items[i].unit * this.items[i].number;
                     }
                 }
-                store.set(this.cookiehead,JSON.stringify(this.items));
+                store.set(this.cookiehead,this.items);
                 // console.log(this.cookiehead,JSON.stringify(this.items));
                 return Number(total).toLocaleString();
             },
@@ -212,6 +442,5 @@
     });
 
 </script>
-<!-- script src="./js/main.js"></script -->
 </body>
 </html>

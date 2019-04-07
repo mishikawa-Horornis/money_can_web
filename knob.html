@@ -44,37 +44,50 @@
         data() {
             return {}
         },
-        template: '    <div class="knob-control" :style="{ height: size-5 + \'px\' }">\n' +
-            '        <svg :width="size" :height="size" viewBox="0 0 100 100"\n' +
-            '             @click="onClick"\n' +
-            '             @mousedown="onMouseDown"\n' +
-            '             @mouseup="onMouseUp"\n' +
-            '             @touchstart="onTouchStart"\n' +
-            '             @touchend="onTouchEnd">\n' +
-            '            <path\n' +
-            '                    :d="rangePath"\n' +
-            '                    :stroke-width="strokeWidth"\n' +
-            '                    :stroke="secondaryColor"\n' +
-            '                    class="knob-control__range">\n' +
-            '            </path>\n' +
-            '            <path\n' +
-            '                    v-if="showValue"\n' +
-            '                    :d="valuePath"\n' +
-            '                    :stroke-width="strokeWidth"\n' +
-            '                    :stroke="primaryColor"\n' +
-            '                    class="knob-control__value">\n' +
-            '            </path>\n' +
-            '            <text\n' +
-            '                    v-if="showValue"\n' +
-            '                    :x="50"\n' +
-            '                    :y="57"\n' +
-            '                    text-anchor="middle"\n' +
-            '                    :fill="textColor"\n' +
-            '                    class="knob-control__text-display">\n' +
-            '                {{valueDisplay}}\n' +
-            '            </text>\n' +
-            '        </svg>\n' +
-            '    </div>\n',
+        template: '<div class="knob-control" :style="{ height: size-5 + \'px\' }">\n' +
+            '   <svg :width="size" :height="size" viewBox="0 0 100 100"\n' +
+            '       @click="onClick"\n' +
+            '       @mousedown="onMouseDown"\n' +
+            '       @mouseup="onMouseUp"\n' +
+            '       @touchstart="onTouchStart"\n' +
+            '       @touchend="onTouchEnd">\n' +
+            '   <path\n' +
+            '       :d="rangePath"\n' +
+            '       :stroke-width="strokeWidth"\n' +
+            '       :stroke="secondaryColor"\n' +
+            '       class="knob-control__range">\n' +
+            '   </path>\n' +
+            '   <path\n' +
+            '   v-if="showValue"\n' +
+            '       :d="valuePath"\n' +
+            '       :stroke-width="strokeWidth"\n' +
+            '       :stroke="primaryColor"\n' +
+            '       class="knob-control__value">\n' +
+            '   </path>\n' +
+            '   <text\n' +
+            '       v-if="showValue"\n' +
+            '       :x="50"\n' +
+            '       :y="57"\n' +
+            '       text-anchor="middle"\n' +
+            '       :fill="textColor"\n' +
+            '       class="knob-control__text-display">\n' +
+            '           {{valueDisplay}}\n' +
+            '   </text>\n' +
+            '   </svg>\n' +
+            '</div>\n'+
+            '<style>\n' +
+            '    .knob-control__range {\n' +
+            '        fill: none;\n' +
+            '        transition: stroke .1s ease-in;\n' +
+            '    }\n' +
+            '    .knob-control__value {\n' +
+            '        fill: none;\n' +
+            '    }\n' +
+            '    .knob-control__text-display {\n' +
+            '        font-size: 1.3rem;\n' +
+            '        text-align: center;\n' +
+            '    }\n' +
+            '</style>\n'
         props: {
             'value': {
                 type: Number,
@@ -249,19 +262,6 @@
     })
 </script>
 
-<style>
-    .knob-control__range {
-        fill: none;
-        transition: stroke .1s ease-in;
-    }
-    .knob-control__value {
-        fill: none;
-    }
-    .knob-control__text-display {
-        font-size: 1.3rem;
-        text-align: center;
-    }
-</style>
     <div id="app">
         <knob-control :min="0" :max="50" :size="200" v-model="someValue"></knob-control>
     </div>
