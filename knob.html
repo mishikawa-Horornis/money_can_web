@@ -263,14 +263,14 @@
     }
 </style>
     <div id="app">
-        <knob-control v-model="someValue"></knob-control>
+        <knob-control :min="0" :max="50" :size="200" v-model="someValue"></knob-control>
     </div>
 <script>
-    new Vue({
+    const app = new Vue({
         el: '#app',
         data: {
-            someValue: 0,
-        },
+            someValue: 0
+        }
     })
 </script>
 </body>
