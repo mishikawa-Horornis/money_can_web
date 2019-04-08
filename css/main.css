@@ -56,6 +56,7 @@ div.header3 {
 	-webkit-overflow-scrolling: touch;
 	display: inline-block;
 	white-space: nowrap;
+	padding: 1pt;
 }
 div.type {
 	display: inline;
@@ -83,17 +84,6 @@ div.ft_txt {
 	align-content: center;
 	color: white;
 	background-color: green;
-}
-table.htable {
-	border: 0;
-	align-self: center;
-	width: 480pt;
-}
-.htable tr {
-	position: absolute;
-	right: 0;
-	left: 0;
-	width: 480pt;
 }
 div.dummy {
 	padding: 3em;
@@ -137,13 +127,16 @@ div.row {
 	background-color: whitesmoke;
 }
 div.sum {
+	font-size: 24pt;
+	text-align: right;
+	width: 80%
 }
 span.right {
 	display: table-column;
 }
 div.r1st {
 	list-style: none;
-	display: inline;
+	display: inline-block;
 	width: 340px;
 }
 div.r2nd {
@@ -255,7 +248,7 @@ p {
 	background-color: green;
 }
 .right {
-	display: table-column;
+	display: inline;
 }
 .hidden_menu {
 	font-size: 12pt;
