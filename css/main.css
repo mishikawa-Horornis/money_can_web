@@ -90,7 +90,7 @@ div.dummy {
 }
 img.titlelogo {
 	border: 0;
-	height: 22pt;
+	height: 24pt;
 }
 img.image {
 	width: 80pt;
@@ -129,7 +129,7 @@ div.row {
 div.sum {
 	font-size: 24pt;
 	text-align: right;
-	width: 80%
+	float: right;
 }
 span.right {
 	display: table-column;
@@ -137,13 +137,13 @@ span.right {
 div.r1st {
 	list-style: none;
 	display: inline-block;
-	width: 340px;
+	width: 320px;
 }
 div.r2nd {
 	list-style: none;
 	display: inline-block;
 	padding: 0;
-	width: 340px;
+	width: 310px;
 }
 img.coin_picture {
 	display: inline;
@@ -227,19 +227,29 @@ input#foo {
 	font-size: 10pt;
 }
 button.reset {
-	border-radius: 4pt;        /* CSS3草案 */
-	-webkit-border-radius: 4pt;    /* Safari,Google Chrome用 */
-	-moz-border-radius: 4pt;   /* Firefox用 */
+	border-radius: 4pt; /* CSS3草案 */
+	-webkit-border-radius: 4pt; /* Safari,Google Chrome用 */
+	-moz-border-radius: 4pt; /* Firefox用 */
 	cursor: pointer;
 	background-color: lightgray;
 	padding: 0 1pt 0 1pt;
+	vertical-align: top;
+	margin: 0;
 }
 button.foo {
 	background-color: transparent;
 	cursor: pointer;
-	vertical-align: top;
+	vertical-align: bottom;
 	text-align: right;
 	width: 300px;
+}
+button.allClear {
+	background-color: transparent;
+	cursor: pointer;
+	vertical-align: bottom;
+	text-align: right;
+	font-size: 18pt;
+	padding: 0 10px;
 }
 p {
 	padding-right: 4pt;
@@ -254,7 +264,7 @@ p {
 	font-size: 12pt;
 	display: inline;
 }
-.type_item {
+button.type_item {
 	font-size: 12pt;
 	display: inline;
 }

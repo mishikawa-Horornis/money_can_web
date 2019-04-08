@@ -310,11 +310,11 @@
                 <div class="r2nd">
                     <div alt="hidden" @click="dohide(index)" class="del col-sm-1"><i class="col-xs-1 fas fa-eraser"></i></div>
                     <div alt="handle" class="handle"><i class="col-sm-1 fas fa-arrows-alt"></i></div>
-                    <div alt="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+                    <div alt="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                 </div>
                 <div class="r1st">
                     <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
-                    <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                    <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'" width="300px"/>
                     <knob-control class="dial" primaryColor="darkgreen" secondaryColor="gray" :min="0" :max="50" :size="170" v-model="item.number"></knob-control>
                 </div>
             </div>
@@ -329,10 +329,10 @@
         <!-- As a heading -->
         <span class="fixed-top">
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
-                <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="280"/>
+                <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
                 <span class="right">
-                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
-                    <button class="btn btn-outline-danger allClear" @click="doclear"><strong> C </strong></button>
+                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue" width="300px"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
+                    <button class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
                     <div class="hidden_list">
@@ -350,8 +350,8 @@
 </div>
 <script>
     function initialState() {
+        const old_cookiehead: '.Horornis-moneycounter-v2_4_91-';
         const data = {
-            cookiehead: '.Horornis-money_can-v3_0_1',
             items: [
                 {id: 0, order: 0, type: 's1', callName: '1円', unit: 1, number: 0, visible: true},
                 {id: 1, order: 1, type: 's5', callName: '5円', unit: 5, number: 0, visible: true},
@@ -370,6 +370,13 @@
             items: []
         };
         if (store.has(data.cookiehead)) ret.items = store.get(data.cookiehead);
+        for (let i = 0; i < ret.items; i++) {
+            if (store.has(old_cookiehead + data.items[i].type)) {
+                data.items[i].number = store.get(old_cookiehead + data.items[i].type).count;
+                data.items[i].visible = !(store.get(old_cookiehead + data.items[i].type).hide);
+                store.delete(old_cookiehead + data.items[i].type);
+            }
+        }
         // console.log(ret.items);
         if (ret.items.length === 10) {
             return ret;
@@ -436,6 +443,7 @@
 
 
     $(function () {
+        $('.dummy').height = $('nav').height;
         Sortable.create($('.tbl')[0], {
             handle: '.handle',
             animation: 150  // ミリ秒で指定
