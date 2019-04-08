@@ -307,18 +307,16 @@
         <div class="dummy"></div>
         <div class="tbl">
             <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.callName" v-show="item.visible" >
-                <ul class="r2nd">
-                    <li alt="hidden" @click="dohide(index)" class="del"><i class="fas fa-eraser"></i></li>
-                    <li alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></li>
-                    <li alt="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</li>
-                </ul>
-                <ul class="r1st">
-                    <li>
-                        <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
-                        <img :alt="item.callName + 'の枚数'" class="image m-0 p-0" :src="'images/coin-' + item.unit + '.png'"/>
-                        <knob-control class="dial" primaryColor="darkgreen" secondaryColor="gray" :min="0" :max="50" :size="180" v-model="item.number"></knob-control>
-                    </li>
-                </ul>
+                <div class="r2nd">
+                    <div alt="hidden" @click="dohide(index)" class="del col-sm-1"><i class="col-xs-1 fas fa-eraser"></i></div>
+                    <div alt="handle" class="handle"><i class="col-sm-1 fas fa-arrows-alt"></i></div>
+                    <div alt="小計" class="sum col-sm-8" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+                </div>
+                <div class="r1st">
+                    <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
+                    <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                    <knob-control class="dial" primaryColor="darkgreen" secondaryColor="gray" :min="0" :max="50" :size="170" v-model="item.number"></knob-control>
+                </div>
             </div>
         </div>
         <div class="ft">
@@ -341,8 +339,8 @@
                         <div class="hidden_menu">
                             非表示：
                         </div>
-                        <div v-for="(item, index) in items" class="btn btn-outline-dark btn-warning .text-dark type_item" v-show="!item.visible" @click="doshow(index)" >
-                            {{ item.name }}
+                        <div v-for="(item, index) in items" class="btn btn-outline-dark btn-warning .text-dark type_item p-1" v-show="!item.visible" @click="doshow(index)" >
+                            {{ item.callName }}
                         </div>
                     </div>
                 </div>
@@ -372,7 +370,7 @@
             items: []
         };
         if (store.has(data.cookiehead)) ret.items = store.get(data.cookiehead);
-        console.log(ret.items);
+        // console.log(ret.items);
         if (ret.items.length === 10) {
             return ret;
         }
