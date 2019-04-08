@@ -366,7 +366,7 @@
             items: []
         };
         if (store.has(data.cookiehead)) ret.items = store.get(data.cookiehead);
-        for (let i = 0; i < ret.items; i++) {
+        for (let i = 0; i < ret.length; i++) {
             if (store.has(old_cookiehead + data.items[i].type)) {
                 data.items[i].number = store.get(old_cookiehead + data.items[i].type).count;
                 data.items[i].visible = !(store.get(old_cookiehead + data.items[i].type).hide);
