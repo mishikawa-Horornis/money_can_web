@@ -140,7 +140,7 @@ span.right {
 div.r1st {
 	list-style: none;
 	display: inline-block;
-	width: 320px;
+	width: 310px;
 }
 div.r2nd {
 	list-style: none;
@@ -153,6 +153,7 @@ img.coin_picture {
 }
 .dial {
 	display: inline;
+	vertical-align: center;
 }
 #sumresult {
 	font-family: Arial, Helvetica, "sans-serif";
