@@ -86,7 +86,10 @@ div.ft_txt {
 	background-color: green;
 }
 div.dummy {
-	padding: 3em;
+	height: 8em;
+	display: block;
+	width: 100%;
+	resize: vertical;
 }
 img.titlelogo {
 	border: 0;
