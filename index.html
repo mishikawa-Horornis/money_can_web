@@ -7,8 +7,8 @@
 <head>
     <meta charset="utf-8">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="./fontawesome-free-web/css/all.min.css">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="css/main.css" rel="stylesheet" type="text/css">
@@ -41,16 +41,14 @@
     <!-- Color the status bar on mobile devices -->
     <meta name="theme-color" content="olivedrab">
     <!-- Vue.js Develop -->
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="js/Sortable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <!-- script src="./fontawesome-free-web/js/all.min.js"></script-->
+    <script src="./js/Sortable.min.js"></script>
+    <script src="./js/store2.min.js"></script>
+    <script src="./js/clipboard.min.js"></script>
+    <script src="./js/vue.min.js"></script>
 </head>
 <body>
 <!--script>
@@ -303,8 +301,8 @@
         <div class="tbl">
             <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.callName" v-show="item.visible" >
                 <div class="r2nd">
-                    <div alt="hidden" @click="dohide(index)" class="del col-sm-1"><i class="col-xs-1 fas fa-eraser"></i></div>
-                    <div alt="handle" class="handle"><i class="col-sm-1 fas fa-arrows-alt"></i></div>
+                    <div alt="hidden" @click="dohide(index)" class="del col-sm-1"><i class="fas fa-eraser"></i></div>
+                    <div alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></div>
                     <div alt="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                 </div>
                 <div class="r1st">
@@ -322,6 +320,7 @@
             </div>
         </div>
         <!-- As a heading -->
+        <div class="top_bar">
         <span class="fixed-top">
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
@@ -341,6 +340,7 @@
                 </div>
             </nav>
         </span>
+        </div>
     </div>
 </div>
 <script>
@@ -436,16 +436,15 @@
     clipboard.on('error', function (e) {
         alert('クリップボードへのコピーに失敗しました。');
     });
-
-
     $(function () {
-        $('.dummy').height = $('nav').height;
+        $('div.top_bar').resize(function(){
+            $('div.dummy').height = $('div.top_bar').height;
+        });
         Sortable.create($('.tbl')[0], {
             handle: '.handle',
             animation: 150  // ミリ秒で指定
         });
     });
-
 </script>
 </body>
 </html>

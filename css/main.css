@@ -86,7 +86,10 @@ div.ft_txt {
 	background-color: green;
 }
 div.dummy {
-	padding: 3em;
+	display: block;
+	width: 100%;
+	height: 6em;
+	margin-bottom: 1em;
 }
 img.titlelogo {
 	border: 0;
@@ -181,7 +184,7 @@ img.coin_picture {
 	width: auto;
 	margin-left: 8pt;
 	margin-top: 0;
-	font-size: 24pt;
+	font-size: 18pt;
 	font-weight: 900;
 	padding: 2pt;
 	color: dimgray;
@@ -197,7 +200,7 @@ img.coin_picture {
 	width: auto;
 	margin-left: 8pt;
 	margin-top: 0;
-	font-size: 24pt;
+	font-size: 18pt;
 	font-weight: 900;
 	padding: 2pt;
 	color: dimgray;
