@@ -309,8 +309,8 @@
                 </div>
                 <div class="r1st">
                     <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
-                    <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'" width="300px"/>
-                    <knob-control class="dial" primaryColor="darkgreen" secondaryColor="gray" :min="0" :max="50" :size="150" v-model="item.number"></knob-control>
+                    <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                    <knob-control class="dial" primaryColor="darkgreen" secondaryColor="gray" :min="0" :max="50" :size="170" v-model="item.number"></knob-control>
                 </div>
             </div>
         </div>
@@ -327,7 +327,7 @@
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
                 <span class="right">
-                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue" width="280px"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
+                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
                     <button class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
