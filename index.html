@@ -273,8 +273,10 @@
                 if (!this.disabled && e.touches.length == 1) {
                     const boundingClientRect = this.$el.getBoundingClientRect();
                     const touch = e.targetTouches.item(0);
+                    // const offsetX = touch.clientX - boundingClientRect.left;
+                    // const offsetY = touch.clientY - boundingClientRect.top;
                     const offsetX = touch.clientX - boundingClientRect.left;
-                    const offsetY = touch.clientY - boundingClientRect.top;
+                    const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                     this.updatePosition(offsetX, offsetY);
                 }
             },
