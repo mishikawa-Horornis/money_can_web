@@ -86,10 +86,10 @@ div.ft_txt {
 	background-color: green;
 }
 div.dummy {
+	height: 8em;
 	display: block;
 	width: 100%;
-	height: 6em;
-	margin-bottom: 1em;
+	resize: vertical;
 }
 img.titlelogo {
 	border: 0;
@@ -140,7 +140,7 @@ span.right {
 div.r1st {
 	list-style: none;
 	display: inline-block;
-	width: 320px;
+	width: 310px;
 }
 div.r2nd {
 	list-style: none;
@@ -153,6 +153,7 @@ img.coin_picture {
 }
 .dial {
 	display: inline;
+	vertical-align: center;
 }
 #sumresult {
 	font-family: Arial, Helvetica, "sans-serif";
@@ -184,7 +185,7 @@ img.coin_picture {
 	width: auto;
 	margin-left: 8pt;
 	margin-top: 0;
-	font-size: 18pt;
+	font-size: 24pt;
 	font-weight: 900;
 	padding: 2pt;
 	color: dimgray;
@@ -200,7 +201,7 @@ img.coin_picture {
 	width: auto;
 	margin-left: 8pt;
 	margin-top: 0;
-	font-size: 18pt;
+	font-size: 24pt;
 	font-weight: 900;
 	padding: 2pt;
 	color: dimgray;

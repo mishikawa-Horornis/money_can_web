@@ -437,9 +437,6 @@
         alert('クリップボードへのコピーに失敗しました。');
     });
     $(function () {
-        $('div.top_bar').resize(function(){
-            $('div.dummy').height = $('div.top_bar').height;
-        });
         Sortable.create($('.tbl')[0], {
             handle: '.handle',
             animation: 150  // ミリ秒で指定
