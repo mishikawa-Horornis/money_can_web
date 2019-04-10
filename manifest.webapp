@@ -1,10 +1,10 @@
 {
-  "version": "2.4.092",
+  "version": "3.0.100",
   "name": "まねかん (money can)",
-  "launch_path": "https://horornis.com/mc/index.html",
+  "launch_path": "https://horornis.com/mc-vue/",
   "description": "いわゆる一つのマネーカウンター",
   "icons": {
-    "192": "/mc/images/icon-128x128.png"
+    "192": "/mc-vue/images/icon-128x128.png"
   },
   "developer": {
     "name": "Masatoshi Ishikawa",
