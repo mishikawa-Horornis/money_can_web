@@ -96,8 +96,8 @@ img.titlelogo {
 	height: 24pt;
 }
 img.image {
-	width: 80pt;
-	height: 80pt;
+	width: 80px;
+	height: 80px;
 	vertical-align: bottom;
 }
 input.cst {
@@ -120,7 +120,7 @@ div.row {
 	display: inline-block;
 	margin: 0;
 	padding: 8px;
-	width: 330px;
+	width: 300px;
 	border-style: solid;
 	border-width: thin;
 	border-top-color: white;
@@ -140,13 +140,13 @@ span.right {
 div.r1st {
 	list-style: none;
 	display: inline-block;
-	width: 310px;
+	width: 290px;
 }
 div.r2nd {
 	list-style: none;
 	display: inline-block;
 	padding: 0;
-	width: 310px;
+	width: 280px;
 }
 img.coin_picture {
 	display: inline;
@@ -185,8 +185,8 @@ img.coin_picture {
 	width: auto;
 	margin-left: 8pt;
 	margin-top: 0;
-	font-size: 24pt;
-	font-weight: 900;
+	font-size: 20pt;
+	font-weight: normal;
 	padding: 2pt;
 	color: dimgray;
 	cursor: pointer;
@@ -201,8 +201,8 @@ img.coin_picture {
 	width: auto;
 	margin-left: 8pt;
 	margin-top: 0;
-	font-size: 24pt;
-	font-weight: 900;
+	font-size: 20pt;
+	font-weight: normal;
 	padding: 2pt;
 	color: dimgray;
 	cursor: pointer;
@@ -245,7 +245,7 @@ button.foo {
 	cursor: pointer;
 	vertical-align: bottom;
 	text-align: right;
-	width: 300px;
+	width: 270px;
 }
 button.allClear {
 	background-color: transparent;
