@@ -74,45 +74,68 @@
     const mapRange = (x, inMin, inMax, outMin, outMax) => {
         return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     };
+    function showPrompt(vars){
+        var result = window.prompt("支払い金額を入力してください。", "0");
+
+        if(result == null){
+            window.alert("キャンセルされました。");
+        }else{
+            window.alert("支払いは「" + result + "です。");
+        }
+    }
     Vue.component('knob-control', {
         data() {
-            return {}
+            return;
+            //textInput: function () {return this.template.find('input')}
         },
-        template: '<div class="knob-control" :style="{ height: size-5 + \'px\' }">\n' +
-            '   <svg :width="size" :height="size" viewBox="0 0 100 100"\n' +
-            '       @click="onClick"\n' +
-            '       @mousedown="onMouseDown"\n' +
-            '       @mouseup="onMouseUp"\n' +
-            '       @touchstart="onTouchStart"\n' +
-            '       @touchend="onTouchEnd">\n' +
-            '   <path\n' +
-            '       :d="rangePath"\n' +
-            '       :stroke-width="strokeWidth"\n' +
-            '       :stroke="secondaryColor"\n' +
-            '       class="knob-control__range">\n' +
-            '   </path>\n' +
-            '   <path\n' +
-            '   v-if="showValue"\n' +
-            '       :d="valuePath"\n' +
-            '       :stroke-width="strokeWidth"\n' +
-            '       :stroke="primaryColor"\n' +
-            '       class="knob-control__value">\n' +
-            '   </path>\n' +
-            '   <text\n' +
-            '       v-if="showValue"\n' +
-            '       :x="50"\n' +
-            '       :y="57"\n' +
-            '       text-anchor="middle"\n' +
-            '       :fill="textColor"\n' +
-            '       class="knob-control__text-display">\n' +
-            '           {{valueDisplay}}\n' +
-            '   </text>\n' +
-            '   </svg>\n' +
-            '</div>\n',
+        template: '<div class="knob-control" :style="{ height: size-5 + \'px\' }">' +
+            '   <svg :width="size" :height="size" viewBox="0 0 100 100"' +
+            '       @click="onClick"' +
+            '       @mousedown="onMouseDown"' +
+            '       @mouseup="onMouseUp"' +
+            '       @touchstart="onTouchStart"' +
+            '       @touchend="onTouchEnd">' +
+            '   <path' +
+            '       :d="rangePath"' +
+            '       :stroke-width="strokeWidth"' +
+            '       :stroke="secondaryColor"' +
+            '       class="knob-control__range">' +
+            '   </path>' +
+            '   <path' +
+            '   v-if="showValue"' +
+            '       :d="valuePath"' +
+            '       :stroke-width="strokeWidth"' +
+            '       :stroke="primaryColor"' +
+            '       class="knob-control__value">' +
+            '   </path>' +
+            '   <text' +
+            '       @click="onClick"' +
+            '       v-if="showValue"' +
+            '       :x="50"' +
+            '       :y="57"' +
+            '       text-anchor="middle"' +
+            '       :fill="textColor"' +
+            '       class="knob-control__text-display">' +
+            '       {{valueDisplay}}' +
+            '   </text>' +
+            '   </svg>' +
+            // '   <input' +
+            // '       @click="onClick"' +
+            // '       v-if="showValue"' +
+            // '       left="50"' +
+            // '       top="57"' +
+            // '       type="number"' +
+            // '       :fill="textColor"' +
+            // '       :max="max"' +
+            // '       :min="min"' +
+            // '       v-model="value"' +
+            // '       class="knob-control__text-input">' +
+            '</div>',
         props: {
             'value': {
                 type: Number,
-                required: true
+                required: true,
+                default: 0
             },
             'max': {
                 type: Number,
@@ -136,15 +159,15 @@
             },
             'primaryColor': {
                 type: String,
-                default: '#409eff'
+                default: '#006400'
             },
             'secondaryColor': {
                 type: String,
-                default: '#dcdfe6'
+                default: '#C0C0C0'
             },
             'textColor': {
                 type: String,
-                default: '#000000'
+                default: '#006400'
             },
             'strokeWidth': {
                 type: Number,
@@ -231,6 +254,7 @@
                 this.$emit('input', Math.round((v - this.min) / this.stepSize) * this.stepSize + this.min);
             },
             onClick(e) {
+                // this.hasInnerTextBox(e.offsetX, e.offsetY);
                 if (!this.disabled) {
                     this.updatePosition(e.offsetX, e.offsetY);
                 }
@@ -250,6 +274,7 @@
                 }
             },
             onTouchStart(e) {
+                // this.hasInnerTextBox(e.offsetX, e.offsetY);
                 if (!this.disabled) {
                     e.preventDefault();
                     window.addEventListener('touchmove', this.onTouchMove);
@@ -279,7 +304,31 @@
                     const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                     this.updatePosition(offsetX, offsetY);
                 }
-            },
+            }
+            /*
+            hasInnerTextBox(offsetX, offsetY) {
+                if (offsetX > 25 && offsetX < 75 && offsetY > 25 && offsetY < 75) {
+                    this.find('input').css({
+                        'visibility': 'visible',
+                        'background-color': 'transparent',
+                        'font-size': '2.3rem',
+                        'text-align': 'center',
+                        'vertical-align': 'middle',
+                        'border': 'none',
+                        'color': '#006400',
+                        'left': '138px',
+                        'top': '-115px',
+                        'width': '80px'
+                    });
+                    return true;
+                } else {
+                    this.find('input').css({
+                        'width': '0px',
+                        'visibility': 'hidden'
+                    });
+                    return false;
+                }
+            } */
         },
 
     });
@@ -296,6 +345,19 @@
         font-size: 1.3rem;
         text-align: center;
     }
+    .knob-control__text-input {
+        position: relative;
+        left: 138px;
+        top: -115px;
+        width: 80px;
+        visibility: visible;
+        background-color: transparent;
+        font-size: 2.3rem;
+        text-align: center;
+        vertical-align: middle;
+        border: none;
+        color: #006400;
+    }
 </style>
 <div class="wrap">
     <div class="content" id="app">
@@ -310,7 +372,7 @@
                 <div class="r1st">
                     <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
                     <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                    <knob-control class="dial" primaryColor="darkgreen" secondaryColor="gray" :min="0" :max="50" :size="170" v-model="item.number"></knob-control>
+                    <knob-control class="dial" primary-color="#006400" secondary-color="#C0C0C0" text-color="#006400" :min="0" :max="50" :size="170" v-model="item.number"></knob-control>
                 </div>
             </div>
         </div>
