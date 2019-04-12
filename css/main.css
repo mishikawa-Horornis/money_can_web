@@ -58,6 +58,9 @@ div.header3 {
 	white-space: nowrap;
 	padding: 1pt;
 }
+.dial {
+	height: fit-content;
+}
 div.type {
 	display: inline;
 }
@@ -118,10 +121,10 @@ div.row {
 	-ms-user-select: none;
 	user-select: none;
 	display: inline-block;
+	position: relative;
 	margin: 0;
 	padding: 8px;
 	width: 300px;
-	height: 160px;
 	border-style: solid;
 	border-width: thin;
 	border-top-color: white;
