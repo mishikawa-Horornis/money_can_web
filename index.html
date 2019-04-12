@@ -254,9 +254,10 @@
             },
             onClick(e) {
                 this.updatePosition(e.offsetX, e.offsetY);
-                this.unsetFocus();
+                this.$refs.input.blur();
             },
             onMouseDown(e) {
+                this.$refs.input.blur();
                 if (!this.disabled && this.outerText(e.offsetX,e.offsetY)) {
                     this.unsetFocus();
                     e.preventDefault();
@@ -272,6 +273,7 @@
                 }
             },
             onTouchStart(e) {
+                this.$refs.input.blur();
                 const touch = e.targetTouches.item(0);
                 const boundingClientRect = this.$el.getBoundingClientRect();
                 // const offsetX = touch.clientX - boundingClientRect.left;
@@ -279,7 +281,6 @@
                 const offsetX = touch.clientX - boundingClientRect.left - 80;
                 const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                 if (this.outerText(offsetX,offsetY)) {
-                    this.unsetFocus();
                     if (!this.disabled) {
                         e.preventDefault();
                         window.addEventListener('touchmove', this.onTouchMove);
@@ -310,13 +311,6 @@
                     const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                     this.updatePosition(offsetX, offsetY);
                 }
-            },
-            unsetFocus() {
-                /*
-                this.$nextTick(() => {
-                    this.$refs.input.focus()
-                })
-                 */
             },
             outerText(offsetX, offsetY) {
                 return !(offsetX > 43 && offsetX < 134 && offsetY > 53 && offsetY < 111);
