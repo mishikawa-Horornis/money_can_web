@@ -88,7 +88,7 @@
             return;
             //textInput: function () {return this.template.find('input')}
         },
-        template: '<div class="knob-control" :style="{ height: size-5 + \'px\' }">' +
+        template: '<div class="knob-control" style="position: relative;">' +
             '   <svg :width="size" :height="size" viewBox="0 0 100 100"' +
             '       @click="onClick"' +
             '       @mousedown="onMouseDown"' +
@@ -108,7 +108,7 @@
             '       :stroke="primaryColor"' +
             '       class="knob-control__value">' +
             '   </path>' +
-            '   <text' +
+            /* '   <text' +
             '       @click="onClick"' +
             '       v-if="showValue"' +
             '       :x="50"' +
@@ -117,19 +117,17 @@
             '       :fill="textColor"' +
             '       class="knob-control__text-display">' +
             '       {{valueDisplay}}' +
-            '   </text>' +
+            '   </text>' + */
             '   </svg>' +
-            // '   <input' +
-            // '       @click="onClick"' +
-            // '       v-if="showValue"' +
-            // '       left="50"' +
-            // '       top="57"' +
-            // '       type="number"' +
-            // '       :fill="textColor"' +
-            // '       :max="max"' +
-            // '       :min="min"' +
-            // '       v-model="value"' +
-            // '       class="knob-control__text-input">' +
+            '   <input' +
+            '       ref="input"' +
+            '       v-if="showValue"' +
+            '       type="number"' +
+            '       :fill="textColor"' +
+            '       :max="max"' +
+            '       :min="min"' +
+            '       v-model="value"' +
+            '       class="knob-control__text-input">' +
             '</div>',
         props: {
             'value': {
@@ -237,6 +235,7 @@
         },
         methods: {
             updatePosition(offsetX, offsetY) {
+                console.log(offsetX, offsetY);
                 const dx = offsetX - this.size / 2;
                 const dy = this.size / 2 - offsetY;
                 const angle = Math.atan2(dy, dx);
@@ -254,13 +253,12 @@
                 this.$emit('input', Math.round((v - this.min) / this.stepSize) * this.stepSize + this.min);
             },
             onClick(e) {
-                // this.hasInnerTextBox(e.offsetX, e.offsetY);
-                if (!this.disabled) {
-                    this.updatePosition(e.offsetX, e.offsetY);
-                }
+                this.updatePosition(e.offsetX, e.offsetY);
+                this.unsetFocus();
             },
             onMouseDown(e) {
-                if (!this.disabled) {
+                if (!this.disabled && this.outerText(e.offsetX,e.offsetY)) {
+                    this.unsetFocus();
                     e.preventDefault();
                     window.addEventListener('mousemove', this.onMouseMove);
                     window.addEventListener('mouseup', this.onMouseUp);
@@ -274,11 +272,19 @@
                 }
             },
             onTouchStart(e) {
-                // this.hasInnerTextBox(e.offsetX, e.offsetY);
-                if (!this.disabled) {
-                    e.preventDefault();
-                    window.addEventListener('touchmove', this.onTouchMove);
-                    window.addEventListener('touchend', this.onTouchEnd);
+                const touch = e.targetTouches.item(0);
+                const boundingClientRect = this.$el.getBoundingClientRect();
+                // const offsetX = touch.clientX - boundingClientRect.left;
+                // const offsetY = touch.clientY - boundingClientRect.top;
+                const offsetX = touch.clientX - boundingClientRect.left - 80;
+                const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
+                if (this.outerText(offsetX,offsetY)) {
+                    this.unsetFocus();
+                    if (!this.disabled) {
+                        e.preventDefault();
+                        window.addEventListener('touchmove', this.onTouchMove);
+                        window.addEventListener('touchend', this.onTouchEnd);
+                    }
                 }
             },
             onTouchEnd(e) {
@@ -304,36 +310,24 @@
                     const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                     this.updatePosition(offsetX, offsetY);
                 }
+            },
+            unsetFocus() {
+                /*
+                this.$nextTick(() => {
+                    this.$refs.input.focus()
+                })
+                 */
+            },
+            outerText(offsetX, offsetY) {
+                return !(offsetX > 43 && offsetX < 134 && offsetY > 53 && offsetY < 111);
             }
-            /*
-            hasInnerTextBox(offsetX, offsetY) {
-                if (offsetX > 25 && offsetX < 75 && offsetY > 25 && offsetY < 75) {
-                    this.find('input').css({
-                        'visibility': 'visible',
-                        'background-color': 'transparent',
-                        'font-size': '2.3rem',
-                        'text-align': 'center',
-                        'vertical-align': 'middle',
-                        'border': 'none',
-                        'color': '#006400',
-                        'left': '138px',
-                        'top': '-115px',
-                        'width': '80px'
-                    });
-                    return true;
-                } else {
-                    this.find('input').css({
-                        'width': '0px',
-                        'visibility': 'hidden'
-                    });
-                    return false;
-                }
-            } */
-        },
-
+        }
     });
 </script>
 <style>
+    .knob-control {
+        position: relative;
+    }
     .knob-control__range {
         fill: none;
         transition: stroke .1s ease-in;
@@ -346,9 +340,9 @@
         text-align: center;
     }
     .knob-control__text-input {
-        position: relative;
-        left: 138px;
-        top: -115px;
+        position: absolute;
+        left: 44px;
+        top: -18px;
         width: 80px;
         visibility: visible;
         background-color: transparent;
@@ -357,7 +351,7 @@
         vertical-align: middle;
         border: none;
         color: #006400;
-    }
+        z-index: 1;    }
 </style>
 <div class="wrap">
     <div class="content" id="app">
@@ -372,7 +366,7 @@
                 <div class="r1st">
                     <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
                     <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                    <knob-control class="dial" primary-color="#006400" secondary-color="#C0C0C0" text-color="#006400" :min="0" :max="50" :size="170" v-model="item.number"></knob-control>
+                    <knob-control class="dial" primary-color="#006400" secondary-color="#C0C0C0" text-color="#006400" :min="0" :max="50" :size="170" v-model="item.number" height="170px"></knob-control>
                 </div>
             </div>
         </div>
