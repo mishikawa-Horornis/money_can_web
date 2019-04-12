@@ -127,6 +127,9 @@
             '       :max="max"' +
             '       :min="min"' +
             '       v-model="value"' +
+            '       @keyDown.enter="keyEnter"' +
+            '       @keyDown.delete="keyDelete"' +
+            '       ' +
             '       class="knob-control__text-input">' +
             '</div>',
         props: {
@@ -312,6 +315,17 @@
                     this.updatePosition(offsetX, offsetY);
                 }
             },
+            keyEnter(e) {
+                if (isNaN(this.value)) {
+                    this.value = 0;
+                }
+                this.$refs.input.blur();
+            },
+            keyDelete(e) {
+                if (isNaN(this.value)) {
+                    this.value = 0
+                }
+            },
             outerText(offsetX, offsetY) {
                 return !(offsetX > 43 && offsetX < 134 && offsetY > 53 && offsetY < 111);
             }
@@ -319,7 +333,7 @@
     });
 </script>
 <style>
-    .knob-control {
+    knob-control {
         position: relative;
     }
     .knob-control__range {
@@ -335,13 +349,14 @@
     }
     .knob-control__text-input {
         position: absolute;
-        left: 44px;
-        top: -18px;
-        width: 80px;
+        left: 127px;
+        top: 46px;
+        width: 84px;
         visibility: visible;
         background-color: transparent;
-        font-size: 2.3rem;
+        font-size: 3rem;
         text-align: center;
+        font-weight: bolder;
         vertical-align: middle;
         border: none;
         color: #006400;
