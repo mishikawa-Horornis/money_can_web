@@ -126,8 +126,39 @@
             '       :fill="textColor"' +
             '       :max="max"' +
             '       :min="min"' +
-            '       v-model="value"' +
+            '       v-model.number="value"' +
+            '       v-on:blur="onBlur"' +
+            '       @keypress.48="onKeyDownCheck"' +
+            '       @keypress.49="onKeyDownCheck"' +
+            '       @keypress.50="onKeyDownCheck"' +
+            '       @keypress.51="onKeyDownCheck"' +
+            '       @keypress.52="onKeyDownCheck"' +
+            '       @keypress.53="onKeyDownCheck"' +
+            '       @keypress.54="onKeyDownCheck"' +
+            '       @keypress.55="onKeyDownCheck"' +
+            '       @keypress.56="onKeyDownCheck"' +
+            '       @keypress.57="onKeyDownCheck"' +
+            '       @keypress.96="onKeyDownCheck"' +
+            '       @keypress.97="onKeyDownCheck"' +
+            '       @keypress.98="onKeyDownCheck"' +
+            '       @keypress.99="onKeyDownCheck"' +
+            '       @keypress.100="onKeyDownCheck"' +
+            '       @keypress.101="onKeyDownCheck"' +
+            '       @keypress.102="onKeyDownCheck"' +
+            '       @keypress.103="onKeyDownCheck"' +
+            '       @keypress.104="onKeyDownCheck"' +
+            '       @keypress.105="onKeyDownCheck"' +
+            '       @keydown.69="onKeyDownDisable"' +
+            '       @keydown.107="onKeyDownDisable"' +
+            '       @keydown.109="onKeyDownDisable"' +
+            '       @keydown.110="onKeyDownDisable"' +
+            '       @keydown.shift.187="onKeyDownDisable"' +
+            '       @keydown.189="onKeyDownDisable"' +
+            '       @keydown.190="onKeyDownDisable"' +
+            '       @keypress.delete="onKeyPressDelete"' +
             '       @keypress.enter="onKeypressEnter"' +
+            '       @mouseup="onMouseUpInput"' +
+            '       @keyup="onKeyUpInput"' +
             '       class="knob-control__text-input">' +
             '</div>',
         props: {
@@ -158,7 +189,7 @@
             },
             'primaryColor': {
                 type: String,
-                default: '#006400'
+                default: '#6B8E23'
             },
             'secondaryColor': {
                 type: String,
@@ -295,7 +326,7 @@
                     window.removeEventListener('touchend', this.onTouchEnd);
                 }
             },
-           onMouseMove(e) {
+            onMouseMove(e) {
                 if (!this.disabled) {
                     e.preventDefault();
                     this.updatePosition(e.offsetX, e.offsetY);
@@ -313,10 +344,64 @@
                 }
             },
             onKeypressEnter(e) {
-                if (isNaN(this.value)) {
-                    this.value = 0;
+                let val = this.$refs.input.value;
+                const re = new RegExp('[0-9]+');
+                if (val.match(re)) {
+                    if (Number(val) > 50) val = '50';
+                    if (Number(val) < 0) val = '0';
+                    this.$emit('input',Number(val).toString());
+                    this.$refs.input.blur();
+                    return;
                 }
-                this.$refs.input.blur();
+                if (val === '') {
+                    this.$emit('input','0');
+                    this.$refs.input.blur();
+                    return;
+                }
+                event.preventDefault();
+            },
+            onBlur(e) {
+                let val = this.$refs.input.value;
+                const re = new RegExp('[0-9]+');
+                if (val.match(re)) {
+                    if (Number(val) > 50) val = '50';
+                    if (Number(val) < 0) val = '0';
+                    this.$emit('input',Number(val).toString());
+                    return;
+                }
+                if (val === '') {
+                    this.$emit('input','0');
+                    this.$refs.input.blur();
+                    return;
+                }
+                event.preventDefault();
+            },
+            onKeyDownCheck(e) {
+                let val = this.$refs.input.value;
+                const re = new RegExp('[0-9]+');
+                if (val.match(re)) {
+                    if (Number(val) > 50) val = '50';
+                    if (Number(val) < 0) val = '0';
+                    this.$emit('input',Number(val).toString());
+                    return;
+                }
+                if (val === '') {
+                    this.$emit('input','0');
+                    return;
+                }
+                event.preventDefault();
+            },
+            onMouseUpInput(e) {
+                this.$emit('input', this.$refs.input.value);
+            },
+            onKeyUpInput(e) {
+                this.$emit('input', this.$refs.input.value);
+            },
+            onKeyDownDisable(e) {
+                event.preventDefault();
+            },
+            onKeyPressDelete(e) {
+                return;
             },
             outerText(offsetX, offsetY) {
                 return !(offsetX > 43 && offsetX < 134 && offsetY > 53 && offsetY < 111);
@@ -325,7 +410,7 @@
     });
 </script>
 <style>
-    .knob-control {
+    knob-control {
         position: relative;
     }
     .knob-control__range {
@@ -367,7 +452,7 @@
                 <div class="r1st">
                     <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
                     <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                    <knob-control class="dial" primary-color="#006400" secondary-color="#D0D0D0" text-color="#006400" :min="0" :max="50" :size="170" v-model="item.number" height="170px"></knob-control>
+                    <knob-control class="dial" primary-color="#6B8E23" secondary-color="#D0D0D0" text-color="#006400" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                 </div>
             </div>
         </div>
@@ -384,8 +469,8 @@
             <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                 <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
                 <span class="right">
-                    <button class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
-                    <button class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
+                    <button ref="totalValueButton" class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
+                    <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
                 </span>
                 <div class="bg-white header3">
                     <div class="hidden_list">
@@ -403,25 +488,27 @@
     </div>
 </div>
 <script>
+    const storejs = store;
+    const cookiehead = '.Horornis-money_can-v3_0_2';
     function initialState() {
         const old_cookiehead = '.Horornis-moneycounter-v2_4_91-';
         const data = {
-            cookiehead: '.Horornis-money_can-v3_0_1',
+            cookiehead: '.Horornis-money_can-v3_0_2',
             items: [
-                {id: 0, order: 0, type: 's1', callName: '1円', unit: 1, number: 0, visible: true},
-                {id: 1, order: 1, type: 's5', callName: '5円', unit: 5, number: 0, visible: true},
-                {id: 2, order: 2, type: 's10', callName: '10円', unit: 10, number: 0, visible: true},
-                {id: 3, order: 3, type: 's50', callName: '50円', unit: 50, number: 0, visible: true},
-                {id: 4, order: 4, type: 's100', callName: '100円', unit: 100, number: 0, visible: true},
-                {id: 5, order: 5, type: 's500', callName: '500円', unit: 500, number: 0, visible: true},
-                {id: 6, order: 6, type: 's1000', callName: '千円', unit: 1000, number: 0, visible: false},
-                {id: 7, order: 7, type: 's2000', callName: '弐千円', unit: 2000, number: 0, visible: false},
-                {id: 8, order: 8, type: 's5000', callName: '五千円', unit: 5000, number: 0, visible: false},
-                {id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, number: 0, visible: false}
+                {id: 0, order: 0, type: 's1', callName: '1円', unit: 1, counts: 0, visible: true},
+                {id: 1, order: 1, type: 's5', callName: '5円', unit: 5, counts: 0, visible: true},
+                {id: 2, order: 2, type: 's10', callName: '10円', unit: 10, counts: 0, visible: true},
+                {id: 3, order: 3, type: 's50', callName: '50円', unit: 50, counts: 0, visible: true},
+                {id: 4, order: 4, type: 's100', callName: '100円', unit: 100, counts: 0, visible: true},
+                {id: 5, order: 5, type: 's500', callName: '500円', unit: 500, counts: 0, visible: true},
+                {id: 6, order: 6, type: 's1000', callName: '千円', unit: 1000, counts: 0, visible: false},
+                {id: 7, order: 7, type: 's2000', callName: '弐千円', unit: 2000, counts: 0, visible: false},
+                {id: 8, order: 8, type: 's5000', callName: '五千円', unit: 5000, counts: 0, visible: false},
+                {id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, counts: 0, visible: false}
             ]
         };
         let ret = {
-            cookiehead: '.Horornis-money_can-v3_0_1',
+            cookiehead: '.Horornis-money_can-v3_0_2',
             items: []
         };
         if (store.has(data.cookiehead)) ret.items = store.get(data.cookiehead);
@@ -431,7 +518,7 @@
         }
         for (let i = 0; i < data.length; i++) {
             if (store.has(old_cookiehead + data.items[i].type)) {
-                data.items[i].number = store.get(old_cookiehead + data.items[i].type).count;
+                data.items[i].counts = store.get(old_cookiehead + data.items[i].type).count;
                 data.items[i].visible = !(store.get(old_cookiehead + data.items[i].type).hide);
                 store.delete(old_cookiehead + data.items[i].type);
             }
@@ -448,7 +535,7 @@
                 let total = 0;
                 for (let i = 0; i < this.items.length; i++) {
                     if (this.items[i].visible) {
-                        total += this.items[i].unit * this.items[i].number;
+                        total += this.items[i].unit * this.items[i].counts;
                     }
                 }
                 store.set(this.cookiehead,this.items);
@@ -459,7 +546,7 @@
                 let total = 0;
                 for (let i = 0; i < this.items.length; i++) {
                     if (this.items[i].visible) {
-                        total += this.items[i].unit * this.items[i].number;
+                        total += this.items[i].unit * this.items[i].counts;
                     }
                 }
                 return total;
@@ -467,14 +554,14 @@
             subtotalMoney: function () {
                 let ret = [];
                 for (let i = 0; i < this.items.length; i++) {
-                    ret.push(Number(this.items[i].unit * this.items[i].number).toLocaleString());
+                    ret.push(Number(this.items[i].unit * this.items[i].counts).toLocaleString());
                 }
                 return ret;
             }
         },
         methods: {
             dohide: function (i) {
-                this.items[i].number = 0;
+                this.items[i].counts = 0;
                 this.items[i].visible = false;
             },
             doshow: function (i) {
@@ -482,8 +569,9 @@
             },
             doclear: function () {
                 for (let i = 0; i < this.items.length; i++) {
-                    this.items[i].number = 0;
+                    this.items[i].counts = 0;
                 }
+                this.$refs.allClearButton.blur();
             },
         }
     });
@@ -491,16 +579,18 @@
     let clipboard = new ClipboardJS('.foo');
     clipboard.on('success', function (e) {
         alert('クリップボードへコピーしました。');
+        $('button.foo').blur();
     });
     clipboard.on('error', function (e) {
         alert('クリップボードへのコピーに失敗しました。');
+        $('button.foo').blur();
     });
-    $(function () {
-        Sortable.create($('.tbl')[0], {
-            handle: '.handle',
-            animation: 150  // ミリ秒で指定
-        });
+    let el = document.getElementsByClassName('tbl');
+    Sortable.create(el[0], {
+        handle: '.handle',
+        animation: 150,  // ミリ秒で指定
     });
+
 </script>
 </body>
 </html>
