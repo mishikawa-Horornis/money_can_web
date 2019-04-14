@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
     Money Counter ©2018-2019 Masatoshi Ishikawa.
-    2019.02.27 Release Version 2.4.092
+    2019.04.14 Release Version 3.0.2
 -->
 <html lang="ja">
 <head>
@@ -289,12 +289,12 @@
                 this.$refs.input.blur();
             },
             onMouseDown(e) {
-                this.$refs.input.blur();
                 if (!this.disabled && this.outerText(e.offsetX,e.offsetY)) {
                     e.preventDefault();
                     window.addEventListener('mousemove', this.onMouseMove);
                     window.addEventListener('mouseup', this.onMouseUp);
                 }
+                this.$refs.input.blur();
             },
             onMouseUp(e) {
                 if (!this.disabled) {
@@ -304,20 +304,17 @@
                 }
             },
             onTouchStart(e) {
-                this.$refs.input.blur();
                 const touch = e.targetTouches.item(0);
                 const boundingClientRect = this.$el.getBoundingClientRect();
-                // const offsetX = touch.clientX - boundingClientRect.left;
-                // const offsetY = touch.clientY - boundingClientRect.top;
-                const offsetX = touch.clientX - boundingClientRect.left - 80;
+                const offsetX = touch.clientX - boundingClientRect.left;
                 const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
-                if (this.outerText(offsetX,offsetY)) {
-                    if (!this.disabled) {
-                        e.preventDefault();
-                        window.addEventListener('touchmove', this.onTouchMove);
-                        window.addEventListener('touchend', this.onTouchEnd);
-                    }
+                if (this.outerText(offsetX,offsetY) && !this.disabled) {
+                    e.preventDefault();
+                    window.addEventListener('touchmove', this.onTouchMove);
+                    window.addEventListener('touchend', this.onTouchEnd);
+                    this.updatePosition(e.offsetX, e.offsetY);
                 }
+                this.$refs.input.blur();
             },
             onTouchEnd(e) {
                 if (!this.disabled) {
@@ -334,10 +331,8 @@
             },
             onTouchMove(e) {
                 if (!this.disabled && e.touches.length == 1) {
-                   const boundingClientRect = this.$el.getBoundingClientRect();
+                    const boundingClientRect = this.$el.getBoundingClientRect();
                     const touch = e.targetTouches.item(0);
-                    // const offsetX = touch.clientX - boundingClientRect.left;
-                    // const offsetY = touch.clientY - boundingClientRect.top;
                     const offsetX = touch.clientX - boundingClientRect.left;
                     const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                     this.updatePosition(offsetX, offsetY);
@@ -382,11 +377,10 @@
                 if (val.match(re)) {
                     if (Number(val) > 50) val = '50';
                     if (Number(val) < 0) val = '0';
-                    this.$emit('input',Number(val).toString());
+                    this.$emit('input',val.toString());
                     return;
                 }
                 if (val === '') {
-                    this.$emit('input','0');
                     return;
                 }
                 event.preventDefault();
