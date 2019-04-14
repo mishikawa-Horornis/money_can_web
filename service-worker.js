@@ -1,6 +1,6 @@
-let PRECACHE = 'moneycounter-horornis-v2_4_94';
+let PRECACHE = 'moneycounter-horornis-v3_0_2';
 let RUNTIME = 'runtime';
-let version = '2.6.148';
+let version = '3.0.150';
 
 // A list of local resources we always want to be cached.
 let PRECACHE_URLS = [

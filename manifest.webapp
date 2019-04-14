@@ -1,7 +1,7 @@
 {
   "version": "3.0.100",
   "name": "まねかん (money can)",
-  "launch_path": "https://horornis.com/mc-vue/",
+  "launch_path": "https://horornis.com/mc/",
   "description": "いわゆる一つのマネーカウンター",
   "icons": {
     "192": "/mc-vue/images/icon-128x128.png"
