@@ -1,2 +1,2 @@
-# money_can_web
+# Money_can(Money Counter)
 MoneyCounter
