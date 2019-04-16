@@ -55,16 +55,17 @@
     <!-- script src="./js/jquery-3.3.1.min.js"></script -->
     <!-- script src="./js/popper.min.js"></script -->
     <!-- script src="./bootstrap/js/bootstrap.min.js"></script -->
-    <!-- script ssrc="./js/Sortable.min.js"></script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.8.4/Sortable.min.js"></script>
     <!-- script src="./js/store2.min.js"></script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
     <!-- script src="./js/clipboard.min.js"></script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
     <!-- script src="./js/vue.min.js"></script -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
 </head>
 <body>
-<script>
+<!-- script>
+    /*
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
             .then(function(reg) {
@@ -75,7 +76,8 @@
             // console.log('Registration failed with ' + error);
         });
     }
-</script>
+    */
+</script -->
 <script>
     const RADIUS = 40;
     const MID_X = 50;
@@ -202,7 +204,7 @@
             },
             'primaryColor': {
                 type: String,
-                default: '#6B8E23'
+                default: '#47631c'
             },
             'secondaryColor': {
                 type: String,
@@ -593,7 +595,7 @@
         $('button.foo').blur();
     });
     let el = document.getElementsByClassName('tbl');
-    Sortable.create(el[0], {
+    let sortable = Sortable.create(el[0], {
         handle: '.handle',
         animation: 150,  // ミリ秒で指定
     });
