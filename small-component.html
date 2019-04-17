@@ -11,7 +11,7 @@
         data() {
             return;
         },
-        template:
+        template: // コンポーネントの中身をHTML形式で書く
             '<div id="toggle-button">' +
             '   <button @click="set_value(-1)" v-bind:disabled="sub_disabled">ー</button>' +
             '   <span> {{ locale_string }} </input>' +
@@ -36,20 +36,24 @@
                 default: false
             }
         },
-        computed: {
+        computed: { // 自動計算
             locale_string: function () {
+                // 表示は半角スペースをいれて2桁にしている。
                 return `${`\u00A0${Number(this.value).toString()}`.slice(-2)}`;
             },
             add_disabled: function () {
+                // valueが10以上なら＋をクリック無効にする
                 return this.value >= 10;
             },
             sub_disabled: function () {
+                // valueが10以上なら＋をクリック無効にする
                 return this.value <= 0;
             }
         },
-        methods: {
+        methods: { //メソッド（イベントなどを渡す関数）
             addValue: function (add) {
                 this.value += add;
+                // valueが変わったら呼び出し元に反映させるおまじない。
                 this.$emit('input', this.value);
             }
         }
@@ -57,7 +61,9 @@
 </script>
 <div id="app">
     <p v-for="(item, index) in items">
-        <span>{{ item.callName }}：</span><toggle-button type="number" v-model.number="item.counts" style="display: inline;"></toggle-button><span class="subtotal"> {{ subtotalMoney[index] }} 円</span>
+        <span>{{ item.callName }}：</span>
+        <toggle-button type="number" v-model.number="item.counts" style="display: inline;"></toggle-button>
+        <span class="subtotal"> {{ subtotalMoney[index] }} 円</span>
     </p>
     <p>
         <span>合計： {{ totalMoney }} </span>
