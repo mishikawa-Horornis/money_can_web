@@ -36,7 +36,7 @@ div.site-header{
 	justify-content: space-between;
 	align-self: center;
 	background: #fff;
-	border-bottom: medium solid #47631c;
+	border-bottom: medium solid #344f1b;
 	vertical-align: middle;
 	height: 2em;
 }
@@ -54,7 +54,7 @@ div.header3 {
 	height: auto;
 	width: 100%;
 	background-color: #fff;
-	border-top: medium solid #47631c;
+	border-top: medium solid #344f1b;
 	border-bottom: 1px solid gray;
 	vertical-align:baseline;
 	text-align: left;
@@ -94,7 +94,7 @@ div.ft_txt {
 	height: auto;
 	align-content: center;
 	color: white;
-	background-color: #47631c;
+	background-color: #344f1b;
 }
 div.dummy {
 	height: 8em;
