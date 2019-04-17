@@ -61,7 +61,9 @@
 </script>
 <div id="app">
     <p v-for="(item, index) in items">
-        <span>{{ item.callName }}：</span><toggle-button type="number" v-model.number="item.counts" style="display: inline;"></toggle-button><span class="subtotal"> {{ subtotalMoney[index] }} 円</span>
+        <span>{{ item.callName }}：</span>
+        <toggle-button type="number" v-model.number="item.counts" style="display: inline;"></toggle-button>
+        <span class="subtotal"> {{ subtotalMoney[index] }} 円</span>
     </p>
     <p>
         <span>合計： {{ totalMoney }} </span>
