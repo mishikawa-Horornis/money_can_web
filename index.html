@@ -55,13 +55,13 @@
     <!-- script src="./js/jquery-3.3.1.min.js"></script -->
     <!-- script src="./js/popper.min.js"></script -->
     <!-- script src="./bootstrap/js/bootstrap.min.js"></script -->
-    <!-- script ssrc="./js/Sortable.min.js"></script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.8.4/Sortable.min.js"></script>
     <!-- script src="./js/store2.min.js"></script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
     <!-- script src="./js/clipboard.min.js"></script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
     <!-- script src="./js/vue.min.js"></script -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
 </head>
 <body>
 <script>
@@ -133,14 +133,15 @@
             '   </text>' + */
             '   </svg>' +
             '   <input' +
+            '       :aria-label="areaLabel"' +
             '       ref="input"' +
             '       v-if="showValue"' +
             '       type="number"' +
-            '       :fill="textColor"' +
+            '       :style="\'color: \' + textColor"' +
             '       :max="max"' +
             '       :min="min"' +
             '       v-model.number="value"' +
-            '       v-on:blur="onBlur"' +
+            '       @blur="onBlur"' +
             '       @keypress.48="onKeyDownCheck"' +
             '       @keypress.49="onKeyDownCheck"' +
             '       @keypress.50="onKeyDownCheck"' +
@@ -180,6 +181,10 @@
                 required: true,
                 default: 0
             },
+            'areaLabel': {
+                type: String,
+                default: ''
+            },
             'max': {
                 type: Number,
                 default: 100
@@ -202,7 +207,7 @@
             },
             'primaryColor': {
                 type: String,
-                default: '#6B8E23'
+                default: '#344f1b'
             },
             'secondaryColor': {
                 type: String,
@@ -210,7 +215,7 @@
             },
             'textColor': {
                 type: String,
-                default: '#006400'
+                default: '#344f1b'
             },
             'strokeWidth': {
                 type: Number,
@@ -443,25 +448,27 @@
         font-weight: bolder;
         vertical-align: middle;
         border: none;
-        color: #006400;
-        z-index: 1;    }
+        z-index: 1;
+    }
 </style>
 <div class="wrap">
     <div class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl">
+            <template>
             <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.callName" v-show="item.visible" >
                 <div class="r2nd">
-                    <div alt="hidden" @click="dohide(index)" class="del col-sm-1"><i class="fas fa-eraser"></i></div>
-                    <div alt="handle" class="handle"><i class="fas fa-arrows-alt"></i></div>
-                    <div alt="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+                    <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i class="fas fa-eraser"></i></div>
+                    <div aria-label="handle" class="handle"><i class="fas fa-arrows-alt"></i></div>
+                    <div aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                 </div>
                 <div class="r1st">
-                    <input class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/>
-                    <img :alt="item.callName + 'の枚数'" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                    <knob-control class="dial" primary-color="#6B8E23" secondary-color="#D0D0D0" text-color="#006400" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                    <!--nput class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/ -->
+                    <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                    <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                 </div>
             </div>
+            </template>
         </div>
         <div class="ft">
         </div>
@@ -593,7 +600,7 @@
         $('button.foo').blur();
     });
     let el = document.getElementsByClassName('tbl');
-    Sortable.create(el[0], {
+    let sortable = Sortable.create(el[0], {
         handle: '.handle',
         animation: 150,  // ミリ秒で指定
     });

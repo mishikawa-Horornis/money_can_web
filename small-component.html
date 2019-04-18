@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<script>
+    Vue.component('toggle-button', {
+        data() {
+            return;
+        },
+        template: // コンポーネントの中身をHTML形式で書く
+            '<div id="toggle-button">' +
+            '   <button @click="set_value(-1)" v-bind:disabled="sub_disabled">ー</button>' +
+            '   <span> {{ locale_string }} </input>' +
+            '   <button @click="set_value(1)" v-bind:disabled="add_disabled">＋</button>' +
+            '</div>',
+        props: {
+            'value': {
+                type: Number,
+                required: true,
+                default: 0
+            },
+            'locale_string': {
+                type: String,
+                required: true
+            },
+            'add_disabled': {
+                type: Boolean,
+                default: true
+            },
+            'sub_disabled': {
+                type: Boolean,
+                default: false
+            }
+        },
+        computed: { // 自動計算
+            locale_string: function () {
+                // 表示は半角スペースをいれて2桁にしている。
+                return `${`\u00A0${Number(this.value).toString()}`.slice(-2)}`;
+            },
+            add_disabled: function () {
+                // valueが10以上なら＋をクリック無効にする
+                return this.value >= 10;
+            },
+            sub_disabled: function () {
+                // valueが10以上なら＋をクリック無効にする
+                return this.value <= 0;
+            }
+        },
+        methods: { //メソッド（イベントなどを渡す関数）
+            addValue: function (add) {
+                this.value += add;
+                // valueが変わったら呼び出し元に反映させるおまじない。
+                this.$emit('input', this.value);
+            }
+        }
+    })
+</script>
+<div id="app">
+    <p v-for="(item, index) in items">
+        <span>{{ item.callName }}：</span>
+        <toggle-button type="number" v-model.number="item.counts" style="display: inline;"></toggle-button>
+        <span class="subtotal"> {{ subtotalMoney[index] }} 円</span>
+    </p>
+    <p>
+        <span>合計： {{ totalMoney }} </span>
+    </p>
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            items: [
+                {callName: '1円', unit: 1, counts: 0},
+                {callName: '5円', unit: 5, counts: 0},
+                {callName: '10円', unit: 10, counts: 0},
+                {callName: '50円', unit: 50, counts: 0},
+                {callName: '100円', unit: 100, counts: 0},
+                {callName: '500円', unit: 500, counts: 0,},
+                {callName: '千円', unit: 1000, counts: 0},
+                {callName: '弐千円', unit: 2000, counts: 0},
+                {callName: '五千円', unit: 5000, counts: 0},
+                {callName: '壱万円', unit: 10000, counts: 0}
+            ]
+        },
+        computed: {
+            totalMoney: function () {
+                let total = 0;
+                for (let i = 0; i < this.items.length; i++) {
+                    total += this.items[i].unit * this.items[i].counts;
+                }
+                return Number(total).toLocaleString();
+            },
+            subtotalMoney: function () {
+                let subtotals = [];
+                for (let i = 0; i < this.items.length; i++) {
+                    subtotals.push(Number(this.items[i].unit * this.items[i].counts).toLocaleString());
+                }
+                return subtotals;
+            }
+        }
+    });
+</script>
+</body>
+</html>

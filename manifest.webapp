@@ -14,7 +14,7 @@
     "*"
   ],
   "default_locale": "ja",
-  "theme_color": "darkgreen",
+  "theme_color": "#344f1b",
   "background_color": "white",
   "permissions": {
   },

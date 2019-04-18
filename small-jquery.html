@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+</head>
+<body>
+<p><span>1円：</span><input class="count" type="number" value="0"><span class="subtotal s1">0円</span></p>
+<p><span>5円：</span><input class="count" type="number" value="0"><span class="subtotal s5">0円</span></p>
+<p><span>10円：</span><input class="count" type="number" value="0"><span class="subtotal s10">0円</span></p>
+<p><span>50円：</span><input class="count" type="number" value="0"><span class="subtotal s50">0円</span></p>
+<p><span>100円：</span><input class="count" type="number" value="0"><span class="subtotal s100">0円</span></p>
+<p><span>500円：</span><input class="count" type="number" value="0"><span class="subtotal s500">0円</span></p>
+<p><span>1000円：</span><input clas="count" type="number" value="0"><span class="subtotal s1000">0円</span></p>
+<p><span>2000円：</span><input class="count" type="number" value="0"><span class="subtotal s2000">0円</span></p>
+<p><span>5000円：</span><input class="count" type="number" value="0"><span class="subtotal s5000">0円</span></p>
+<p><span>10000円：</span><input class="count" type="number" value="0"><span class="subtotal s10000">0円</span></p>
+<p><span class="total">0円</span></p>
+<script>
+    let items = [
+        {type: 's1', callName: '1円', unit: 1},
+        {type: 's5', callName: '5円', unit: 5},
+        {type: 's10', callName: '10円', unit: 10},
+        {type: 's50', callName: '50円', unit: 50},
+        {type: 's100', callName: '100円', unit: 100},
+        {type: 's500', callName: '500円', unit: 500},
+        {type: 's1000', callName: '千円', unit: 1000},
+        {type: 's2000', callName: '弐千円', unit: 2000},
+        {type: 's5000', callName: '五千円', unit: 5000},
+        {type: 's10000', callName: '壱万円', unit: 10000}
+    ];
+    $(function() {
+        $('input').on('change', function () {
+            let total = 0;
+            for (let i = 0; i < $('.count').length; i++) {
+                let c = Number($('input').eq(i).val());
+                let u = items[i].unit;
+                let subtotal = u * c;
+                total += subtotal;
+                $('.subtotal.' + items[i].type).text(`${Number(subtotal).toLocaleString()}円`);
+            }
+            $('.total').text(`合計：${Number(total).toLocaleString()}円`);
+        });
+    });
+</script>
+</body>
+</html>
