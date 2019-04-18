@@ -4,3 +4,15 @@
 .idea
 # node.js
 ./node_modules/
+./fontawesome-free-web
+./bootstrap
+./vue
+./js/clipboard.min.js
+./js/jquery-3.3.1.min.js
+./js/jQuery-knob.js
+./js/popper.min.js
+./js/Sortable/mon.js
+./js/store2.min.js/
+./js/vue*
+./old
+./vue

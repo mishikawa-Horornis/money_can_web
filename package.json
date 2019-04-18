@@ -1,0 +1,35 @@
+{
+  "name": "money_can_web",
+  "version": "3.0.2",
+  "description": "A one of the Money Counter.",
+  "main": "index.html",
+  "scripts": {
+    "test": "eslint *.js ./components/*.js ./example/*/*.js",
+    "flow": "flow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://github.com/mishikawa-Horornis/money_can_web"
+  },
+  "author": "Masatoshi Ishikawa Ishikawa <goetan.musicbox@nifty.com> (https://github.com/mishikawa-Horornis)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mishikawa-Horornis/money_can_web/issues"
+  },
+  "homepage": "https://github.com/mishikawa-Horornis/money_can_web#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "~6.2.1",
+    "vue": "^2.6.9",
+    "vue-cli": "^2.9.6",
+    "jquery": "^3.3.1",
+    "font-awesome": "^4.7.0",
+    "bootstrap": "^4.3.1",
+    "sortable": "^2.0.0",
+    "clipboard": "^2.0.4",
+    "store2": "^2.7.1",
+    "popper": "^1.0.1"
+  }
+}
