@@ -459,16 +459,14 @@
         <div class="dummy"></div>
         <div class="tbl">
             <template>
-                <draggable :options="{animation: 150, handle:'.handle'}"
-                           class="draggable">
-                    <div v-for="(item, index) in items" class="row" :id="item.type" :alt="item.callName" v-show="item.visible" :key="item.id">
+                <draggable class="draggable" handle=".handle" :option="{animation: 150}"  draggable=".row">
+                    <div class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                         <div class="r2nd">
                             <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i class="fas fa-eraser"></i></div>
                             <div aria-label="handle" class="handle"><i class="fas fa-arrows-alt"></i></div>
                             <div aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                         </div>
                         <div class="r1st">
-                            <!--nput class="cst" type="hidden" :value="item.unit" width="1px" height="1px"/ -->
                             <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
                             <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                         </div>
