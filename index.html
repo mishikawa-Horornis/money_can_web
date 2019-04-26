@@ -90,15 +90,6 @@
     const mapRange = (x, inMin, inMax, outMin, outMax) => {
         return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     };
-    function showPrompt(vars){
-        var result = window.prompt("支払い金額を入力してください。", "0");
-
-        if(result == null){
-            window.alert("キャンセルされました。");
-        }else{
-            window.alert("支払いは「" + result + "です。");
-        }
-    }
     Vue.component('knob-control', {
         data() {
             return;
@@ -457,23 +448,23 @@
 <div class="wrap">
     <div class="content" id="app">
         <div class="dummy"></div>
-        <div class="tbl">
-            <template>
-                <draggable class="draggable" handle=".handle" :option="{animation: 150}"  draggable=".row">
-                    <div class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
-                        <div class="r2nd">
-                            <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i class="fas fa-eraser"></i></div>
-                            <div aria-label="handle" class="handle"><i class="fas fa-arrows-alt"></i></div>
-                            <div aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+            <div class="tbl">
+                <template>
+                    <draggable class="draggable" handle=".handle" :options="{animation: 150}" draggable=".row">
+                        <div class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
+                            <div class="r2nd">
+                                <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i class="fas fa-eraser"></i></div>
+                                <div aria-label="handle" class="handle"><i class="fas fa-arrows-alt"></i></div>
+                                <div aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+                            </div>
+                            <div class="r1st">
+                                <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                                <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                            </div>
                         </div>
-                        <div class="r1st">
-                            <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                            <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
-                        </div>
-                    </div>
-                </draggable>
-            </template>
-        </div>
+                    </draggable>
+                </template>
+            </div>
         <div class="ft">
         </div>
         <div class="fixed-bottom border-white border-top-2">
@@ -483,25 +474,25 @@
         </div>
         <!-- As a heading -->
         <div class="top_bar">
-        <span class="fixed-top">
-            <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
-                <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
-                <span class="right">
-                    <button ref="totalValueButton" class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
-                    <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
-                </span>
-                <div class="bg-white header3">
-                    <div class="hidden_list">
-                        <div class="hidden_menu">
-                            非表示：
-                        </div>
-                        <div v-for="(item, index) in items" class="btn btn-outline-dark btn-warning .text-dark type_item p-1" v-show="!item.visible" @click="doshow(index)" >
-                            {{ item.callName }}
+            <span class="fixed-top">
+                <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
+                    <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
+                    <span class="right">
+                        <button ref="totalValueButton" class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
+                        <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
+                    </span>
+                    <div class="bg-white header3">
+                        <div class="hidden_list">
+                            <div class="hidden_menu">
+                                非表示：
+                            </div>
+                            <div v-for="(item, index) in items" class="btn btn-outline-dark btn-warning .text-dark type_item p-1" v-show="!item.visible" @click="doshow(index)" >
+                                {{ item.callName }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </nav>
-        </span>
+                </nav>
+            </span>
         </div>
     </div>
 </div>
@@ -590,9 +581,6 @@
                     this.items[i].counts = 0;
                 }
                 this.$refs.allClearButton.blur();
-            },
-            onEnd: function (originalEvent) {
-            	console.log(originalEvent);
             }
         }
     });
