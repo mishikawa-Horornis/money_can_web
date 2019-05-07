@@ -19,6 +19,28 @@ body {
 #header ul {
 	width: 100%
 }
+i {
+	font-size: 24px;
+	color: #303030;
+	padding: 4px;
+}
+.p-modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow-y: auto;
+	visibility: hidden;
+	opacity: 0;
+	z-index: -1;
+}
+.p-modal.is-open {
+	visibility: visible;
+	opacity: 1;
+	z-index: 100;
+}
+
 li.l1 {
 	text-align: left;
 }
@@ -186,51 +208,6 @@ img.coin_picture {
 	font-weight: bold;
 	padding-right: 0.5em;
 	color : black;
-}
-.tbl div.del {
-	-webkit-user-select: auto;
-	-moz-user-select: auto;
-	-ms-user-select: auto;
-	user-select: auto;
-	text-align: left;
-	width: auto;
-	margin-left: 8pt;
-	margin-top: 0;
-	font-size: 20pt;
-	font-weight: normal;
-	padding: 2pt;
-	color: dimgray;
-	cursor: pointer;
-	display: inline-flex;
-}
-.tbl div.handle {
-	-webkit-user-select: auto;
-	-moz-user-select: auto;
-	-ms-user-select: auto;
-	user-select: auto;
-	text-align: left;
-	width: auto;
-	margin-left: 8pt;
-	margin-top: 0;
-	font-size: 20pt;
-	font-weight: normal;
-	padding: 2pt;
-	color: dimgray;
-	cursor: pointer;
-	display: inline-flex;
-}
-.tbl div.name {
-	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
-	font-size: 10pt;
-	font-weight: bold;
-	width: 4em;
-	display:inline-block;
-}
-.tbl div.count {
-	text-align: right;
-	width: 5em;
-	font-size: 12pt;
-	display:inline-block;
 }
 #hide {
 	font-size: 10pt;
