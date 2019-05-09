@@ -7,6 +7,9 @@
 
     This software is released under the MIT License.
 */
+i {
+	color: #303030;
+}
 ul {
 	padding: 0;
 	margin: 0;
@@ -15,32 +18,11 @@ body {
 	margin: 0;
 	padding: 0;
 	align-content: center;
+	background-color: white;
 }
 #header ul {
 	width: 100%
 }
-i {
-	font-size: 24px;
-	color: #303030;
-	padding: 4px;
-}
-.p-modal {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	overflow-y: auto;
-	visibility: hidden;
-	opacity: 0;
-	z-index: -1;
-}
-.p-modal.is-open {
-	visibility: visible;
-	opacity: 1;
-	z-index: 100;
-}
-
 li.l1 {
 	text-align: left;
 }
@@ -106,6 +88,7 @@ div.wrap {
 div.ft {
 	padding: 2em;
 	text-align: center;
+	background-color: white;
 }
 div.ft_txt {
 	padding: 0;
@@ -133,11 +116,6 @@ img.image {
 	height: 80px;
 	vertical-align: bottom;
 }
-input.cst {
-	height: 1px;
-	width: 1px;
-	font-size: 1px;
-}
 div.content {
 	width: 100%;
 	margin-left: auto;
@@ -159,8 +137,8 @@ div.row {
 	border-width: thin;
 	border-top-color: white;
 	border-left-color: white;
-	border-bottom-color: darkgray;
-	border-right-color: darkgray;
+	border-bottom-color: #303030;
+	border-right-color: #303030;
 	background-color: whitesmoke;
 }
 div.sum {
@@ -188,6 +166,11 @@ img.coin_picture {
 	display: inline;
 	margin-bottom: 30px;
 }
+img.coin_picture_thumbnail {
+	display: inline;
+	height: 1.1em;
+	width: 1.1em;
+}
 #sumresult {
 	font-family: Arial, Helvetica, "sans-serif";
 	font-size: 18pt;
@@ -208,6 +191,51 @@ img.coin_picture {
 	font-weight: bold;
 	padding-right: 0.5em;
 	color : black;
+}
+.tbl div.del {
+	-webkit-user-select: auto;
+	-moz-user-select: auto;
+	-ms-user-select: auto;
+	user-select: auto;
+	text-align: left;
+	width: auto;
+	margin-left: 8pt;
+	margin-top: 0;
+	font-size: 20pt;
+	font-weight: normal;
+	padding: 2pt;
+	color: dimgray;
+	cursor: pointer;
+	display: inline-flex;
+}
+.tbl div.handle {
+	-webkit-user-select: auto;
+	-moz-user-select: auto;
+	-ms-user-select: auto;
+	user-select: auto;
+	text-align: left;
+	width: auto;
+	margin-left: 8pt;
+	margin-top: 0;
+	font-size: 20pt;
+	font-weight: normal;
+	padding: 2pt;
+	color: dimgray;
+	cursor: pointer;
+	display: inline-flex;
+}
+.tbl div.name {
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
+	font-size: 10pt;
+	font-weight: bold;
+	width: 4em;
+	display:inline-block;
+}
+.tbl div.count {
+	text-align: right;
+	width: 5em;
+	font-size: 12pt;
+	display:inline-block;
 }
 #hide {
 	font-size: 10pt;
