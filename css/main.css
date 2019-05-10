@@ -19,6 +19,7 @@ body {
 	padding: 0;
 	align-content: center;
 	background-color: white;
+	font-family: 'Noto Sans JP', sans-serif;
 }
 #header ul {
 	width: 100%
@@ -173,23 +174,20 @@ img.coin_picture_thumbnail {
 	vertical-align: sub;
 }
 #sumresult {
-	font-family: Arial, Helvetica, "sans-serif";
 	font-size: 18pt;
-	font-weight: normal;
+	font-weight: 400;
 	width: 12em;
 	color : black;
 }
 #sumconst {
-	font-family: Arial, Helvetica, "sans-serif";
 	font-size: 18pt;
-	font-weight: normal;
+	font-weight: 400;
 	padding: 1pt;
 	color : black;
 }
 #sumtitle {
-	font-family: Arial, Helvetica, "sans-serif";
 	font-size: 13pt;
-	font-weight: bold;
+	font-weight: 700;
 	padding-right: 0.5em;
 	color : black;
 }
@@ -226,9 +224,8 @@ img.coin_picture_thumbnail {
 	display: inline-flex;
 }
 .tbl div.name {
-	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
 	font-size: 12pt;
-	font-weight: bold;
+	font-weight: 700;
 	width: 4em;
 	display:inline-block;
 }
