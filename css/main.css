@@ -168,8 +168,9 @@ img.coin_picture {
 }
 img.coin_picture_thumbnail {
 	display: inline;
-	height: 1.1em;
-	width: 1.1em;
+	height: 1.2em;
+	width: 1.2em;
+	vertical-align: sub;
 }
 #sumresult {
 	font-family: Arial, Helvetica, "sans-serif";
@@ -226,7 +227,7 @@ img.coin_picture_thumbnail {
 }
 .tbl div.name {
 	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
-	font-size: 10pt;
+	font-size: 12pt;
 	font-weight: bold;
 	width: 4em;
 	display:inline-block;
@@ -238,7 +239,7 @@ img.coin_picture_thumbnail {
 	display:inline-block;
 }
 #hide {
-	font-size: 10pt;
+	font-size: 12pt;
 }
 button.reset {
 	border-radius: 4pt; /* CSS3草案 */
