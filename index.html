@@ -69,6 +69,7 @@
 </head>
 <body>
 <script>
+    /*
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
             .then(function(reg) {
@@ -79,6 +80,7 @@
             // console.log('Registration failed with ' + error);
         });
     }
+     */
 </script>
 <script>
 	const RADIUS = 40;
@@ -447,23 +449,26 @@
         z-index: 1;
     }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 <div class="wrap">
-    <div class="content" id="app">
+    <div ref="app" class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl">
             <template>
                 <draggable class="draggable" handle=".handle" :options="{animation: 150}" draggable=".row">
-                    <div class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
-                        <div class="r2nd">
+                    <div ref="row" class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
+                        <div class="r2nd section">
+                            <div v-if="item.minimum" class="resize" aria-label="resize" @click="item.minimum = !item.minimum"><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
+                            <div v-if="!item.minimum" class="resize" aria-label="resize" @click="item.minimum = !item.minimum"><i aria-label="最小化" class="fas fa-window-minimize"></i></div>
                             <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
                             <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
                             <div aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                         </div>
-                        <div class="r1st">
+                        <div class="r1st" v-show="!item.minimum || getWidth > 480">
                             <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
                             <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                         </div>
-                    </div>
+                     </div>
                 </draggable>
             </template>
         </div>
@@ -499,27 +504,32 @@
     </div>
 </div>
 <script>
+
 	const storejs = store;
-	const cookiehead = '.Horornis-money_can-v3_0_2';
+	const cookiehead = '.Horornis-money_can-v3_0_5';
+	function screeenWidth() {
+	    console.log(screeen.width);
+	    return screen.width;
+    }
 	function initialState() {
 		const old_cookiehead = '.Horornis-moneycounter-v2_4_91-';
 		const data = {
-			cookiehead: '.Horornis-money_can-v3_0_2',
+			cookiehead: '.Horornis-money_can-v3_0_5',
 			items: [
-				{id: 0, order: 0, type: 's1', callName: '1円', unit: 1, counts: 0, visible: true},
-				{id: 1, order: 1, type: 's5', callName: '5円', unit: 5, counts: 0, visible: true},
-				{id: 2, order: 2, type: 's10', callName: '10円', unit: 10, counts: 0, visible: true},
-				{id: 3, order: 3, type: 's50', callName: '50円', unit: 50, counts: 0, visible: true},
-				{id: 4, order: 4, type: 's100', callName: '100円', unit: 100, counts: 0, visible: true},
-				{id: 5, order: 5, type: 's500', callName: '500円', unit: 500, counts: 0, visible: true},
-				{id: 6, order: 6, type: 's1000', callName: '千円', unit: 1000, counts: 0, visible: false},
-				{id: 7, order: 7, type: 's2000', callName: '弐千円', unit: 2000, counts: 0, visible: false},
-				{id: 8, order: 8, type: 's5000', callName: '五千円', unit: 5000, counts: 0, visible: false},
-				{id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, counts: 0, visible: false}
+				{id: 0, order: 0, type: 's1', callName: '1円', unit: 1, counts: 0, visible: true, minimum: false},
+				{id: 1, order: 1, type: 's5', callName: '5円', unit: 5, counts: 0, visible: true, minimum: false},
+				{id: 2, order: 2, type: 's10', callName: '10円', unit: 10, counts: 0, visible: true, minimum: false},
+				{id: 3, order: 3, type: 's50', callName: '50円', unit: 50, counts: 0, visible: true, minimum: false},
+				{id: 4, order: 4, type: 's100', callName: '100円', unit: 100, counts: 0, visible: true, minimum: false},
+				{id: 5, order: 5, type: 's500', callName: '500円', unit: 500, counts: 0, visible: true, minimum: false},
+				{id: 6, order: 6, type: 's1000', callName: '千円', unit: 1000, counts: 0, visible: false, minimum: false},
+				{id: 7, order: 7, type: 's2000', callName: '弐千円', unit: 2000, counts: 0, visible: false, minimum: false},
+				{id: 8, order: 8, type: 's5000', callName: '五千円', unit: 5000, counts: 0, visible: false, minimum: false},
+				{id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, counts: 0, visible: false, minimum: false}
 			]
 		};
 		let ret = {
-			cookiehead: '.Horornis-money_can-v3_0_2',
+			cookiehead: '.Horornis-money_can-v3_0_5',
 			items: []
 		};
 		if (store.has(data.cookiehead)) ret.items = store.get(data.cookiehead);
@@ -536,7 +546,7 @@
 		}
 		return data;
 	}
-	const app = new Vue({
+	new Vue({
 		el: '#app',
 		data () {
 			return initialState();
@@ -571,6 +581,9 @@
 			}
 		},
 		methods: {
+		    getWidth: function () {
+		        return screeenWidth();
+            },
 			dohide: function (i) {
 				this.items[i].counts = 0;
 				this.items[i].visible = false;
@@ -584,7 +597,7 @@
 				}
 				this.$refs.allClearButton.blur();
 			}
-		}
+        }
 	});
 
 	let clipboard = new ClipboardJS('.foo');

@@ -7,281 +7,338 @@
 
     This software is released under the MIT License.
 */
-i {
-	color: #303030;
-}
-ul {
-	padding: 0;
-	margin: 0;
-}
-body {
-	margin: 0;
-	padding: 0;
-	align-content: center;
-	background-color: white;
-	font-family: 'Noto Sans JP', sans-serif;
-}
-#header ul {
-	width: 100%
-}
-li.l1 {
-	text-align: left;
-}
-li.l2 {
-	text-align: right;
-	width: 12em;
-	display:inline-block;
-	align-items: center;
-}
-div.site-header{
-	width: 100%;
-	position: fixed !important;
-	position: absolute;
-	display: flex;
-	justify-content: space-between;
-	align-self: center;
-	background: #fff;
-	border-bottom: medium solid #344f1b;
-	vertical-align: middle;
-	height: 2em;
-}
-.site-header ul li {
-	list-style: none;
-	display: inline;
-}
-.site-header ul {
-	list-style: none;
-	display: inline;
-}
-div.header3 {
-	justify-content: space-between;
-	align-self: center;
-	height: auto;
-	width: 100%;
-	background-color: #fff;
-	border-top: medium solid #344f1b;
-	border-bottom: 1px solid gray;
-	vertical-align:baseline;
-	text-align: left;
-	margin-left: auto;
-	overflow-x: scroll;
-	overflow-y: hidden;
-	-webkit-overflow-scrolling: touch;
-	display: inline-block;
-	white-space: nowrap;
-	padding: 1pt;
-}
-.dial {
-	height: fit-content;
-}
-div.type {
-	display: inline;
-}
-.tbl div {
-	list-style: none;
-	display: inline;
-}
-div.wrap {
-	width: auto;
-	padding: auto;
-	margin: auto;
-}
-div.ft {
-	padding: 2em;
-	text-align: center;
-	background-color: white;
-}
-div.ft_txt {
-	padding: 0;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	width: auto;
-	height: auto;
-	align-content: center;
-	color: white;
-	background-color: #344f1b;
-}
-div.dummy {
-	height: 8em;
-	display: block;
-	width: 100%;
-	resize: vertical;
-}
-img.titlelogo {
-	border: 0;
-	height: 24pt;
-}
-img.image {
-	width: 80px;
-	height: 80px;
-	vertical-align: bottom;
-}
-div.content {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	height: 100%;
-	padding: auto 2pt 2pt 2pt;
-}
-div.row {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	display: inline-block;
-	position: relative;
-	margin: 0;
-	padding: 8px;
-	width: 300px;
-	border-style: solid;
-	border-width: thin;
-	border-top-color: white;
-	border-left-color: white;
-	border-bottom-color: #303030;
-	border-right-color: #303030;
-	background-color: whitesmoke;
-}
-div.sum {
-	font-size: 24pt;
-	text-align: right;
-	float: right;
-}
-span.right {
-	display: table-column;
-}
-div.r1st {
-	list-style: none;
-	display: inline-block;
-	position: relative;
-	width: 290px;
-	height: 170px;
-}
-div.r2nd {
-	list-style: none;
-	display: inline-block;
-	padding: 0;
-	width: 280px;
-}
-img.coin_picture {
-	display: inline;
-	margin-bottom: 30px;
-}
-img.coin_picture_thumbnail {
-	display: inline;
-	height: 1.2em;
-	width: 1.2em;
-	vertical-align: sub;
-}
-#sumresult {
-	font-size: 18pt;
-	font-weight: 400;
-	width: 12em;
-	color : black;
-}
-#sumconst {
-	font-size: 18pt;
-	font-weight: 400;
-	padding: 1pt;
-	color : black;
-}
-#sumtitle {
-	font-size: 13pt;
-	font-weight: 700;
-	padding-right: 0.5em;
-	color : black;
-}
-.tbl div.del {
-	-webkit-user-select: auto;
-	-moz-user-select: auto;
-	-ms-user-select: auto;
-	user-select: auto;
-	text-align: left;
-	width: auto;
-	margin-left: 8pt;
-	margin-top: 0;
-	font-size: 20pt;
-	font-weight: normal;
-	padding: 2pt;
-	color: dimgray;
-	cursor: pointer;
-	display: inline-flex;
-}
-.tbl div.handle {
-	-webkit-user-select: auto;
-	-moz-user-select: auto;
-	-ms-user-select: auto;
-	user-select: auto;
-	text-align: left;
-	width: auto;
-	margin-left: 8pt;
-	margin-top: 0;
-	font-size: 20pt;
-	font-weight: normal;
-	padding: 2pt;
-	color: dimgray;
-	cursor: pointer;
-	display: inline-flex;
-}
-.tbl div.name {
-	font-size: 12pt;
-	font-weight: 700;
-	width: 4em;
-	display:inline-block;
-}
-.tbl div.count {
-	text-align: right;
-	width: 5em;
-	font-size: 12pt;
-	display:inline-block;
-}
-#hide {
-	font-size: 12pt;
-}
-button.reset {
-	border-radius: 4pt; /* CSS3草案 */
-	-webkit-border-radius: 4pt; /* Safari,Google Chrome用 */
-	-moz-border-radius: 4pt; /* Firefox用 */
-	cursor: pointer;
-	background-color: lightgray;
-	padding: 0 1pt 0 1pt;
-	vertical-align: top;
-	margin: 0;
-}
-button.foo {
-	background-color: transparent;
-	cursor: pointer;
-	vertical-align: bottom;
-	text-align: right;
-	width: 270px;
-	display: inline;
-}
-button.allClear {
-	background-color: transparent;
-	cursor: pointer;
-	vertical-align: bottom;
-	text-align: right;
-	font-size: 18pt;
-	padding: 0 10px;
-	display: inline;
-}
-p {
-	padding-right: 4pt;
-}
-.sortable-chosen {
-	background-color: green;
-}
-.right {
-	display: inline;
-}
-.hidden_menu {
-	font-size: 12pt;
-	display: inline;
-}
-button.type_item {
-	font-size: 12pt;
-	display: inline;
-}
-.hidden_list {
-	display: inline-list-item;
-}
+	i {
+		color: #303030;
+	}
+
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+		align-content: center;
+		background-color: white;
+		font-family: 'Noto Sans JP', sans-serif;
+	}
+
+	#header ul {
+		width: 100%
+	}
+
+	li.l1 {
+		text-align: left;
+	}
+
+	li.l2 {
+		text-align: right;
+		width: 12em;
+		display: inline-block;
+		align-items: center;
+	}
+
+	div.resize {
+		display: inline;
+		height: 1.2em;
+		width: 1.2em;
+		font-size: 24pt;
+	}
+
+	div.site-header {
+		width: 100%;
+		position: fixed !important;
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		align-self: center;
+		background: #fff;
+		border-bottom: medium solid #344f1b;
+		vertical-align: middle;
+		height: 2em;
+	}
+
+	.site-header ul li {
+		list-style: none;
+		display: inline;
+	}
+
+	.site-header ul {
+		list-style: none;
+		display: inline;
+	}
+
+	div.header3 {
+		justify-content: space-between;
+		align-self: center;
+		height: auto;
+		width: 100%;
+		background-color: #fff;
+		border-top: medium solid #344f1b;
+		border-bottom: 1px solid gray;
+		vertical-align: baseline;
+		text-align: left;
+		margin-left: auto;
+		overflow-x: scroll;
+		overflow-y: hidden;
+		-webkit-overflow-scrolling: touch;
+		display: inline-block;
+		white-space: nowrap;
+		padding: 1pt;
+	}
+
+	.dial {
+		height: fit-content;
+	}
+
+	div.type {
+		display: inline;
+	}
+
+	.tbl div {
+		list-style: none;
+		display: inline;
+	}
+
+	div.wrap {
+		width: auto;
+		padding: auto;
+		margin: auto;
+	}
+
+	div.ft {
+		padding: 2em;
+		text-align: center;
+		background-color: white;
+	}
+
+	div.ft_txt {
+		padding: 0;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		width: auto;
+		height: auto;
+		align-content: center;
+		color: white;
+		background-color: #344f1b;
+	}
+
+	div.dummy {
+		height: 8em;
+		display: block;
+		width: 100%;
+		resize: vertical;
+	}
+
+	img.titlelogo {
+		border: 0;
+		height: 24pt;
+	}
+
+	img.image {
+		width: 80px;
+		height: 80px;
+		vertical-align: bottom;
+	}
+
+	div.content {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		height: 100%;
+		padding: auto 2pt 2pt 2pt;
+	}
+
+	div.row {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		display: inline-block;
+		position: relative;
+		margin: 0;
+		padding: 8px;
+		width: 300px;
+		border-style: solid;
+		border-width: thin;
+		border-top-color: white;
+		border-left-color: white;
+		border-bottom-color: #303030;
+		border-right-color: #303030;
+		background-color: whitesmoke;
+	}
+
+	div.sum {
+		font-size: 20pt;
+		text-align: right;
+		float: right;
+	}
+
+	span.right {
+		display: table-column;
+	}
+
+	div.r1st {
+		list-style: none;
+		display: inline-block;
+		position: relative;
+		width: 290px;
+		height: 170px;
+	}
+
+	div.r2nd {
+		list-style: none;
+		display: inline-block;
+		padding: 0;
+		width: 280px;
+	}
+
+	img.coin_picture {
+		display: inline;
+		margin-bottom: 30px;
+	}
+
+	img.coin_picture_thumbnail {
+		display: inline;
+		height: 1.2em;
+		width: 1.2em;
+		vertical-align: sub;
+	}
+
+	img.coin_picture_icon {
+		display: inline;
+		height: 20pt;
+		width: 20pt;
+		vertical-align: sub;
+	}
+
+	#sumresult {
+		font-size: 18pt;
+		font-weight: 400;
+		width: 12em;
+		color: black;
+	}
+
+	#sumconst {
+		font-size: 18pt;
+		font-weight: 400;
+		padding: 1pt;
+		color: black;
+	}
+
+	#sumtitle {
+		font-size: 13pt;
+		font-weight: 700;
+		padding-right: 0.5em;
+		color: black;
+	}
+
+	.tbl div.del {
+		-webkit-user-select: auto;
+		-moz-user-select: auto;
+		-ms-user-select: auto;
+		user-select: auto;
+		text-align: left;
+		width: auto;
+		margin-left: 8pt;
+		margin-top: 0;
+		font-size: 20pt;
+		font-weight: normal;
+		padding: 2pt;
+		color: dimgray;
+		cursor: pointer;
+		display: inline-flex;
+	}
+
+	.tbl div.handle {
+		-webkit-user-select: auto;
+		-moz-user-select: auto;
+		-ms-user-select: auto;
+		user-select: auto;
+		text-align: left;
+		width: auto;
+		margin-left: 8pt;
+		margin-top: 0;
+		font-size: 20pt;
+		font-weight: normal;
+		padding: 2pt;
+		color: dimgray;
+		cursor: pointer;
+		display: inline-flex;
+	}
+
+	.tbl div.name {
+		font-size: 12pt;
+		font-weight: 700;
+		width: 4em;
+		display: inline-block;
+	}
+
+	.tbl div.count {
+		text-align: right;
+		width: 5em;
+		font-size: 12pt;
+		display: inline-block;
+	}
+
+	#hide {
+		font-size: 12pt;
+	}
+
+	button.reset {
+		border-radius: 4pt; /* CSS3草案 */
+		-webkit-border-radius: 4pt; /* Safari,Google Chrome用 */
+		-moz-border-radius: 4pt; /* Firefox用 */
+		cursor: pointer;
+		background-color: lightgray;
+		padding: 0 1pt 0 1pt;
+		vertical-align: top;
+		margin: 0;
+	}
+
+	button.foo {
+		background-color: transparent;
+		cursor: pointer;
+		vertical-align: bottom;
+		text-align: right;
+		width: 270px;
+		display: inline;
+	}
+
+	button.allClear {
+		background-color: transparent;
+		cursor: pointer;
+		vertical-align: bottom;
+		text-align: right;
+		font-size: 18pt;
+		padding: 0 10px;
+		display: inline;
+	}
+
+	p {
+		padding-right: 4pt;
+	}
+
+	.sortable-chosen {
+		background-color: green;
+	}
+
+	.right {
+		display: inline;
+	}
+
+	.hidden_menu {
+		font-size: 12pt;
+		display: inline;
+	}
+
+	button.type_item {
+		font-size: 12pt;
+		display: inline;
+	}
+
+	.hidden_list {
+		display: inline-list-item;
+	}
