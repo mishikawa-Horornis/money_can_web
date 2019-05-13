@@ -63,7 +63,8 @@
     <!-- script src="./js/clipboard.min.js"></script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
     <!-- script src="./js/vue.min.js"></script -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.8.4/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
 </head>
@@ -94,10 +95,6 @@
 		return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 	};
 	Vue.component('knob-control', {
-		data() {
-			return;
-			//textInput: function () {return this.template.find('input')}
-		},
 		template: '<div class="knob-control" :style="{height: size-5 + \'px\' }">' +
 			'   <svg :width="size" :height="size" viewBox="0 0 100 100"' +
 			'       @click="onClick"' +
@@ -418,8 +415,135 @@
 			}
 		}
 	});
+	Vue.component('js-accordion', {
+		template:
+            '<div class="js-accordion">' +
+            `   <div class="js-accordion--trigger" type="button" :class="{'_state-open': isOpened}" @click="accordionToggle()">` +
+            '       <slot name="title"></slot>' +
+            '   </div>' +
+            '   <transition name="js-accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">' +
+            `       <div class="js-accordion--target" :class="{'_state-open': isOpened}" v-if="isOpened">` +
+            '           <slot name="body"></slot>' +
+            '       </div>' +
+            '   </transition>' +
+            '</div>',
+
+		data() {
+			return {
+				isOpened: false
+			};
+		},
+		methods: {
+			accordionToggle: function(){
+				this.isOpened = !this.isOpened;
+			},
+			beforeEnter: function(el) {
+				el.style.height = '0';
+			},
+			enter: function(el) {
+				el.style.height = el.scrollHeight + 'px';
+			},
+			beforeLeave: function(el) {
+				el.style.height = el.scrollHeight + 'px';
+			},
+			leave: function(el) {
+				el.style.height = '0';
+			}
+		}
+	});
+
 </script>
 <style>
+    .js-accordion{
+        position: relative;
+        background-color: #fff;
+        border-color: #666;
+        border-style: solid;
+        border-width:1px 1px 0 1px;
+        border-radius: 2px;
+    &:last-child{
+         border-bottom-width:1px;
+     }
+    &--trigger{
+         position: relative;
+         display: block;
+         width: 100%;
+         transition: all 0.2s ease-in;
+         color: #4d68b7;
+         display: block;
+         font-size:20px;
+         font-weight: bold;
+         text-align: left;
+         padding: 20px;
+         outline: none;
+         border: none;
+         cursor: pointer;
+    &:after{
+         display: inline-block;
+         width: 0;
+         height: 0;
+         border: solid transparent;
+         content: "";
+         border-top-color: #5f6569;
+         border-width: 7px;
+         position: absolute;
+         top: 50%;
+         right: 1em;
+         margin-top: -5px;
+         transition: all 0.2s ease-in;
+     }
+    &._state-open{
+         background-color: #f1f1f1;
+         text-decoration: none;
+    &:after{
+         transform:rotateX(180deg);
+         margin-top: -10px;
+     }
+    }
+    &:hover{
+         background-color: #f1f1f1;
+         text-decoration: none;
+     }
+    }
+    &--target{
+         overflow: hidden;
+         transition: height 0.4s ease-in-out;
+     }
+    &--body{
+
+         padding: 30px;
+     }
+    &-enter-active{
+         animation-duration: 1s;
+         animation-fill-mode: both;
+         animation-name: js-accordion--anime__opend;
+     }
+    &-leave-active{
+         animation-duration: 1s;
+         animation-fill-mode: both;
+         animation-name: js-accordion--anime__closed;
+     }
+    }
+
+    @keyframes js-accordion--anime__opend {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes js-accordion--anime__closed {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+
     knob-control {
         position: relative;
     }
@@ -449,29 +573,28 @@
         z-index: 1;
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 <div class="wrap">
     <div ref="app" class="content" id="app">
         <div class="dummy"></div>
-        <div class="tbl">
-            <template>
+            <div class="tbl">
                 <draggable class="draggable" handle=".handle" :options="{animation: 150}" draggable=".row">
                     <div ref="row" class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
-                        <div class="r2nd section">
-                            <div v-if="item.minimum" class="resize" aria-label="resize" @click="item.minimum = !item.minimum"><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
-                            <div v-if="!item.minimum" class="resize" aria-label="resize" @click="item.minimum = !item.minimum"><i aria-label="最小化" class="fas fa-window-minimize"></i></div>
-                            <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
-                            <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
-                            <div aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
-                        </div>
-                        <div class="r1st" v-show="!item.minimum || getWidth > 480">
-                            <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                            <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
-                        </div>
-                     </div>
+                        <js-accordion>
+                            <div slot="title" key="titile" class="r2nd section">
+                                <div key="box" class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
+                                <!-- div v-else key="box2" class="resize" aria-label="resize" ><i aria-label="最小化" class="fas fa-window-minimize"></i></div -->
+                                <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
+                                <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
+                                <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+                            </div>
+                            <div slot="body" key="body" class="r1st">
+                                <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                                <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                            </div>
+                        </js-accordion>
+                    </div>
                 </draggable>
-            </template>
-        </div>
+            </div>
         <div class="ft">
         </div>
         <div class="fixed-bottom border-white border-top-2">
@@ -485,7 +608,7 @@
                 <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                     <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
                     <span class="right">
-                        <button ref="totalValueButton" class="btn btn-outline-primary m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
+                        <button ref="totalValueButton" class="btn btn-outline-dark m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
                         <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
                     </span>
                     <div class="bg-white header3">
@@ -596,8 +719,8 @@
 					this.items[i].counts = 0;
 				}
 				this.$refs.allClearButton.blur();
-			}
-        }
+			},
+		}
 	});
 
 	let clipboard = new ClipboardJS('.foo');
