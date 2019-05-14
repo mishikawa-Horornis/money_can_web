@@ -426,7 +426,7 @@
             '       </div>' +
             '   </transition>' +
             '</div>',
-       data() {
+        data() {
             return {
                 isClosed: this.value
             };
@@ -445,108 +445,102 @@
             },
             beforeEnter: function(el) {
                 el.style.height = '0';
+                el.style.overflow = 'hidden';
             },
             enter: function(el) {
                 el.style.height = el.scrollHeight + 'px';
+                el.style.overflow = 'hidden';
             },
             beforeLeave: function(el) {
                 el.style.height = el.scrollHeight + 'px';
             },
             leave: function(el) {
                 el.style.height = '0';
+                el.style.overflow = 'hidden';
+                el.style.visibility = 'none';
             }
         }
     });
-
 </script>
 <style>
-    .js-accordion{
+    .js-accordion {
+    }
+    .js-accordion:last-child {
+        border-bottom-width: 1px;
+    }
+    .js-accordion--trigger {
         position: relative;
+        display: block;
+        width: 100%;
+        transition: all 0.2s ease-in;
+        color: #4d68b7;
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: left;
+        padding: 20px;
+        outline: none;
         border: none;
-    &:last-child{
-         border: none;
-     }
-    &--trigger{
-         position: relative;
-         display: block;
-         width: 100%;
-         transition: all 0.7s ease-in;
-         color: #4d68b7;
-         display: block;
-         font-size:20px;
-         font-weight: bold;
-         text-align: left;
-         padding: 20px;
-         outline: none;
-         border: none;
-         cursor: pointer;
-    &:after{
-         display: inline-block;
-         width: 0;
-         height: 0;
-         border: none;
-         content: "";
-         position: absolute;
-         top: 50%;
-         right: 1em;
-         margin-top: -5px;
-         transition: all 0.7s ease-in;
-     }
-    &._state-open{
-         background-color: #f1f1f1;
-         text-decoration: none;
-    &:after{
-         transform:rotateX(180deg);
-         margin-top: -10px;
-     }
+        cursor: pointer;
     }
-    &:hover{
-         background-color: #f1f1f1;
-         text-decoration: none;
-     }
+    .js-accordion--trigger:after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border: solid transparent;
+        content: "";
+        border-top-color: #5f6569;
+        border-width: 7px;
+        position: absolute;
+        top: 50%;
+        right: 1em;
+        margin-top: -5px;
+        transition: all 0.2s ease-in;
     }
-    &--target{
-         overflow: hidden;
-         transition: height 0.7s ease-in-out;
-     }
-    &--body{
-
-         padding: 30px;
-     }
-    &-enter-active{
-         animation-duration: 1s;
-         animation-fill-mode: both;
-         animation-name: js-accordion--anime__opend;
-     }
-    &-leave-active{
-         animation-duration: 1s;
-         animation-fill-mode: both;
-         animation-name: js-accordion--anime__closed;
-     }
+    .js-accordion--trigger._state-open {
+        text-decoration: none;
     }
+    .js-accordion--trigger._state-open:after {
+        transform: rotateX(180deg);
+        margin-top: -10px;
+    }
+    .js-accordion--trigger:hover {
+        text-decoration: none;
+    }
+    .js-accordion--target {
+        overflow: hidden;
+        transition: 0.2s ease-in-out;
+    }
+    .js-accordion--body {
+        padding: 30px;
+    }
+    .js-accordion-enter-active {
+        animation-duration: .2s;
+        animation-fill-mode: both;
+        animation-name: js-accordion--anime__opend;
+    }
+    .js-accordion-leave-active {
+        animation-duration: .2s;
+        animation-fill-mode: both;
+        animation-name: js-accordion--anime__closed;
+     }
 
     @keyframes js-accordion--anime__opend {
         0% {
             opacity: 0;
-            height: 0;
         }
         100% {
             opacity: 1;
-            height: 200px;
         }
     }
     @keyframes js-accordion--anime__closed {
         0% {
             opacity: 1;
-            height: 200px;
         }
-
         100% {
             opacity: 0;
-            height: 0;
         }
     }
-
 
     knob-control {
         position: relative;
@@ -584,14 +578,14 @@
             <draggable class="draggable" handle=".handle" :options="{animation: 150}" draggable=".row">
             <div ref="row" class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <js-accordion v-model="item.minimum">
-                    <div slot="title" key="titile" class="r2nd section">
-                        <div v-if="item.minimum" key="box" class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
-                        <div v-else key="box2" class="resize" aria-label="resize" ><i aria-label="最小化" class="fas fa-window-minimize"></i></div>
+                    <div slot="title" class="r2nd section">
+                        <div key="box" class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
+                        <!-- div v-else key="box2" class="resize" aria-label="resize" ><i aria-label="最小化" class="fas fa-window-minimize"></i></div -->
                         <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
                         <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
                         <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                     </div>
-                    <div slot="body" key="body" class="r1st">
+                    <div slot="body" class="r1st">
                         <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
                         <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                     </div>
