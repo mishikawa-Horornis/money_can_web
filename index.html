@@ -365,7 +365,7 @@
                     this.$refs.input.blur();
                     return;
                 }
-                event.preventDefault();
+                e.preventDefault();
             },
             onBlur(e) {
                 let val = this.$refs.input.value;
@@ -381,7 +381,7 @@
                     this.$refs.input.blur();
                     return;
                 }
-                event.preventDefault();
+                e.preventDefault();
             },
             onKeyDownCheck(e) {
                 let val = this.$refs.input.value;
@@ -395,7 +395,7 @@
                 if (val === '') {
                     return;
                 }
-                event.preventDefault();
+                e.preventDefault();
             },
             onMouseUpInput(e) {
                 this.$emit('input', this.$refs.input.value);
@@ -404,7 +404,7 @@
                 this.$emit('input', this.$refs.input.value);
             },
             onKeyDownDisable(e) {
-                event.preventDefault();
+                e.preventDefault();
             },
             onKeyPressDelete(e) {
                 return;
@@ -417,24 +417,31 @@
     Vue.component('js-accordion', {
         template:
             '<div class="js-accordion" v-cloak>' +
-            `   <div type="button" :class="{'_state-open': isOpened}" @click="accordionToggle()">` +
+            `   <div type="button" :class="{'_state-open': !isClosed}" @click="accordionToggle()">` +
             '       <slot name="title"></slot>' +
             '   </div>' +
             '   <transition name="js-accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">' +
-            `       <div :class="{'_state-open': isOpened}" v-if="isOpened">` +
+            `       <div :class="{'_state-open': !isClosed}" v-if="!isClosed">` +
             '           <slot name="body"></slot>' +
             '       </div>' +
             '   </transition>' +
             '</div>',
-
-        data() {
+       data() {
             return {
-                isOpened: false
+                isClosed: this.value
             };
+        },
+        props: {
+	        'value': {
+		        type: Boolean,
+		        required: true,
+		        default: false
+	        },
         },
         methods: {
             accordionToggle: function(){
-                this.isOpened = !this.isOpened;
+                this.isClosed = !this.isClosed;
+	            this.$emit('input', this.isClosed);
             },
             beforeEnter: function(el) {
                 el.style.height = '0';
@@ -455,19 +462,15 @@
 <style>
     .js-accordion{
         position: relative;
-        /*background-color: #fff;
-        border-color: #666;
-        border-style: solid;
-        border-width:1px 1px 0 1px;
-        border-radius: 2px; */
+        border: none;
     &:last-child{
-         border-bottom-width:1px;
+         border: none;
      }
     &--trigger{
          position: relative;
          display: block;
          width: 100%;
-         transition: all 0.2s ease-in;
+         transition: all 0.7s ease-in;
          color: #4d68b7;
          display: block;
          font-size:20px;
@@ -481,15 +484,13 @@
          display: inline-block;
          width: 0;
          height: 0;
-         border: solid transparent;
+         border: none;
          content: "";
-         border-top-color: #5f6569;
-         border-width: 7px;
          position: absolute;
          top: 50%;
          right: 1em;
          margin-top: -5px;
-         transition: all 0.2s ease-in;
+         transition: all 0.7s ease-in;
      }
     &._state-open{
          background-color: #f1f1f1;
@@ -506,7 +507,7 @@
     }
     &--target{
          overflow: hidden;
-         transition: height 0.4s ease-in-out;
+         transition: height 0.7s ease-in-out;
      }
     &--body{
 
@@ -578,10 +579,10 @@
         <div class="tbl">
             <draggable class="draggable" handle=".handle" :options="{animation: 150}" draggable=".row">
             <div ref="row" class="row" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
-                <js-accordion>
+                <js-accordion v-model="item.minimum">
                     <div slot="title" key="titile" class="r2nd section">
-                        <div key="box" class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
-                        <!-- div v-else key="box2" class="resize" aria-label="resize" ><i aria-label="最小化" class="fas fa-window-minimize"></i></div -->
+                        <div v-if="item.minimum" key="box" class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
+                        <div v-else key="box2" class="resize" aria-label="resize" ><i aria-label="最小化" class="fas fa-window-minimize"></i></div>
                         <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
                         <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
                         <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
