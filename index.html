@@ -417,7 +417,7 @@
     Vue.component('js-accordion', {
         template:
             '<div class="js-accordion" v-cloak>' +
-            `   <div type="button" :class="{'_state-open': !isClosed}" @click="accordionToggle()">` +
+            `   <div :class="{'_state-open': !isClosed}" @click="accordionToggle()">` +
             '       <slot name="title"></slot>' +
             '   </div>' +
             '   <transition name="js-accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">' +
@@ -528,18 +528,22 @@
     @keyframes js-accordion--anime__opend {
         0% {
             opacity: 0;
+            height: 0;
         }
         100% {
             opacity: 1;
+            height: 200px;
         }
     }
     @keyframes js-accordion--anime__closed {
         0% {
             opacity: 1;
+            height: 200px;
         }
 
         100% {
             opacity: 0;
+            height: 0;
         }
     }
 
