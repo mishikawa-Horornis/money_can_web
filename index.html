@@ -2,7 +2,7 @@
 <!--
     Money_can (Money Counter)
     index.html
-    Release Version 3.0.3
+    Release Version 3.1.1
 
     ©2019 Masatoshi Ishikawa.
 
@@ -416,6 +416,9 @@
 <style>
     .knob-control {
         position: relative;
+        margin: 0;
+        padding: 0;
+        border: none;
     }
     .knob-control__range {
         fill: none;
@@ -430,8 +433,8 @@
     }
     .knob-control__text-input {
         position: absolute;
-        left: 127px;
-        top: 46px;
+        left: 42px;
+        top: -22px;
         width: 84px;
         visibility: visible;
         background-color: transparent;
@@ -447,18 +450,18 @@
     <div ref="app" class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
-            <draggable class="draggable row card" handle=".handle" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id" draggable=".row">
-                <div class="r2nd card-header" role="tab" :id="'heading' + index">
-                    <div role="button" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
-                    <div class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
-                    <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
-                    <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
-                    <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="200px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+            <draggable class="draggable itemrow" handle=".handle" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id" draggable=".row">
+                <div class="card">
+                    <div class="r2nd card-header" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
+                        <div class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
+                        <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
+                        <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
+                        <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="140px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                     </div>
-                </div>
-                <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
-                    <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                    <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                    <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
+                        <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                        <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                    </div>
                 </div>
             </draggable>
         </div>
