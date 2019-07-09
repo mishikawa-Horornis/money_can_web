@@ -14,12 +14,25 @@
     <meta charset="utf-8">
     <!-- Bootstrap CSS -->
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&subset=japanese');
+        @font-face {
+            font-family: 'Noto Sans JP';
+            font-style: normal;
+            font-weight: 400;
+        +   src: local("Noto Sans CJK JP Regular"),
+        url(font/ntfjr.woff) format('woff'),
+        }
+        @font-face {
+            font-family: 'Noto Sans JP';
+            font-style: bolder;
+            font-weight: 700;
+        +   src: local("Noto Sans CJK JP Bold"),
+        url(font/ntfjb.woff) format('woff'),
+        }
     </style>
-    <!-- link rel="stylesheet" href="./fontawesome-free-web/css/all.min.css" -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <!-- link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="fontawesome-free-web/css/all.min.css">
+    <!-- link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="css/main.css" rel="stylesheet" type="text/css">
@@ -52,20 +65,21 @@
     <!-- Color the status bar on mobile devices -->
     <meta name="theme-color" content="olivedrab">
     <!-- Vue.js Develop -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- script src="./js/jquery-3.3.1.min.js"></script -->
-    <!-- script src="./js/popper.min.js"></script -->
-    <!-- script src="./bootstrap/js/bootstrap.min.js"></script -->
-    <!-- script src="./js/store2.min.js"></script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
-    <!-- script src="./js/clipboard.min.js"></script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-    <!-- script src="./js/vue.min.js"></script -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.8.4/Sortable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <!-- script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script -->
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script -->
+    <!-- script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script -->
+    <script src="js/jquery-3.4.1.min.js"></script -->
+    <script src="js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/store2.min.js"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script -->
+    <script src="js/clipboard.min.js"></script>
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script -->
+    <script src="js/vue.min.js"></script>
+    <!-- script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script -->
+    <script src="js/Sortable.min.js"></script>
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script -->
+    <script src="js/vuedraggable.umd.min.js"></script>
 </head>
 <body>
 <!-- script>
@@ -434,7 +448,7 @@
     .knob-control__text-input {
         position: absolute;
         left: 42px;
-        top: -22px;
+        top: -26px;
         width: 84px;
         visibility: visible;
         background-color: transparent;
@@ -453,13 +467,13 @@
             <draggable class="draggable itemrow" handle=".handle" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id" draggable=".row">
                 <div class="card">
                     <div class="r2nd card-header" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
-                        <div class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
+                        <div class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
                         <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
                         <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
                         <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="140px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                     </div>
                     <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
-                        <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                        <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
                         <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                     </div>
                 </div>
