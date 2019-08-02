@@ -1,21 +1,19 @@
 let PRECACHE = 'moneycounter-horornis-v3_0_2';
 let RUNTIME = 'runtime';
-let version = '3.0.201';
+let version = '3.1.400';
 
 // A list of local resources we always want to be cached.
 let PRECACHE_URLS = [
     'index.html',
-    'js/Sortable.min.js',
     'css/main.css',
-    'images/apple-touch-icon.png',
-    'images/chrome-touch-icon-192x192.png',
-    'images/icon-128x128.png',
-    'images/icon-192x192.png',
+    'images/ic_money_can_round_192.png',
+    'images/ic_money_can_round_144.png',
+    'images/ic_money_can_round_128.png',
+    'images/ic_money_can_round_152.png',
     'images/icon-512x512.png',
-    'images/ms-touch-icon-144x144-precomposed.png',
-    'images/logo.png',
     'images/moneycounter-logo.png',
     'images/site-logo.png',
+    'images/logo.png',
     'images/coin-1.png',
     'images/coin-5.png',
     'images/coin-10.png',
@@ -26,6 +24,7 @@ let PRECACHE_URLS = [
     'images/coin-2000.png',
     'images/coin-5000.png',
     'images/coin-10000.png',
+    'js/store2.min.js',
 ];
 
 // The install handler takes care of precaching the resources we always need.
@@ -56,6 +55,7 @@ self.addEventListener('activate', event => {
 // If no response is found, it populates the runtime cache with the response
 // from the network before returning it to the page.
 self.addEventListener('fetch', event => {
+    if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') return;
     // Skip cross-origin requests, like those for Google Analytics.
     if (event.request.url.startsWith(self.location.origin)) {
         event.respondWith(

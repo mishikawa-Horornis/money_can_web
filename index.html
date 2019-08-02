@@ -2,7 +2,7 @@
 <!--
     Money_can (Money Counter)
     index.html
-    Release Version 3.1.1
+    Release Version 3.1.2
 
     ©2019 Masatoshi Ishikawa.
 
@@ -13,13 +13,14 @@
 <head>
     <meta charset="utf-8">
     <!-- Bootstrap CSS -->
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&subset=japanese');
-    </style>
-    <!-- link rel="stylesheet" href="./fontawesome-free-web/css/all.min.css" -->
+    <!-- local
+    <link rel="stylesheet" href="fontawesome-free-web/css/all.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    -->
+    <!-- CDN -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <!-- link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="css/main.css" rel="stylesheet" type="text/css">
@@ -37,38 +38,45 @@
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="まねかん">
-    <link rel="icon" sizes="512x512" href="images/icon-192x192.png">
+    <link rel="icon" sizes="512x512" href="images/ic_money_can_round_512.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="まねかん">
-    <link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="./images/ic_money_can_round_152.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/icon-512x512.png">
+    <meta name="msapplication-TileImage" content="images/ic_money_can_round_144.png">
     <meta name="msapplication-TileColor" content="olivedrab">
 
     <!-- Color the status bar on mobile devices -->
     <meta name="theme-color" content="olivedrab">
     <!-- Vue.js Develop -->
+    <!-- CDN -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- script src="./js/jquery-3.3.1.min.js"></script -->
-    <!-- script src="./js/popper.min.js"></script -->
-    <!-- script src="./bootstrap/js/bootstrap.min.js"></script -->
-    <!-- script src="./js/store2.min.js"></script -->
+    <!-- -->
+    <!-- local
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    -->
+    <script src="js/store2.min.js"></script>
+    <!-- CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/store2/2.7.1/store2.min.js"></script>
-    <!-- script src="./js/clipboard.min.js"></script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-    <!-- script src="./js/vue.min.js"></script -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.8.4/Sortable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <!-- -->
+    <!-- Local
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/Sortable.min.js"></script>
+    -->
 </head>
 <body>
-<!-- script>
+<script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
             .then(function(reg) {
@@ -79,7 +87,7 @@
             // console.log('Registration failed with ' + error);
         });
     }
-</script -->
+</script>
 <script>
     const RADIUS = 40;
     const MID_X = 50;
@@ -434,7 +442,7 @@
     .knob-control__text-input {
         position: absolute;
         left: 42px;
-        top: -22px;
+        top: -26px;
         width: 84px;
         visibility: visible;
         background-color: transparent;
@@ -450,20 +458,20 @@
     <div ref="app" class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
-            <draggable class="draggable itemrow" handle=".handle" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id" draggable=".row">
+            <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <div class="card">
                     <div class="r2nd card-header" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
-                        <div class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 p-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
+                        <div class="resize" aria-label="resize" ><img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/></div>
                         <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><i aria-label="非表示" class="fas fa-eraser"></i></div>
-                        <div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div>
+                        <!-- div aria-label="handle" class="handle"><i aria-label="移動" class="fas fa-arrows-alt"></i></div-->
                         <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="140px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
                     </div>
                     <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
-                        <img :aria-label="item.callName" class="image m-0 p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                        <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
                         <knob-control :aria-label="item.callName + 'の枚数'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                     </div>
                 </div>
-            </draggable>
+            </div>
         </div>
         <div class="ft">
         </div>
@@ -478,6 +486,7 @@
                 <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
                     <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
                     <span class="right">
+                        <span>重さ {{ totalWeight }} </span>
                         <button ref="totalValueButton" class="btn page-link text-dark d-inline-block m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle"> 合計 </span><span id="sumresult">&yen;{{ totalMoney }} </span><span id="sumconst">&#x1F4CB;</span></button>
                         <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
                     </span>
@@ -504,24 +513,25 @@
 	    return screen.width;
     }
 	function initialState() {
+		const old_cookiehead2 = '.Horornis-money_can-v3_0_5';
 		const old_cookiehead = '.Horornis-moneycounter-v2_4_91-';
 		const data = {
-			cookiehead: '.Horornis-money_can-v3_0_5',
+			cookiehead: '.Horornis-money_can-v3_1_6',
 			items: [
-				{id: 0, order: 0, type: 's1', callName: '1円', unit: 1, counts: 0, visible: true, minimum: false},
-				{id: 1, order: 1, type: 's5', callName: '5円', unit: 5, counts: 0, visible: true, minimum: false},
-				{id: 2, order: 2, type: 's10', callName: '10円', unit: 10, counts: 0, visible: true, minimum: false},
-				{id: 3, order: 3, type: 's50', callName: '50円', unit: 50, counts: 0, visible: true, minimum: false},
-				{id: 4, order: 4, type: 's100', callName: '100円', unit: 100, counts: 0, visible: true, minimum: false},
-				{id: 5, order: 5, type: 's500', callName: '500円', unit: 500, counts: 0, visible: true, minimum: false},
-				{id: 6, order: 6, type: 's1000', callName: '千円', unit: 1000, counts: 0, visible: false, minimum: false},
-				{id: 7, order: 7, type: 's2000', callName: '弐千円', unit: 2000, counts: 0, visible: false, minimum: false},
-				{id: 8, order: 8, type: 's5000', callName: '五千円', unit: 5000, counts: 0, visible: false, minimum: false},
-				{id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, counts: 0, visible: false, minimum: false}
+				{id: 0, order: 0, type: 's1', callName: '1円', unit: 1, counts: 0, visible: true, minimum: false, weight: 1},
+				{id: 1, order: 1, type: 's5', callName: '5円', unit: 5, counts: 0, visible: true, minimum: false, weight: 3.75},
+				{id: 2, order: 2, type: 's10', callName: '10円', unit: 10, counts: 0, visible: true, minimum: false, weight: 4.5},
+				{id: 3, order: 3, type: 's50', callName: '50円', unit: 50, counts: 0, visible: true, minimum: false, weight: 4},
+				{id: 4, order: 4, type: 's100', callName: '100円', unit: 100, counts: 0, visible: true, minimum: false, weight: 4.8},
+				{id: 5, order: 5, type: 's500', callName: '500円', unit: 500, counts: 0, visible: true, minimum: false, weight: 7},
+				{id: 6, order: 6, type: 's1000', callName: '千円', unit: 1000, counts: 0, visible: false, minimum: false, weight: 1},
+				{id: 7, order: 7, type: 's2000', callName: '弐千円', unit: 2000, counts: 0, visible: false, minimum: false, weight: 1},
+				{id: 8, order: 8, type: 's5000', callName: '五千円', unit: 5000, counts: 0, visible: false, minimum: false, weight: 1},
+				{id: 9, order: 9, type: 's10000', callName: '壱万円', unit: 10000, counts: 0, visible: false, minimum: false, weight: 1}
 			]
 		};
 		let ret = {
-			cookiehead: '.Horornis-money_can-v3_0_5',
+			cookiehead: '.Horornis-money_can-v3_1_6',
 			items: []
 		};
 		if (store.has(data.cookiehead)) ret.items = store.get(data.cookiehead);
@@ -534,6 +544,10 @@
 				data.items[i].counts = store.get(old_cookiehead + data.items[i].type).count;
 				data.items[i].visible = !(store.get(old_cookiehead + data.items[i].type).hide);
 				store.delete(old_cookiehead + data.items[i].type);
+			}
+			if (store.has(old_cookiehead2 + data.items[i].type)) {
+				data.items[i].weight = ret.items[i].weight;
+				store.delete(old_cookiehead2 + data.items[i].type);
 			}
 		}
 		return data;
@@ -570,7 +584,16 @@
 					ret.push(Number(this.items[i].unit * this.items[i].counts).toLocaleString());
 				}
 				return ret;
-			}
+			},
+			totalWeight: function () {
+				let total = 0;
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].visible) {
+						total += this.items[i].weight * this.items[i].counts;
+					}
+				}
+				return Number(total).toLocaleString() + 'g';
+			},
 		},
 		methods: {
 		    getWidth: function () {
@@ -603,13 +626,6 @@
         this.blur();
         $("button.btn-dummy").focus();
 	});
-    /*
-    let el = document.getElementsByClassName('tbl');
-    let sortable = Sortable.create(el[0], {
-        handle: '.handle',
-        animation: 150,  // ミリ秒で指定
-    });
-    */
 </script>
 </body>
 </html>

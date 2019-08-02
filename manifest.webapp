@@ -4,7 +4,7 @@
   "launch_path": "https://horornis.com/mc/",
   "description": "いわゆる一つのマネーカウンター",
   "icons": {
-    "192": "/mc-vue/images/icon-128x128.png"
+    "192": "/mc-vue/images/ic_money_can_round_192.png"
   },
   "developer": {
     "name": "Masatoshi Ishikawa",
@@ -23,5 +23,5 @@
       "name": "まねかん",
       "description": "いわゆる一つのマネーカウンター"
     }
-  }
+  },
 }

@@ -160,7 +160,7 @@ div.itemrow {
     position: relative;
     margin: 0;
     padding: 0;
-    width: 300px;
+    width: 100%;
     border-style: solid;
     border-width: thin;
     border-top-color: white;
@@ -175,6 +175,7 @@ div.sum {
     font-size: 20pt;
     text-align: right;
     float: right;
+    padding-right: 4px;
 }
 
 span.right {
@@ -183,6 +184,7 @@ span.right {
 
 div.card {
     position: relative;
+    background-color: whitesmoke
 }
 
 div.r1st {
@@ -202,21 +204,24 @@ div.r2nd {
 
 img.coin_picture {
     display: inline;
-    margin-bottom: 30px;
+    margin-bottom: 12px;
+    margin-left: 8px;
 }
 
 img.coin_picture_thumbnail {
     display: inline;
-    height: 1.2em;
-    width: 1.2em;
+    height: 20pt;
+    width: 20pt;
     vertical-align: sub;
 }
 
 img.coin_picture_icon {
     display: inline;
-    height: 20pt;
-    width: 20pt;
+    height: 24pt;
+    width: 24pt;
     vertical-align: sub;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 #sumresult {
@@ -244,7 +249,7 @@ img.coin_picture_icon {
     user-select: auto;
     text-align: left;
     width: auto;
-    margin-left: 8pt;
+    margin-left: 0;
     margin-top: 0;
     font-size: 20pt;
     font-weight: normal;
@@ -261,7 +266,7 @@ img.coin_picture_icon {
     user-select: auto;
     text-align: left;
     width: auto;
-    margin-left: 8pt;
+    margin-left: 0;
     margin-top: 0;
     font-size: 20pt;
     font-weight: normal;
@@ -305,7 +310,7 @@ button.foo {
     cursor: pointer;
     vertical-align: bottom;
     text-align: right;
-    width: 270px;
+    width: 210px;
     display: inline;
 }
 
