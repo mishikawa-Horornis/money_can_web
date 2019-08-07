@@ -534,20 +534,23 @@
 			cookiehead: '.Horornis-money_can-v3_1_6',
 			items: []
 		};
-		if (store.has(data.cookiehead)) ret.items = store.get(data.cookiehead);
+		if (storejs.has(old_cookiehead2)) {
+			ret.items = store.get(data.cookiehead);
+			for (let i = 0; i < data.items.length; i++) {
+                ret.items[i].weight = data.items[i].weight;
+			}
+			storejs.delete(old_cookiehead2);
+		}
+		if (store.has(data.cookiehead)) ret.items = storejs.get(data.cookiehead);
 		// console.log(ret.items);
 		if (ret.items.length === 10) {
 			return ret;
 		}
 		for (let i = 0; i < data.length; i++) {
-			if (store.has(old_cookiehead + data.items[i].type)) {
-				data.items[i].counts = store.get(old_cookiehead + data.items[i].type).count;
-				data.items[i].visible = !(store.get(old_cookiehead + data.items[i].type).hide);
-				store.delete(old_cookiehead + data.items[i].type);
-			}
-			if (store.has(old_cookiehead2 + data.items[i].type)) {
-				data.items[i].weight = ret.items[i].weight;
-				store.delete(old_cookiehead2 + data.items[i].type);
+			if (storejs.has(old_cookiehead + data.items[i].type)) {
+				data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
+				data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
+				storejs.delete(old_cookiehead + data.items[i].type);
 			}
 		}
 		return data;
