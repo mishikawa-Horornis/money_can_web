@@ -1,6 +1,6 @@
 let PRECACHE = 'moneycounter-horornis-v3_0_2';
 let RUNTIME = 'runtime';
-let version = '3.1.412';
+let version = '3.1.417';
 
 // A list of local resources we always want to be cached.
 let PRECACHE_URLS = [
@@ -53,7 +53,7 @@ self.addEventListener('activate', event => {
 // The fetch handler serves responses for same-origin resources from a cache.
 // If no response is found, it populates the runtime cache with the response
 // from the network before returning it to the page.
-/*
+
 self.addEventListener('fetch', event => {
     if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') return;
     // Skip cross-origin requests, like those for Google Analytics.
@@ -76,4 +76,4 @@ self.addEventListener('fetch', event => {
         );
     }
 });
- */
+
