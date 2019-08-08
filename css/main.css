@@ -231,9 +231,9 @@ img.coin_picture_icon {
 }
 
 #sumconst {
-    font-size: 18pt;
-    font-weight: 400;
-    padding: 1pt;
+    font-size: 12pt;
+    font-weight: normal;
+    padding: 1px;
 }
 
 #sumtitle {
@@ -305,12 +305,16 @@ button.reset {
     margin: 0;
 }
 
+span.weight {
+    width: 60px;
+}
+
 button.foo {
     background-color: transparent;
     cursor: pointer;
     vertical-align: bottom;
     text-align: right;
-    width: 210px;
+    width: 160px;
     display: inline;
 }
 
@@ -319,8 +323,8 @@ button.allClear {
     cursor: pointer;
     vertical-align: bottom;
     text-align: right;
-    font-size: 18pt;
-    padding: 0 10px;
+    font-size: 16pt;
+    padding: 0 6px;
     display: inline;
 }
 
