@@ -222,6 +222,22 @@ img.coin_picture_icon {
     vertical-align: sub;
     margin-left: 4px;
     margin-right: 4px;
+    opacity: 0;
+}
+
+:after img.coin_picture_icon{
+    opacity: 1;
+}
+.collapsed:after img.coin_picture_icon {
+    opacity: 0;
+}
+
+img.eraser {
+    height: 26pt;
+    width: 26pt;
+    display: inline;
+    margin-left: 0;
+margin-right: 0;
 }
 
 #sumresult {
@@ -253,7 +269,7 @@ img.coin_picture_icon {
     margin-top: 0;
     font-size: 20pt;
     font-weight: normal;
-    padding: 2pt;
+    padding: 0pt;
     color: dimgray;
     cursor: pointer;
     display: inline-flex;
@@ -324,7 +340,7 @@ button.allClear {
     vertical-align: bottom;
     text-align: right;
     font-size: 16pt;
-    padding: 0 6px;
+    padding: 0 9px;
     display: inline;
 }
 
@@ -369,4 +385,8 @@ button.type_item {
 div.card {
     border: none;
     background-color: transparent;
+}
+
+.panel-heading {
+    cursor: pointer;
 }
