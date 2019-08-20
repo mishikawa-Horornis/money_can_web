@@ -413,7 +413,7 @@
         <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <div class="card">
-                    <div class="r2nd card-header" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
+                    <div class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
                         <div class="resize" aria-label="resize" >
                             <img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/>
                         </div>

@@ -222,22 +222,29 @@ img.coin_picture_icon {
     vertical-align: sub;
     margin-left: 4px;
     margin-right: 4px;
-    opacity: 0;
 }
 
-:after img.coin_picture_icon{
-    opacity: 1;
+#accordion div[aria-expanded=false]::after{
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    transition-duration: 0.3s;
+
 }
-.collapsed:after img.coin_picture_icon {
-    opacity: 0;
+#accordion div[aria-expanded=true]::after{
+    -webkit-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    transform: rotate(135deg);
+    transition-duration: 0.3s;
 }
+
 
 img.eraser {
     height: 26pt;
     width: 26pt;
     display: inline;
     margin-left: 0;
-margin-right: 0;
+    margin-right: 0;
 }
 
 #sumresult {
