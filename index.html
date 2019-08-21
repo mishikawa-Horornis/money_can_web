@@ -13,7 +13,9 @@
 <head>
     <meta charset="utf-8">
     <!-- Bootstrap CSS -->
+
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="css/main.css" rel="stylesheet" type="text/css">
@@ -54,6 +56,18 @@
     <script src="js/vue.min.js"></script>
 </head>
 <body>
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
+            .then(function(reg) {
+                // registration worked
+                // console.log('Registration succeeded. Scope is ' + reg.scope);
+            }).catch(function(error) {
+            // registration failed
+            // console.log('Registration failed with ' + error);
+        });
+    }
+</script>
 <script>
     const RADIUS = 40;
     const MID_X = 50;
@@ -413,13 +427,13 @@
         <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <div class="card">
-                    <div class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
+                    <a class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
                         <div class="resize" aria-label="resize" >
                             <img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/>
                         </div>
                         <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><img src="images/eraser.png" aria-label="非表示" class="eraser"/></div>
-                        <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" width="140px" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
-                    </div>
+                        <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+                    </a>
                     <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
                         <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
                         <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>

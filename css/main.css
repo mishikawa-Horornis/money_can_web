@@ -175,7 +175,7 @@ div.sum {
     font-size: 20pt;
     text-align: right;
     float: right;
-    padding-right: 4px;
+    padding-right: 36px;
 }
 
 span.right {
@@ -195,7 +195,7 @@ div.r1st {
     height: 170px;
 }
 
-div.r2nd {
+a.r2nd {
     list-style: none;
     display: inline-block;
     padding: 0;
@@ -222,22 +222,58 @@ img.coin_picture_icon {
     vertical-align: sub;
     margin-left: 4px;
     margin-right: 4px;
+    opacity: 0;
 }
 
-#accordion div[aria-expanded=false]::after{
+#accordion a[data-toggle="collapse"]:hover {
+    background: #e7e7e7;
+}
+
+#accordion a[data-toggle="collapse"] {
+    display: block;
+    text-decoration: none;
+    position: relative;
+}
+
+#accordion a[data-toggle="collapse"]::after {
+    content:"";
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-top: #666 1px solid;
+    border-right: #666 1px solid;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    font-weight: 400;
+}
+
+#accordion a[aria-expanded=false] > div.resize > img.coin_picture_icon {
+    transition: opacity;
+    transition-duration: 0.3s;
+    opacity: 0;
+}
+#accordion a[aria-expanded=false] > div.resize > img.coin_picture_icon {
+    transition: opacity;
+    transition-duration: 0.3s;
+    opacity: 1;
+}
+
+#accordion a[aria-expanded=false]::after {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
     transition-duration: 0.3s;
-
 }
-#accordion div[aria-expanded=true]::after{
+
+#accordion a[aria-expanded=true]::after {
     -webkit-transform: rotate(135deg);
     -ms-transform: rotate(135deg);
     transform: rotate(135deg);
     transition-duration: 0.3s;
 }
-
 
 img.eraser {
     height: 26pt;

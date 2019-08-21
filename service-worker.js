@@ -1,6 +1,6 @@
-let PRECACHE = 'moneycounter-horornis-v3_0_2';
+let PRECACHE = 'moneycounter-horornis-v3_0_3';
 let RUNTIME = 'runtime';
-let version = '3.1.430';
+let version = '3.1.460';
 
 // A list of local resources we always want to be cached.
 let PRECACHE_URLS = [
@@ -24,7 +24,14 @@ let PRECACHE_URLS = [
     'images/coin-2000.png',
     'images/coin-5000.png',
     'images/coin-10000.png',
+    'images/eraser.png',
+    'js/clipboard.min.js',
+    'js/jquery-3.4.1.min.js',
+    'js/popper.min.js',
     'js/store2.min.js',
+    'js/vue.min.js',
+    'bootstrap/css/bootstrap.min.css',
+    'bootstrap/js/bootstrap.min.js',
 ];
 
 // The install handler takes care of precaching the resources we always need.
