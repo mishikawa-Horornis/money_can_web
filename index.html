@@ -181,7 +181,7 @@
             },
             'secondaryColor': {
                 type: String,
-                default: '#D0D0D0'
+                default: '#C0C0C0'
             },
             'textColor': {
                 type: String,
@@ -436,7 +436,7 @@
                     </a>
                     <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
                         <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                        <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                        <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#C0C0C0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                     </div>
                 </div>
             </div>
