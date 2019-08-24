@@ -102,7 +102,6 @@
             '   </path>' +
             '   </svg>' +
             '   <input' +
-            '       :aria-label="inputLabel"' +
             '       ref="input"' +
             '       v-if="showValue"' +
             '       type="number"' +
@@ -157,7 +156,7 @@
             },
             'max': {
                 type: Number,
-                default: 100
+                default: 50
             },
             'min': {
                 type: Number,
@@ -211,7 +210,7 @@
                     want the value arc to start drawing from the 'zero' point, but, in the case
                     that the minimum and maximum values are both above zero, we set the 'zero point'
                     at the supplied minimum, so the value arc renders as the user would expect */
-                if (this.min > 0 && this.max > 0)
+                if (this.min > 0 && this.max < 0)
                     return mapRange(this.min, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
                 else
                     return mapRange(0, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
@@ -274,7 +273,7 @@
             },
             onClick(e) {
                 this.updatePosition(e.offsetX, e.offsetY);
-                this.$refs.input.blur();
+                //this.$refs.input.blur();
             },
             onMouseDown(e) {
                 if (!this.disabled && this.outerText(e.offsetX,e.offsetY)) {
@@ -282,7 +281,7 @@
                     window.addEventListener('mousemove', this.onMouseMove);
                     window.addEventListener('mouseup', this.onMouseUp);
                 }
-                this.$refs.input.blur();
+                //this.$refs.input.blur();
             },
             onMouseUp(e) {
                 if (!this.disabled) {
@@ -302,7 +301,7 @@
                     window.addEventListener('touchend', this.onTouchEnd);
                     this.updatePosition(e.offsetX, e.offsetY);
                 }
-                this.$refs.input.blur();
+                //this.$refs.input.blur();
             },
             onTouchEnd(e) {
                 if (!this.disabled) {
@@ -327,48 +326,30 @@
                 }
             },
             onKeypressEnter(e) {
-                let val = this.$refs.input.value;
-                const re = new RegExp('[0-9]+');
-                if (val.match(re)) {
-                    if (Number(val) > 50) val = '50';
-                    if (Number(val) < 0) val = '0';
-                    this.$emit('input',Number(val).toString());
+                if (this.$refs.input.value.match(/^\d+$/)) {
+                    if (this.$refs.input.value > this.max) this.value = this.max;
+                    if (this.$refs.input.value < this.min) this.value = this.min;
+                    this.$emit('input', this.value);
                     this.$refs.input.blur();
                     return;
                 }
-                if (val === '') {
-                    this.$emit('input','0');
-                    this.$refs.input.blur();
-                    return;
-                }
+                this.$emit('input', val);
+                // this.$refs.input.blur();
                 e.preventDefault();
             },
             onBlur(e) {
-                let val = this.$refs.input.value;
-                const re = new RegExp('[0-9]+');
-                if (val.match(re)) {
-                    if (Number(val) > 50) val = '50';
-                    if (Number(val) < 0) val = '0';
-                    this.$emit('input',Number(val).toString());
+               if (this.$refs.input.value.match(/^\d+$/)) {
+                    if (this.$refs.input.value > this.max) this.value = this.max;
+                    if (this.$refs.input.value < this.min) this.value = this.min;
+                    this.$emit('input', this.value);
                     return;
                 }
-                if (val === '') {
-                    this.$emit('input','0');
-                    this.$refs.input.blur();
-                    return;
-                }
+                // this.$emit('input', val.toString());
                 e.preventDefault();
             },
             onKeyDownCheck(e) {
-                let val = this.$refs.input.value;
-                const re = new RegExp('[0-9]+');
-                if (val.match(re)) {
-                    if (Number(val) > 50) val = '50';
-                    if (Number(val) < 0) val = '0';
-                    this.$emit('input',val.toString());
-                    return;
-                }
-                if (val === '') {
+                const key = String.fromCharCode(e.charCode);
+                if (key.match(/^\d$/)) {
                     return;
                 }
                 e.preventDefault();
@@ -377,18 +358,24 @@
                 this.$emit('input', this.$refs.input.value);
             },
             onKeyUpInput(e) {
-                this.$emit('input', this.$refs.input.value);
+                if (this.$refs.input.value.match(/^\d+$/)) {
+                    if (this.$refs.input.value > this.max) this.value = this.max;
+                    if (this.$refs.input.value < this.min) this.value = this.min;
+                    this.$emit('input', this.value);
+                    return
+                }
+                this.value = 0;
+                this.$emit('input', 0);
+                e.preventDefault();
             },
             onKeyDownDisable(e) {
                 e.preventDefault();
             },
             onKeyPressDelete(e) {
-                return;
             },
             outerText(offsetX, offsetY) {
                 return !(offsetX > 43 && offsetX < 134 && offsetY > 53 && offsetY < 111);
             }
-
         }
     });
 </script>
@@ -408,7 +395,7 @@
     }
     .knob-control__text-input {
         position: relative;
-        left: -130px;
+        left: -134px;
         top: -0px;
         width: 84px;
         visibility: visible;
