@@ -327,21 +327,21 @@
             },
             onKeypressEnter(e) {
                 if (this.$refs.input.value.match(/^\d+$/)) {
-                    if (this.$refs.input.value > this.max) this.value = this.max;
-                    if (this.$refs.input.value < this.min) this.value = this.min;
-                    this.$emit('input', this.value);
+                    if (this.$refs.input.value > this.max) this.$refs.input.value = this.max;
+                    if (this.$refs.input.value < this.min) this.$refs.input.value = this.min;
+                    this.$emit('input', Number(this.$refs.input.value));
                     this.$refs.input.blur();
                     return;
                 }
-                this.$emit('input', val);
+                this.$emit('input', this.$refs.input.value);
                 // this.$refs.input.blur();
                 e.preventDefault();
             },
             onBlur(e) {
                if (this.$refs.input.value.match(/^\d+$/)) {
-                    if (this.$refs.input.value > this.max) this.value = this.max;
-                    if (this.$refs.input.value < this.min) this.value = this.min;
-                    this.$emit('input', this.value);
+                    if (this.$refs.input.value > this.max) this.$refs.input.value = this.max;
+                    if (this.$refs.input.value < this.min) this.$refs.input.value = this.min;
+                    this.$emit('input', Number(this.$refs.input.value));
                     return;
                 }
                 // this.$emit('input', val.toString());
@@ -350,6 +350,7 @@
             onKeyDownCheck(e) {
                 const key = String.fromCharCode(e.charCode);
                 if (key.match(/^\d$/)) {
+                    this.$emit('input', Number(this.$refs.input.value));
                     return;
                 }
                 e.preventDefault();
@@ -361,7 +362,7 @@
                 if (this.$refs.input.value.match(/^\d+$/)) {
                     if (this.$refs.input.value > this.max) this.value = this.max;
                     if (this.$refs.input.value < this.min) this.value = this.min;
-                    this.$emit('input', this.value);
+                    this.$emit('input', Number(this.$refs.input.value));
                     return
                 }
                 this.value = 0;
@@ -393,19 +394,38 @@
     .knob-control__value {
         fill: none;
     }
-    .knob-control__text-input {
-        position: relative;
-        left: -134px;
-        top: -0px;
-        width: 84px;
-        visibility: visible;
-        background-color: transparent;
-        font-size: 2.7rem;
-        text-align: center;
-        font-weight: bolder;
-        vertical-align: middle;
-        border: none;
-        z-index: 1;
+    /* ▼画面サイズ（横幅）が640px以上の場合に適用 */
+    @media screen and (max-width: 330px) {
+        .knob-control__text-input {
+            position: relative;
+            left: 135px;
+            top: -118px;
+            width: 84px;
+            visibility: visible;
+            background-color: transparent;
+            font-size: 2.7rem;
+            text-align: center;
+            font-weight: bolder;
+            vertical-align: middle;
+            border: none;
+            z-index: 1;
+        }
+    }
+    @media screen and (min-width: 330px) {
+        .knob-control__text-input {
+            position: relative;
+            left: -134px;
+            top: -0px;
+            width: 84px;
+            visibility: visible;
+            background-color: transparent;
+            font-size: 2.7rem;
+            text-align: center;
+            font-weight: bolder;
+            vertical-align: middle;
+            border: none;
+            z-index: 1;
+        }
     }
 </style>
 <div class="wrap">

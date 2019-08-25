@@ -21,7 +21,7 @@ body {
     padding: 0;
     align-content: center;
     background-color: white;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: sans-serif;
 }
 
 #header ul {
@@ -48,8 +48,6 @@ div.resize {
 
 div.site-header {
     width: 100%;
-    position: fixed !important;
-    position: absolute;
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -252,11 +250,13 @@ img.coin_picture_icon {
 
 #accordion a[aria-expanded=false] > div.resize > img.coin_picture_icon {
     transition: opacity;
+    -webkit-transition: opacity;
     transition-duration: 0.3s;
     opacity: 0;
 }
 #accordion a[aria-expanded=false] > div.resize > img.coin_picture_icon {
     transition: opacity;
+    -webkit-transition: opacity;
     transition-duration: 0.3s;
     opacity: 1;
 }
@@ -312,24 +312,7 @@ img.eraser {
     margin-top: 0;
     font-size: 20pt;
     font-weight: normal;
-    padding: 0pt;
-    color: dimgray;
-    cursor: pointer;
-    display: inline-flex;
-}
-
-.tbl div.handle {
-    -webkit-user-select: auto;
-    -moz-user-select: auto;
-    -ms-user-select: auto;
-    user-select: auto;
-    text-align: left;
-    width: auto;
-    margin-left: 0;
-    margin-top: 0;
-    font-size: 20pt;
-    font-weight: normal;
-    padding: 2pt;
+    padding: 0;
     color: dimgray;
     cursor: pointer;
     display: inline-flex;
