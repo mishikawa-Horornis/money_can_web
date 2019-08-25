@@ -270,6 +270,7 @@
                     return;
                 }
                 this.$emit('input', Math.round((v - this.min) / this.stepSize) * this.stepSize + this.min);
+                this.$refs.input.blur();
             },
             onClick(e) {
                 this.updatePosition(e.offsetX, e.offsetY);
@@ -293,7 +294,7 @@
             onTouchStart(e) {
                 const touch = e.targetTouches.item(0);
                 const boundingClientRect = this.$el.getBoundingClientRect();
-                const offsetX = touch.clientX - boundingClientRect.left;
+                const offsetX = touch.clientX - 80; // boundingClientRect.left;
                 const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                 if (this.outerText(offsetX,offsetY) && !this.disabled) {
                     e.preventDefault();
@@ -313,14 +314,16 @@
             onMouseMove(e) {
                 if (!this.disabled) {
                     e.preventDefault();
-                    this.updatePosition(e.offsetX, e.offsetY);
+                    const offsetX = touch.clientX - 80;
+                    const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
+                    this.updatePosition(offsetX, offsetY);
                 }
             },
             onTouchMove(e) {
                 if (!this.disabled && e.touches.length == 1) {
                     const boundingClientRect = this.$el.getBoundingClientRect();
                     const touch = e.targetTouches.item(0);
-                    const offsetX = touch.clientX - boundingClientRect.left;
+                    const offsetX = touch.clientX - 80;
                     const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
                     this.updatePosition(offsetX, offsetY);
                 }
@@ -395,10 +398,10 @@
         fill: none;
     }
     /* ▼画面サイズ（横幅）が640px以上の場合に適用 */
-    @media screen and (max-width: 330px) {
+    @media screen and (max-width: 320px) {
         .knob-control__text-input {
             position: relative;
-            left: 135px;
+            left: 137px;
             top: -118px;
             width: 84px;
             visibility: visible;
@@ -411,10 +414,10 @@
             z-index: 1;
         }
     }
-    @media screen and (min-width: 330px) {
+    @media screen and (min-width: 321px) {
         .knob-control__text-input {
             position: relative;
-            left: -134px;
+            left: -131px;
             top: -0px;
             width: 84px;
             visibility: visible;
