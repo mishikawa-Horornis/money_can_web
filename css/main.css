@@ -28,6 +28,12 @@ body {
     width: 100%
 }
 
+img.menuButton {
+    width: 24pt;
+    height: 24pt;
+    padding: 4pt;
+}
+
 li.l1 {
     text-align: left;
 }
