@@ -69,317 +69,317 @@
     }
 </script -->
 <script>
-    const RADIUS = 40;
-    const MID_X = 50;
-    const MID_Y = 50;
-    const MIN_RADIANS = 4 * Math.PI / 3;
-    const MAX_RADIANS = -Math.PI / 3;
+	const RADIUS = 40;
+	const MID_X = 50;
+	const MID_Y = 50;
+	const MIN_RADIANS = 4 * Math.PI / 3;
+	const MAX_RADIANS = -Math.PI / 3;
 
-    // map a value (x) from one range (in min/max) onto another (out min/max)
-    const mapRange = (x, inMin, inMax, outMin, outMax) => {
-        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-    };
-    Vue.component('knob-control', {
-        template: '<div class="knob-control" :style="{height: size-5 + \'px\' }">' +
-            '   <svg :width="size" :height="size" viewBox="0 0 100 100"' +
-            '       @click="onClick"' +
-            '       @mousedown="onMouseDown"' +
-            '       @mouseup="onMouseUp"' +
-            '       @touchstart="onTouchStart"' +
-            '       @touchend="onTouchEnd">' +
-            '   <path' +
-            '       :d="rangePath"' +
-            '       :stroke-width="strokeWidth"' +
-            '       :stroke="secondaryColor"' +
-            '       class="knob-control__range">' +
-            '   </path>' +
-            '   <path' +
-            '   v-if="showValue"' +
-            '       :d="valuePath"' +
-            '       :stroke-width="strokeWidth"' +
-            '       :stroke="primaryColor"' +
-            '       class="knob-control__value">' +
-            '   </path>' +
-            '   </svg>' +
-            '   <input' +
-            '       ref="input"' +
-            '       v-if="showValue"' +
-            '       type="number"' +
-            '       :style="\'color: \' + textColor"' +
-            '       :max="max"' +
-            '       :min="min"' +
-            '       v-model.number="value"' +
-            '       @blur="onBlur"' +
-            '       @keypress.48="onKeyDownCheck"' +
-            '       @keypress.49="onKeyDownCheck"' +
-            '       @keypress.50="onKeyDownCheck"' +
-            '       @keypress.51="onKeyDownCheck"' +
-            '       @keypress.52="onKeyDownCheck"' +
-            '       @keypress.53="onKeyDownCheck"' +
-            '       @keypress.54="onKeyDownCheck"' +
-            '       @keypress.55="onKeyDownCheck"' +
-            '       @keypress.56="onKeyDownCheck"' +
-            '       @keypress.57="onKeyDownCheck"' +
-            '       @keypress.96="onKeyDownCheck"' +
-            '       @keypress.97="onKeyDownCheck"' +
-            '       @keypress.98="onKeyDownCheck"' +
-            '       @keypress.99="onKeyDownCheck"' +
-            '       @keypress.100="onKeyDownCheck"' +
-            '       @keypress.101="onKeyDownCheck"' +
-            '       @keypress.102="onKeyDownCheck"' +
-            '       @keypress.103="onKeyDownCheck"' +
-            '       @keypress.104="onKeyDownCheck"' +
-            '       @keypress.105="onKeyDownCheck"' +
-            '       @keydown.69="onKeyDownDisable"' +
-            '       @keydown.107="onKeyDownDisable"' +
-            '       @keydown.109="onKeyDownDisable"' +
-            '       @keydown.110="onKeyDownDisable"' +
-            '       @keydown.shift.187="onKeyDownDisable"' +
-            '       @keydown.189="onKeyDownDisable"' +
-            '       @keydown.190="onKeyDownDisable"' +
-            '       @keypress.delete="onKeyPressDelete"' +
-            '       @keypress.enter="onKeypressEnter"' +
-            '       @mouseup="onMouseUpInput"' +
-            '       @keyup="onKeyUpInput"' +
-            '       class="knob-control__text-input">' +
-            '</div>',
-        props: {
-            'value': {
-                type: Number,
-                required: true,
-                default: 0
-            },
-            'inputLabel': {
-                type: String,
-                required: true,
-                default: 'areaLabel'
-            },
-            'max': {
-                type: Number,
-                default: 50
-            },
-            'min': {
-                type: Number,
-                default: 0
-            },
-            'stepSize': {
-                type: Number,
-                default: 1
-            },
-            'disabled': {
-                type: Boolean,
-                default: false
-            },
-            'size': {
-                type: Number,
-                default: 100
-            },
-            'primaryColor': {
-                type: String,
-                default: '#344f1b'
-            },
-            'secondaryColor': {
-                type: String,
-                default: '#C0C0C0'
-            },
-            'textColor': {
-                type: String,
-                default: '#344f1b'
-            },
-            'strokeWidth': {
-                type: Number,
-                default: 17
-            },
-            'valueDisplayFunction': {
-                type: Function,
-                default: (v) => v
-            },
-        },
-        computed: {
-            rangePath() {
-                return `M ${this.minX} ${this.minY} A ${RADIUS} ${RADIUS} 0 1 1 ${this.maxX} ${this.maxY}`;
-            },
-            valuePath() {
-                return `M ${this.zeroX} ${this.zeroY} A ${RADIUS} ${RADIUS} 0 ${this.largeArc} ${this.sweep} ${this.valueX} ${this.valueY}`;
-            },
-            showValue() {
-                return (this.value >= this.min && this.value <= this.max) && !this.disabled;
-            },
-            zeroRadians() {
-                /* this weird little bit of logic below is to handle the fact that usually we
+	// map a value (x) from one range (in min/max) onto another (out min/max)
+	const mapRange = (x, inMin, inMax, outMin, outMax) => {
+		return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+	};
+	Vue.component('knob-control', {
+		template: '<div class="knob-control" :style="{height: size-5 + \'px\' }">' +
+			'   <svg :width="size" :height="size" viewBox="0 0 100 100"' +
+			'       @click="onClick"' +
+			'       @mousedown="onMouseDown"' +
+			'       @mouseup="onMouseUp"' +
+			'       @touchstart="onTouchStart"' +
+			'       @touchend="onTouchEnd">' +
+			'   <path' +
+			'       :d="rangePath"' +
+			'       :stroke-width="strokeWidth"' +
+			'       :stroke="secondaryColor"' +
+			'       class="knob-control__range">' +
+			'   </path>' +
+			'   <path' +
+			'   v-if="showValue"' +
+			'       :d="valuePath"' +
+			'       :stroke-width="strokeWidth"' +
+			'       :stroke="primaryColor"' +
+			'       class="knob-control__value">' +
+			'   </path>' +
+			'   </svg>' +
+			'   <input' +
+			'       ref="input"' +
+			'       v-if="showValue"' +
+			'       type="number"' +
+			'       :style="\'color: \' + textColor"' +
+			'       :max="max"' +
+			'       :min="min"' +
+			'       v-model.number="value"' +
+			'       @blur="onBlur"' +
+			'       @keypress.48="onKeyDownCheck"' +
+			'       @keypress.49="onKeyDownCheck"' +
+			'       @keypress.50="onKeyDownCheck"' +
+			'       @keypress.51="onKeyDownCheck"' +
+			'       @keypress.52="onKeyDownCheck"' +
+			'       @keypress.53="onKeyDownCheck"' +
+			'       @keypress.54="onKeyDownCheck"' +
+			'       @keypress.55="onKeyDownCheck"' +
+			'       @keypress.56="onKeyDownCheck"' +
+			'       @keypress.57="onKeyDownCheck"' +
+			'       @keypress.96="onKeyDownCheck"' +
+			'       @keypress.97="onKeyDownCheck"' +
+			'       @keypress.98="onKeyDownCheck"' +
+			'       @keypress.99="onKeyDownCheck"' +
+			'       @keypress.100="onKeyDownCheck"' +
+			'       @keypress.101="onKeyDownCheck"' +
+			'       @keypress.102="onKeyDownCheck"' +
+			'       @keypress.103="onKeyDownCheck"' +
+			'       @keypress.104="onKeyDownCheck"' +
+			'       @keypress.105="onKeyDownCheck"' +
+			'       @keydown.69="onKeyDownDisable"' +
+			'       @keydown.107="onKeyDownDisable"' +
+			'       @keydown.109="onKeyDownDisable"' +
+			'       @keydown.110="onKeyDownDisable"' +
+			'       @keydown.shift.187="onKeyDownDisable"' +
+			'       @keydown.189="onKeyDownDisable"' +
+			'       @keydown.190="onKeyDownDisable"' +
+			'       @keypress.delete="onKeyPressDelete"' +
+			'       @keypress.enter="onKeypressEnter"' +
+			'       @mouseup="onMouseUpInput"' +
+			'       @keyup="onKeyUpInput"' +
+			'       class="knob-control__text-input">' +
+			'</div>',
+		props: {
+			'value': {
+				type: Number,
+				required: true,
+				default: 0
+			},
+			'inputLabel': {
+				type: String,
+				required: true,
+				default: 'areaLabel'
+			},
+			'max': {
+				type: Number,
+				default: 50
+			},
+			'min': {
+				type: Number,
+				default: 0
+			},
+			'stepSize': {
+				type: Number,
+				default: 1
+			},
+			'disabled': {
+				type: Boolean,
+				default: false
+			},
+			'size': {
+				type: Number,
+				default: 100
+			},
+			'primaryColor': {
+				type: String,
+				default: '#344f1b'
+			},
+			'secondaryColor': {
+				type: String,
+				default: '#C0C0C0'
+			},
+			'textColor': {
+				type: String,
+				default: '#344f1b'
+			},
+			'strokeWidth': {
+				type: Number,
+				default: 17
+			},
+			'valueDisplayFunction': {
+				type: Function,
+				default: (v) => v
+			},
+		},
+		computed: {
+			rangePath() {
+				return `M ${this.minX} ${this.minY} A ${RADIUS} ${RADIUS} 0 1 1 ${this.maxX} ${this.maxY}`;
+			},
+			valuePath() {
+				return `M ${this.zeroX} ${this.zeroY} A ${RADIUS} ${RADIUS} 0 ${this.largeArc} ${this.sweep} ${this.valueX} ${this.valueY}`;
+			},
+			showValue() {
+				return (this.value >= this.min && this.value <= this.max) && !this.disabled;
+			},
+			zeroRadians() {
+				/* this weird little bit of logic below is to handle the fact that usually we
                     want the value arc to start drawing from the 'zero' point, but, in the case
                     that the minimum and maximum values are both above zero, we set the 'zero point'
                     at the supplied minimum, so the value arc renders as the user would expect */
-                if (this.min > 0 && this.max < 0)
-                    return mapRange(this.min, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
-                else
-                    return mapRange(0, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
-            },
-            valueRadians() {
-                return mapRange(this.value, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
-            },
-            minX() {
-                return MID_X + Math.cos(MIN_RADIANS) * RADIUS;
-            },
-            minY() {
-                return MID_Y - Math.sin(MIN_RADIANS) * RADIUS;
-            },
-            maxX() {
-                return MID_X + Math.cos(MAX_RADIANS) * RADIUS;
-            },
-            maxY() {
-                return MID_Y - Math.sin(MAX_RADIANS) * RADIUS;
-            },
-            zeroX() {
-                return MID_X + Math.cos(this.zeroRadians) * RADIUS;
-            },
-            zeroY() {
-                return MID_Y - Math.sin(this.zeroRadians) * RADIUS;
-            },
-            valueX() {
-                return MID_X + Math.cos(this.valueRadians) * RADIUS;
-            },
-            valueY() {
-                return MID_Y - Math.sin(this.valueRadians) * RADIUS;
-            },
-            largeArc() {
-                return Math.abs(this.zeroRadians - this.valueRadians) < Math.PI ? 0 : 1;
-            },
-            sweep() {
-                return this.valueRadians > this.zeroRadians ? 0 : 1;
-            },
-            valueDisplay() {
-                return this.valueDisplayFunction(this.value);
-            },
-        },
-        methods: {
-            updatePosition(offsetX, offsetY) {
-                // console.log(offsetX, offsetY);
-                const dx = offsetX - this.size / 2;
-                const dy = this.size / 2 - offsetY;
-                const angle = Math.atan2(dy, dx);
-                let v;
-                /* bit of weird looking logic to map the angles returned by Math.atan2() onto
+				if (this.min > 0 && this.max < 0)
+					return mapRange(this.min, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
+				else
+					return mapRange(0, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
+			},
+			valueRadians() {
+				return mapRange(this.value, this.min, this.max, MIN_RADIANS, MAX_RADIANS);
+			},
+			minX() {
+				return MID_X + Math.cos(MIN_RADIANS) * RADIUS;
+			},
+			minY() {
+				return MID_Y - Math.sin(MIN_RADIANS) * RADIUS;
+			},
+			maxX() {
+				return MID_X + Math.cos(MAX_RADIANS) * RADIUS;
+			},
+			maxY() {
+				return MID_Y - Math.sin(MAX_RADIANS) * RADIUS;
+			},
+			zeroX() {
+				return MID_X + Math.cos(this.zeroRadians) * RADIUS;
+			},
+			zeroY() {
+				return MID_Y - Math.sin(this.zeroRadians) * RADIUS;
+			},
+			valueX() {
+				return MID_X + Math.cos(this.valueRadians) * RADIUS;
+			},
+			valueY() {
+				return MID_Y - Math.sin(this.valueRadians) * RADIUS;
+			},
+			largeArc() {
+				return Math.abs(this.zeroRadians - this.valueRadians) < Math.PI ? 0 : 1;
+			},
+			sweep() {
+				return this.valueRadians > this.zeroRadians ? 0 : 1;
+			},
+			valueDisplay() {
+				return this.valueDisplayFunction(this.value);
+			},
+		},
+		methods: {
+			updatePosition(offsetX, offsetY) {
+				// console.log(offsetX, offsetY);
+				const dx = offsetX - this.size / 2;
+				const dy = this.size / 2 - offsetY;
+				const angle = Math.atan2(dy, dx);
+				let v;
+				/* bit of weird looking logic to map the angles returned by Math.atan2() onto
                     our own unconventional coordinate system */
-                const start = -Math.PI / 2 - Math.PI / 6;
-                if (angle > MAX_RADIANS) {
-                    v = mapRange(angle, MIN_RADIANS, MAX_RADIANS, this.min, this.max);
-                } else if (angle < start) {
-                    v = mapRange(angle + 2 * Math.PI, MIN_RADIANS, MAX_RADIANS, this.min, this.max);
-                } else {
-                    return;
-                }
-                this.$emit('input', Math.round((v - this.min) / this.stepSize) * this.stepSize + this.min);
-                this.$refs.input.blur();
-            },
-            onClick(e) {
-                this.updatePosition(e.offsetX, e.offsetY);
-                //this.$refs.input.blur();
-            },
-            onMouseDown(e) {
-                if (!this.disabled && this.outerText(e.offsetX,e.offsetY)) {
-                    e.preventDefault();
-                    window.addEventListener('mousemove', this.onMouseMove);
-                    window.addEventListener('mouseup', this.onMouseUp);
-                }
-                //this.$refs.input.blur();
-            },
-            onMouseUp(e) {
-                if (!this.disabled) {
-                    e.preventDefault();
-                    window.removeEventListener('mousemove', this.onMouseMove);
-                    window.removeEventListener('mouseup', this.onMouseUp);
-                }
-            },
-            onTouchStart(e) {
-                const touch = e.targetTouches.item(0);
-                const boundingClientRect = this.$el.getBoundingClientRect();
-                const offsetX = touch.clientX - 80; // boundingClientRect.left;
-                const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
-                if (this.outerText(offsetX,offsetY) && !this.disabled) {
-                    e.preventDefault();
-                    window.addEventListener('touchmove', this.onTouchMove);
-                    window.addEventListener('touchend', this.onTouchEnd);
-                    this.updatePosition(e.offsetX, e.offsetY);
-                }
-                //this.$refs.input.blur();
-            },
-            onTouchEnd(e) {
-                if (!this.disabled) {
-                    e.preventDefault();
-                    window.removeEventListener('touchmove', this.onTouchMove);
-                    window.removeEventListener('touchend', this.onTouchEnd);
-                }
-            },
-            onMouseMove(e) {
-                if (!this.disabled) {
-                    // e.preventDefault();
-                    this.updatePosition(e.offsetX, e.offsetY);
-                }
-            },
-            onTouchMove(e) {
-                if (!this.disabled && e.touches.length == 1) {
-                    const boundingClientRect = this.$el.getBoundingClientRect();
-                    const touch = e.targetTouches.item(0);
-                    const offsetX = touch.clientX - 80;
-                    const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
-                    this.updatePosition(offsetX, offsetY);
-                }
-            },
-            onKeypressEnter(e) {
-                if (this.$refs.input.value.match(/^\d+$/)) {
-                    if (this.$refs.input.value > this.max) this.$refs.input.value = this.max;
-                    if (this.$refs.input.value < this.min) this.$refs.input.value = this.min;
-                    this.$emit('input', Number(this.$refs.input.value));
-                    this.$refs.input.blur();
-                    return;
-                }
-                this.$emit('input', this.$refs.input.value);
-                // this.$refs.input.blur();
-                e.preventDefault();
-            },
-            onBlur(e) {
-                if (this.$refs.input.value.match(/^\d+$/)) {
-                    if (this.$refs.input.value > this.max) this.$refs.input.value = this.max;
-                    if (this.$refs.input.value < this.min) this.$refs.input.value = this.min;
-                    this.$emit('input', Number(this.$refs.input.value));
-                    return;
-                }
-                // this.$emit('input', val.toString());
-                e.preventDefault();
-            },
-            onKeyDownCheck(e) {
-                const key = String.fromCharCode(e.charCode);
-                if (key.match(/^\d$/)) {
-                    this.$emit('input', Number(this.$refs.input.value));
-                    return;
-                }
-                e.preventDefault();
-            },
-            onMouseUpInput(e) {
-                this.$emit('input', this.$refs.input.value);
-            },
-            onKeyUpInput(e) {
-                if (this.$refs.input.value.match(/^\d+$/)) {
-                    if (this.$refs.input.value > this.max) this.value = this.max;
-                    if (this.$refs.input.value < this.min) this.value = this.min;
-                    this.$emit('input', Number(this.$refs.input.value));
-                    return
-                }
-                this.value = 0;
-                this.$emit('input', 0);
-                e.preventDefault();
-            },
-            onKeyDownDisable(e) {
-                e.preventDefault();
-            },
-            onKeyPressDelete(e) {
-            },
-            outerText(offsetX, offsetY) {
-                return !(offsetX > 43 && offsetX < 134 && offsetY > 53 && offsetY < 111);
-            }
-        }
-    });
+				const start = -Math.PI / 2 - Math.PI / 6;
+				if (angle > MAX_RADIANS) {
+					v = mapRange(angle, MIN_RADIANS, MAX_RADIANS, this.min, this.max);
+				} else if (angle < start) {
+					v = mapRange(angle + 2 * Math.PI, MIN_RADIANS, MAX_RADIANS, this.min, this.max);
+				} else {
+					return;
+				}
+				this.$emit('input', Math.round((v - this.min) / this.stepSize) * this.stepSize + this.min);
+				this.$refs.input.blur();
+			},
+			onClick(e) {
+				this.updatePosition(e.offsetX, e.offsetY);
+				//this.$refs.input.blur();
+			},
+			onMouseDown(e) {
+				if (!this.disabled && this.outerText(e.offsetX,e.offsetY)) {
+					e.preventDefault();
+					window.addEventListener('mousemove', this.onMouseMove);
+					window.addEventListener('mouseup', this.onMouseUp);
+				}
+				//this.$refs.input.blur();
+			},
+			onMouseUp(e) {
+				if (!this.disabled) {
+					e.preventDefault();
+					window.removeEventListener('mousemove', this.onMouseMove);
+					window.removeEventListener('mouseup', this.onMouseUp);
+				}
+			},
+			onTouchStart(e) {
+				const touch = e.targetTouches.item(0);
+				const boundingClientRect = this.$el.getBoundingClientRect();
+				const offsetX = touch.clientX - 80; // boundingClientRect.left;
+				const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
+				if (this.outerText(offsetX,offsetY) && !this.disabled) {
+					e.preventDefault();
+					window.addEventListener('touchmove', this.onTouchMove);
+					window.addEventListener('touchend', this.onTouchEnd);
+					this.updatePosition(e.offsetX, e.offsetY);
+				}
+				//this.$refs.input.blur();
+			},
+			onTouchEnd(e) {
+				if (!this.disabled) {
+					e.preventDefault();
+					window.removeEventListener('touchmove', this.onTouchMove);
+					window.removeEventListener('touchend', this.onTouchEnd);
+				}
+			},
+			onMouseMove(e) {
+				if (!this.disabled) {
+					// e.preventDefault();
+					this.updatePosition(e.offsetX, e.offsetY);
+				}
+			},
+			onTouchMove(e) {
+				if (!this.disabled && e.touches.length == 1) {
+					const boundingClientRect = this.$el.getBoundingClientRect();
+					const touch = e.targetTouches.item(0);
+					const offsetX = touch.clientX - 80;
+					const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
+					this.updatePosition(offsetX, offsetY);
+				}
+			},
+			onKeypressEnter(e) {
+				if (this.$refs.input.value.match(/^\d+$/)) {
+					if (this.$refs.input.value > this.max) this.$refs.input.value = this.max;
+					if (this.$refs.input.value < this.min) this.$refs.input.value = this.min;
+					this.$emit('input', Number(this.$refs.input.value));
+					this.$refs.input.blur();
+					return;
+				}
+				this.$emit('input', this.$refs.input.value);
+				// this.$refs.input.blur();
+				e.preventDefault();
+			},
+			onBlur(e) {
+				if (this.$refs.input.value.match(/^\d+$/)) {
+					if (this.$refs.input.value > this.max) this.$refs.input.value = this.max;
+					if (this.$refs.input.value < this.min) this.$refs.input.value = this.min;
+					this.$emit('input', Number(this.$refs.input.value));
+					return;
+				}
+				// this.$emit('input', val.toString());
+				e.preventDefault();
+			},
+			onKeyDownCheck(e) {
+				const key = String.fromCharCode(e.charCode);
+				if (key.match(/^\d$/)) {
+					this.$emit('input', Number(this.$refs.input.value));
+					return;
+				}
+				e.preventDefault();
+			},
+			onMouseUpInput(e) {
+				this.$emit('input', this.$refs.input.value);
+			},
+			onKeyUpInput(e) {
+				if (this.$refs.input.value.match(/^\d+$/)) {
+					if (this.$refs.input.value > this.max) this.value = this.max;
+					if (this.$refs.input.value < this.min) this.value = this.min;
+					this.$emit('input', Number(this.$refs.input.value));
+					return
+				}
+				this.value = 0;
+				this.$emit('input', 0);
+				e.preventDefault();
+			},
+			onKeyDownDisable(e) {
+				e.preventDefault();
+			},
+			onKeyPressDelete(e) {
+			},
+			outerText(offsetX, offsetY) {
+				return !(offsetX > 43 && offsetX < 134 && offsetY > 53 && offsetY < 111);
+			}
+		}
+	});
 </script>
 <style>
     .knob-control {
@@ -429,289 +429,348 @@
         }
     }
 </style>
-<div class="wrap">
-    <div ref="app" class="content" id="app">
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <p>Dummy Heading</p>
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn">
+                    <img alt="menu" src="images/menu.png" class="menuButton">
+                </button>
+            </div>
+        </nav>
         <div class="dummy"></div>
-        <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
-                <div class="card">
-                    <a class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
-                        <div class="resize" aria-label="resize" >
-                            <img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/>
+            <div class="wrap">
+                <div ref="app" class="content" id="app">
+                <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
+                        <div class="card">
+                            <a class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
+                                <div class="resize" aria-label="resize" >
+                                    <img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/>
+                                </div>
+                                <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><img src="images/eraser.png" aria-label="非表示" class="eraser"/></div>
+                                <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
+                            </a>
+                            <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
+                                <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
+                                <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                            </div>
                         </div>
-                        <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><img src="images/eraser.png" aria-label="非表示" class="eraser"/></div>
-                        <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
-                    </a>
-                    <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
-                        <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                        <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
                     </div>
+                </div>
+                <div class="ft">
+                </div>
+                <div class="fixed-bottom border-white border-top-2">
+                    <div class="ft_txt">
+                        © 2019 Horornis.com All Rights Reserved.
+                    </div>
+                </div>
+                <!-- As a heading -->
+                <div class="top_bar">
+                    <span class="fixed-top">
+                        <div class="bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
+                            <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
+                            <span class="right">
+                                <span class="weight">{{ totalWeight }}</span>
+                                <button ref="totalValueButton" class="btn page-link text-dark d-inline-block m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle">合計</span><span id="sumresult">&yen;{{ totalMoney }} </span></button>
+                                <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
+                            </span>
+                            <div class="bg-white header3">
+                                <div class="hidden_list">
+                                    <div class="hidden_menu">
+                                        <strong>非表示：</strong>
+                                    </div>
+                                    <div v-for="(item, index) in items" class="btn btn-outline-dark btn-warning .text-dark type_item p-1" v-show="!item.visible" @click="doshow(index)" >
+                                         <img :aria-label="item.callName" class="image m-0 p-0 coin_picture_thumbnail" :src="'images/coin-' + item.unit + '.png'"/> {{ item.callName }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
                 </div>
             </div>
         </div>
-        <div class="ft">
-        </div>
-        <div class="fixed-bottom border-white border-top-2">
-            <div class="ft_txt">
-                © 2019 Horornis.com All Rights Reserved.
-            </div>
-        </div>
-        <!-- As a heading -->
-        <div class="top_bar">
-            <span class="fixed-top">
-                <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
-                    <img alt="menu" src="images/menu.png" class="menuButton">
-                    <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
-                    <span class="right">
-                        <span class="weight">{{ totalWeight }}</span>
-                        <button ref="totalValueButton" class="btn page-link text-dark d-inline-block m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle">合計</span><span id="sumresult">&yen;{{ totalMoney }} </span></button>
-                        <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
-                    </span>
-                    <div class="bg-white header3">
-                        <div class="hidden_list">
-                            <div class="hidden_menu">
-                                <strong>非表示：</strong>
-                            </div>
-                            <div v-for="(item, index) in items" class="btn btn-outline-dark btn-warning .text-dark type_item p-1" v-show="!item.visible" @click="doshow(index)" >
-                                 <img :aria-label="item.callName" class="image m-0 p-0 coin_picture_thumbnail" :src="'images/coin-' + item.unit + '.png'"/> {{ item.callName }}
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </span>
-        </div>
-    </div>
+     </div>
 </div>
 <script>
-    const storejs = store;
-    const cookiehead = '.Horornis-money_can-v3_0_5';
-    function screeenWidth() {
-        console.log(screeen.width);
-        return screen.width;
-    }
-    function initialState() {
-        const old_cookiehead2 = '.Horornis-money_can-v3_0_5';
-        const old_cookiehead = '.Horornis-moneycounter-v2_4_91-';
-        const data = {
-            cookiehead: '.Horornis-money_can-v3_1_6',
-            items: [
-                {
-                    id: 0,
-                    order: 0,
-                    type: 's1',
-                    callName: '1円',
-                    unit: 1,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 1,
-                    order: 1,
-                    type: 's5',
-                    callName: '5円',
-                    unit: 5,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 3.75
-                },
-                {
-                    id: 2,
-                    order: 2,
-                    type: 's10',
-                    callName: '10円',
-                    unit: 10,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 4.5
-                },
-                {
-                    id: 3,
-                    order: 3,
-                    type: 's50',
-                    callName: '50円',
-                    unit: 50,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 4
-                },
-                {
-                    id: 4,
-                    order: 4,
-                    type: 's100',
-                    callName: '100円',
-                    unit: 100,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 4.8
-                },
-                {
-                    id: 5,
-                    order: 5,
-                    type: 's500',
-                    callName: '500円',
-                    unit: 500,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 7
-                },
-                {
-                    id: 6,
-                    order: 6,
-                    type: 's1000',
-                    callName: '千円',
-                    unit: 1000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 7,
-                    order: 7,
-                    type: 's2000',
-                    callName: '弐千円',
-                    unit: 2000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 8,
-                    order: 8,
-                    type: 's5000',
-                    callName: '五千円',
-                    unit: 5000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 9,
-                    order: 9,
-                    type: 's10000',
-                    callName: '壱万円',
-                    unit: 10000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                }
-            ]
-        };
-        if (storejs.has(old_cookiehead2)) {
-            const ret = storejs.get(data.cookiehead);
-            for (let i = 0; i < data.items.length; i++) {
-                if (ret && ret[i]) {
-                    data.items[ret[i].id].counts = ret[i].counts;
-                    data.items[ret[i].id].visible = ret[i].visible;
-                }
-            }
-            storejs.delete(old_cookiehead2);
-            return data;
-        }
-        if (storejs.has(data.cookiehead)) {
-            const ret = storejs.get(data.cookiehead);
-            for (let i = 0; i < data.items.length; i++) {
-                if (ret && ret[i]) {
-                    data.items[ret[i].id].counts = ret[i].counts;
-                    data.items[ret[i].id].visible = ret[i].visible;
-                }
-            }
-            return data;
-        }
+	const storejs = store;
+	const cookiehead = '.Horornis-money_can-v3_0_5';
+	function screeenWidth() {
+		console.log(screeen.width);
+		return screen.width;
+	}
+	function initialState() {
+		const old_cookiehead2 = '.Horornis-money_can-v3_0_5';
+		const old_cookiehead = '.Horornis-moneycounter-v2_4_91-';
+		const data = {
+			cookiehead: '.Horornis-money_can-v3_1_6',
+			items: [
+				{
+					id: 0,
+					order: 0,
+					type: 's1',
+					callName: '1円',
+					unit: 1,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 1,
+					order: 1,
+					type: 's5',
+					callName: '5円',
+					unit: 5,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 3.75
+				},
+				{
+					id: 2,
+					order: 2,
+					type: 's10',
+					callName: '10円',
+					unit: 10,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 4.5
+				},
+				{
+					id: 3,
+					order: 3,
+					type: 's50',
+					callName: '50円',
+					unit: 50,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 4
+				},
+				{
+					id: 4,
+					order: 4,
+					type: 's100',
+					callName: '100円',
+					unit: 100,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 4.8
+				},
+				{
+					id: 5,
+					order: 5,
+					type: 's500',
+					callName: '500円',
+					unit: 500,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 7
+				},
+				{
+					id: 6,
+					order: 6,
+					type: 's1000',
+					callName: '千円',
+					unit: 1000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 7,
+					order: 7,
+					type: 's2000',
+					callName: '弐千円',
+					unit: 2000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 8,
+					order: 8,
+					type: 's5000',
+					callName: '五千円',
+					unit: 5000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 9,
+					order: 9,
+					type: 's10000',
+					callName: '壱万円',
+					unit: 10000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				}
+			]
+		};
+		if (storejs.has(old_cookiehead2)) {
+			const ret = storejs.get(data.cookiehead);
+			for (let i = 0; i < data.items.length; i++) {
+				if (ret && ret[i]) {
+					data.items[ret[i].id].counts = ret[i].counts;
+					data.items[ret[i].id].visible = ret[i].visible;
+				}
+			}
+			storejs.delete(old_cookiehead2);
+			return data;
+		}
+		if (storejs.has(data.cookiehead)) {
+			const ret = storejs.get(data.cookiehead);
+			for (let i = 0; i < data.items.length; i++) {
+				if (ret && ret[i]) {
+					data.items[ret[i].id].counts = ret[i].counts;
+					data.items[ret[i].id].visible = ret[i].visible;
+				}
+			}
+			return data;
+		}
 
-        for (let i = 0; i < data.length; i++) {
-            if (storejs.has(old_cookiehead + data.items[i].type)) {
-                data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
-                data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
-                storejs.delete(old_cookiehead + data.items[i].type);
-            }
-        }
-        return data;
-    }
-    new Vue({
-        el: '#app',
-        data () {
-            return initialState();
-        },
-        computed: {
-            totalMoney: function () {
-                let total = 0;
-                for (let i = 0; i < this.items.length; i++) {
-                    if (this.items[i].visible) {
-                        total += this.items[i].unit * this.items[i].counts;
-                    }
-                }
-                storejs.set(this.cookiehead,this.items);
-                // console.log(this.cookiehead,JSON.stringify(this.items));
-                return Number(total).toLocaleString();
-            },
-            totalValue: function () {
-                let total = 0;
-                for (let i = 0; i < this.items.length; i++) {
-                    if (this.items[i].visible) {
-                        total += this.items[i].unit * this.items[i].counts;
-                    }
-                }
-                return total;
-            },
-            subtotalMoney: function () {
-                let ret = [];
-                for (let i = 0; i < this.items.length; i++) {
-                    ret.push(Number(this.items[i].unit * this.items[i].counts).toLocaleString());
-                }
-                return ret;
-            },
-            totalWeight: function () {
-                let total = 0;
-                for (let i = 0; i < this.items.length; i++) {
-                    if (this.items[i].visible) {
-                        total += this.items[i].weight * this.items[i].counts;
-                    }
-                }
-                return `重さ${Number(total).toLocaleString()}g`;
-            },
-        },
-        methods: {
-            getWidth: function () {
-                return screeenWidth();
-            },
-            dohide: function (i) {
-                this.items[i].counts = 0;
-                this.items[i].visible = false;
-            },
-            doshow: function (i) {
-                this.items[i].visible = true;
-            },
-            doclear: function () {
-                for (let i = 0; i < this.items.length; i++) {
-                    this.items[i].counts = 0;
-                }
-                this.$refs.allClearButton.blur();
-            }
-        }
-    });
+		for (let i = 0; i < data.length; i++) {
+			if (storejs.has(old_cookiehead + data.items[i].type)) {
+				data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
+				data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
+				storejs.delete(old_cookiehead + data.items[i].type);
+			}
+		}
+		return data;
+	}
+	new Vue({
+		el: '#app',
+		data () {
+			return initialState();
+		},
+		computed: {
+			totalMoney: function () {
+				let total = 0;
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].visible) {
+						total += this.items[i].unit * this.items[i].counts;
+					}
+				}
+				storejs.set(this.cookiehead,this.items);
+				// console.log(this.cookiehead,JSON.stringify(this.items));
+				return Number(total).toLocaleString();
+			},
+			totalValue: function () {
+				let total = 0;
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].visible) {
+						total += this.items[i].unit * this.items[i].counts;
+					}
+				}
+				return total;
+			},
+			subtotalMoney: function () {
+				let ret = [];
+				for (let i = 0; i < this.items.length; i++) {
+					ret.push(Number(this.items[i].unit * this.items[i].counts).toLocaleString());
+				}
+				return ret;
+			},
+			totalWeight: function () {
+				let total = 0;
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].visible) {
+						total += this.items[i].weight * this.items[i].counts;
+					}
+				}
+				return `重さ${Number(total).toLocaleString()}g`;
+			},
+		},
+		methods: {
+			getWidth: function () {
+				return screeenWidth();
+			},
+			dohide: function (i) {
+				this.items[i].counts = 0;
+				this.items[i].visible = false;
+			},
+			doshow: function (i) {
+				this.items[i].visible = true;
+			},
+			doclear: function () {
+				for (let i = 0; i < this.items.length; i++) {
+					this.items[i].counts = 0;
+				}
+				this.$refs.allClearButton.blur();
+			}
+		}
+	});
 
-    let clipboard = new ClipboardJS('.foo');
-    clipboard.on('success', function () {
-        alert('クリップボードへコピーしました。');
-        this.blur();
-        $("button.btn-dummy").focus();
-    });
-    clipboard.on('error', function () {
-        alert('クリップボードへのコピーに失敗しました。');
-        this.blur();
-        $("button.btn-dummy").focus();
-    });
+	let clipboard = new ClipboardJS('.foo');
+	clipboard.on('success', function () {
+		alert('クリップボードへコピーしました。');
+		this.blur();
+		$("button.btn-dummy").focus();
+	});
+	clipboard.on('error', function () {
+		alert('クリップボードへのコピーに失敗しました。');
+		this.blur();
+		$("button.btn-dummy").focus();
+	});
 </script>
 </body>
 </html>

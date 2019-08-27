@@ -23,6 +23,19 @@ body {
     background-color: white;
     font-family: 'Noto Sans JP', sans-serif;
 }
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
 
 #header ul {
     width: 100%
