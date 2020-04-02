@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let data = [
+        { unit: 1, counts: 5, select: [] },
+	    { unit: 5, counts: 2, select: [] },
+	    { unit: 10, counts: 5, select: [] },
+	    { unit: 50, counts: 3, select: [] },
+	    { unit: 100, counts: 3, select: [] },
+	    { unit: 500, counts: 2, select: [] },
+	    { unit: 1000, counts: 1, select: [] },
+	    { unit: 2000, counts: 0, select: [] },
+	    { unit: 5000, counts: 0, select: [] },
+	    { unit: 10000, counts: 0, select: [] }
+    ];
+    let sumData = [];
+    let moneySum = 0;
+    data.forEach(item => {
+	    moneySum += item.unit * item.counts;
+    });
+    const useMoney = 821;
+    data.forEach(item => {console.log(item);});
+    console.log(moneySum, useMoney);
+    const strArray = Array.from(useMoney.toString());
+    for (let i = strArray.length -1; i >= 0; i--) {
+    	const n  = Number(strArray[i]);
+    	if (n <= data.map(item => item.counts)[0]) {
+
+        }
+    }
+</script>
+</body>
+</html>

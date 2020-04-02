@@ -22,7 +22,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="This is the one of the money counter application.">
-    <title>まねかん by Horornis.com</title>
+    <title>うぉるかる by Horornis.com</title>
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -32,13 +32,13 @@
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="まねかん">
+    <meta name="application-name" content="うぉるかる">
     <link rel="icon" sizes="512x512" href="images/ic_money_can_round_512.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="まねかん">
+    <meta name="apple-mobile-web-app-title" content="うぉるかる">
     <link rel="apple-touch-icon" href="./images/ic_money_can_round_152.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
@@ -56,7 +56,7 @@
     <script src="js/vue.min.js"></script>
 </head>
 <body>
-<!-- script>
+<script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js', {scope: 'https://horornis.com/mc/'})
             .then(function(reg) {
@@ -67,7 +67,7 @@
             // console.log('Registration failed with ' + error);
         });
     }
-</script -->
+</script>
 <script>
     const RADIUS = 40;
     const MID_X = 50;
@@ -180,7 +180,7 @@
             },
             'secondaryColor': {
                 type: String,
-                default: '#C0C0C0'
+                default: '#D0D0D0'
             },
             'textColor': {
                 type: String,
@@ -313,8 +313,10 @@
             },
             onMouseMove(e) {
                 if (!this.disabled) {
-                    // e.preventDefault();
-                    this.updatePosition(e.offsetX, e.offsetY);
+                    e.preventDefault();
+                    const offsetX = touch.clientX - 80;
+                    const offsetY = touch.clientY - boundingClientRect.top + this.size - 100;
+                    this.updatePosition(offsetX, offsetY);
                 }
             },
             onTouchMove(e) {
@@ -339,7 +341,7 @@
                 e.preventDefault();
             },
             onBlur(e) {
-                if (this.$refs.input.value.match(/^\d+$/)) {
+               if (this.$refs.input.value.match(/^\d+$/)) {
                     if (this.$refs.input.value > this.max) this.$refs.input.value = this.max;
                     if (this.$refs.input.value < this.min) this.$refs.input.value = this.min;
                     this.$emit('input', Number(this.$refs.input.value));
@@ -460,8 +462,7 @@
         <div class="top_bar">
             <span class="fixed-top">
                 <nav class="navbar navbar-light bg-white border-bottom-4 border-success Regular shadow p-0 m-0">
-                    <img alt="menu" src="images/menu.png" class="menuButton">
-                    <img alt="まねかん Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
+                    <img alt="うぉるかる Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
                     <span class="right">
                         <span class="weight">{{ totalWeight }}</span>
                         <button ref="totalValueButton" class="btn page-link text-dark d-inline-block m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle">合計</span><span id="sumresult">&yen;{{ totalMoney }} </span></button>
@@ -482,237 +483,276 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">通知</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>クリップボードにコピーしました。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">通知</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>クリップボードへのコピーに失敗しました。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    const storejs = store;
-    const cookiehead = '.Horornis-money_can-v3_0_5';
-    function screeenWidth() {
-        console.log(screeen.width);
-        return screen.width;
+	const storejs = store;
+	const cookiehead = '.Horornis-money_can-v3_0_5';
+	function screeenWidth() {
+	    console.log(screeen.width);
+	    return screen.width;
     }
-    function initialState() {
-        const old_cookiehead2 = '.Horornis-money_can-v3_0_5';
-        const old_cookiehead = '.Horornis-moneycounter-v2_4_91-';
-        const data = {
-            cookiehead: '.Horornis-money_can-v3_1_6',
-            items: [
-                {
-                    id: 0,
-                    order: 0,
-                    type: 's1',
-                    callName: '1円',
-                    unit: 1,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 1,
-                    order: 1,
-                    type: 's5',
-                    callName: '5円',
-                    unit: 5,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 3.75
-                },
-                {
-                    id: 2,
-                    order: 2,
-                    type: 's10',
-                    callName: '10円',
-                    unit: 10,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 4.5
-                },
-                {
-                    id: 3,
-                    order: 3,
-                    type: 's50',
-                    callName: '50円',
-                    unit: 50,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 4
-                },
-                {
-                    id: 4,
-                    order: 4,
-                    type: 's100',
-                    callName: '100円',
-                    unit: 100,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 4.8
-                },
-                {
-                    id: 5,
-                    order: 5,
-                    type: 's500',
-                    callName: '500円',
-                    unit: 500,
-                    counts: 0,
-                    visible: true,
-                    minimum: false,
-                    weight: 7
-                },
-                {
-                    id: 6,
-                    order: 6,
-                    type: 's1000',
-                    callName: '千円',
-                    unit: 1000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 7,
-                    order: 7,
-                    type: 's2000',
-                    callName: '弐千円',
-                    unit: 2000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 8,
-                    order: 8,
-                    type: 's5000',
-                    callName: '五千円',
-                    unit: 5000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                },
-                {
-                    id: 9,
-                    order: 9,
-                    type: 's10000',
-                    callName: '壱万円',
-                    unit: 10000,
-                    counts: 0,
-                    visible: false,
-                    minimum: false,
-                    weight: 1
-                }
-            ]
-        };
-        if (storejs.has(old_cookiehead2)) {
-            const ret = storejs.get(data.cookiehead);
-            for (let i = 0; i < data.items.length; i++) {
-                if (ret && ret[i]) {
-                    data.items[ret[i].id].counts = ret[i].counts;
-                    data.items[ret[i].id].visible = ret[i].visible;
-                }
-            }
-            storejs.delete(old_cookiehead2);
-            return data;
-        }
-        if (storejs.has(data.cookiehead)) {
-            const ret = storejs.get(data.cookiehead);
-            for (let i = 0; i < data.items.length; i++) {
-                if (ret && ret[i]) {
-                    data.items[ret[i].id].counts = ret[i].counts;
-                    data.items[ret[i].id].visible = ret[i].visible;
-                }
-            }
-            return data;
-        }
+	function initialState() {
+		const old_cookiehead2 = '.Horornis-money_can-v3_0_5';
+		const old_cookiehead = '.Horornis-moneycounter-v2_4_91-';
+		const data = {
+			cookiehead: '.Horornis-money_can-v3_1_6',
+			items: [
+				{
+					id: 0,
+					order: 0,
+					type: 's1',
+					callName: '1円',
+					unit: 1,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 1,
+					order: 1,
+					type: 's5',
+					callName: '5円',
+					unit: 5,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 3.75
+				},
+				{
+					id: 2,
+					order: 2,
+					type: 's10',
+					callName: '10円',
+					unit: 10,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 4.5
+				},
+				{
+					id: 3,
+					order: 3,
+					type: 's50',
+					callName: '50円',
+					unit: 50,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 4
+				},
+				{
+					id: 4,
+					order: 4,
+					type: 's100',
+					callName: '100円',
+					unit: 100,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 4.8
+				},
+				{
+					id: 5,
+					order: 5,
+					type: 's500',
+					callName: '500円',
+					unit: 500,
+					counts: 0,
+					visible: true,
+					minimum: false,
+					weight: 7
+				},
+				{
+					id: 6,
+					order: 6,
+					type: 's1000',
+					callName: '千円',
+					unit: 1000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 7,
+					order: 7,
+					type: 's2000',
+					callName: '弐千円',
+					unit: 2000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 8,
+					order: 8,
+					type: 's5000',
+					callName: '五千円',
+					unit: 5000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				},
+				{
+					id: 9,
+					order: 9,
+					type: 's10000',
+					callName: '壱万円',
+					unit: 10000,
+					counts: 0,
+					visible: false,
+					minimum: false,
+					weight: 1
+				}
+			]
+		};
+		if (storejs.has(old_cookiehead2)) {
+			const ret = storejs.get(data.cookiehead);
+			for (let i = 0; i < data.items.length; i++) {
+				if (ret && ret[i]) {
+					data.items[ret[i].id].counts = ret[i].counts;
+					data.items[ret[i].id].visible = ret[i].visible;
+				}
+			}
+			storejs.delete(old_cookiehead2);
+			return data;
+		}
+		if (storejs.has(data.cookiehead)) {
+			const ret = storejs.get(data.cookiehead);
+			for (let i = 0; i < data.items.length; i++) {
+				if (ret && ret[i]) {
+					data.items[ret[i].id].counts = ret[i].counts;
+					data.items[ret[i].id].visible = ret[i].visible;
+				}
+			}
+			return data;
+		}
 
-        for (let i = 0; i < data.length; i++) {
-            if (storejs.has(old_cookiehead + data.items[i].type)) {
-                data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
-                data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
-                storejs.delete(old_cookiehead + data.items[i].type);
-            }
+		for (let i = 0; i < data.length; i++) {
+			if (storejs.has(old_cookiehead + data.items[i].type)) {
+				data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
+				data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
+				storejs.delete(old_cookiehead + data.items[i].type);
+			}
+		}
+		return data;
+	}
+	new Vue({
+		el: '#app',
+		data () {
+			return initialState();
+		},
+		computed: {
+			totalMoney: function () {
+				let total = 0;
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].visible) {
+						total += this.items[i].unit * this.items[i].counts;
+					}
+				}
+				storejs.set(this.cookiehead,this.items);
+				// console.log(this.cookiehead,JSON.stringify(this.items));
+				return Number(total).toLocaleString();
+			},
+			totalValue: function () {
+				let total = 0;
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].visible) {
+						total += this.items[i].unit * this.items[i].counts;
+					}
+				}
+				return total;
+			},
+			subtotalMoney: function () {
+				let ret = [];
+				for (let i = 0; i < this.items.length; i++) {
+					ret.push(Number(this.items[i].unit * this.items[i].counts).toLocaleString());
+				}
+				return ret;
+			},
+			totalWeight: function () {
+				let total = 0;
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].visible) {
+						total += this.items[i].weight * this.items[i].counts;
+					}
+				}
+				return `重さ${Number(total).toLocaleString()}g`;
+			},
+		},
+		methods: {
+		    getWidth: function () {
+		        return screeenWidth();
+            },
+			dohide: function (i) {
+				this.items[i].counts = 0;
+				this.items[i].visible = false;
+			},
+			doshow: function (i) {
+				this.items[i].visible = true;
+			},
+			doclear: function () {
+				for (let i = 0; i < this.items.length; i++) {
+					this.items[i].counts = 0;
+				}
+				this.$refs.allClearButton.blur();
+			}
         }
-        return data;
-    }
-    new Vue({
-        el: '#app',
-        data () {
-            return initialState();
-        },
-        computed: {
-            totalMoney: function () {
-                let total = 0;
-                for (let i = 0; i < this.items.length; i++) {
-                    if (this.items[i].visible) {
-                        total += this.items[i].unit * this.items[i].counts;
-                    }
-                }
-                storejs.set(this.cookiehead,this.items);
-                // console.log(this.cookiehead,JSON.stringify(this.items));
-                return Number(total).toLocaleString();
-            },
-            totalValue: function () {
-                let total = 0;
-                for (let i = 0; i < this.items.length; i++) {
-                    if (this.items[i].visible) {
-                        total += this.items[i].unit * this.items[i].counts;
-                    }
-                }
-                return total;
-            },
-            subtotalMoney: function () {
-                let ret = [];
-                for (let i = 0; i < this.items.length; i++) {
-                    ret.push(Number(this.items[i].unit * this.items[i].counts).toLocaleString());
-                }
-                return ret;
-            },
-            totalWeight: function () {
-                let total = 0;
-                for (let i = 0; i < this.items.length; i++) {
-                    if (this.items[i].visible) {
-                        total += this.items[i].weight * this.items[i].counts;
-                    }
-                }
-                return `重さ${Number(total).toLocaleString()}g`;
-            },
-        },
-        methods: {
-            getWidth: function () {
-                return screeenWidth();
-            },
-            dohide: function (i) {
-                this.items[i].counts = 0;
-                this.items[i].visible = false;
-            },
-            doshow: function (i) {
-                this.items[i].visible = true;
-            },
-            doclear: function () {
-                for (let i = 0; i < this.items.length; i++) {
-                    this.items[i].counts = 0;
-                }
-                this.$refs.allClearButton.blur();
-            }
-        }
-    });
+	});
 
-    let clipboard = new ClipboardJS('.foo');
-    clipboard.on('success', function () {
-        alert('クリップボードへコピーしました。');
-        this.blur();
-        $("button.btn-dummy").focus();
-    });
-    clipboard.on('error', function () {
-        alert('クリップボードへのコピーに失敗しました。');
-        this.blur();
-        $("button.btn-dummy").focus();
-    });
+	let clipboard = new ClipboardJS('.foo');
+	clipboard.on('success', function () {
+		// alert('クリップボードへコピーしました。');
+		$('#successModal').modal('show');
+		this.blur();
+		$("button.btn-dummy").focus();
+	});
+	clipboard.on('error', function () {
+		// alert('クリップボードへのコピーに失敗しました。');
+		$('#errorModal').modal('show');
+		this.blur();
+		$("button.btn-dummy").focus();
+	});
 </script>
 </body>
 </html>
-
