@@ -1,7 +1,7 @@
 {
-  "version": "3.0.100",
-  "name": "まねかん (money can)",
-  "launch_path": "https://horornis.com/mc/",
+  "version": "1.0.10",
+  "name": "うぉるかる",
+  "launch_path": "https://wallcal.horornis.com/",
   "description": "いわゆる一つのマネーカウンター",
   "icons": {
     "192": "/mc-vue/images/ic_money_can_round_192.png"
@@ -19,7 +19,7 @@
   "permissions": {
   },
   "locales": {
-    "en": {
+    "ja": {
       "name": "まねかん",
       "description": "いわゆる一つのマネーカウンター"
     }

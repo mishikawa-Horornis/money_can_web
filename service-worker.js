@@ -11,7 +11,6 @@ let PRECACHE_URLS = [
     'images/ic_money_can_round_128.png',
     'images/ic_money_can_round_152.png',
     'images/icon-512x512.png',
-    'images/moneycounter-logo.png',
     'images/site-logo.png',
     'images/logo.png',
     'images/coin-1.png',

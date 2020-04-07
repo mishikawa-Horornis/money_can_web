@@ -1,6 +1,6 @@
 {
-    "name": "まねかん (Money Counter)",
-    "short_name": "まねかん",
+    "name": "うぉるかる",
+    "short_name": "うぉるかる",
     "icons": [
         {
             "src": "images/ic_money_can_round_128.png",
@@ -28,12 +28,12 @@
             "type": "image/png"
         }
     ],
-    "start_url": "https://horornis.com/mc/",
+    "start_url": "https://wallcal.horornis.com/",
     "display": "standalone",
     "background_color": "white",
     "theme_color": "#344f1b",
     "related_applications": [{
         "platform": "play",
-        "url": "https://play.google.com/store/apps/details?id=com.horornis.money_can"
+        "url": "https://play.google.com/store/apps/details?id=com.horornis.wallet_calculator"
     }]
 }
