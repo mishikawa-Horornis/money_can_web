@@ -446,7 +446,11 @@
                     </a>
                     <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
                         <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
-                        <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="50" :size="170" v-model="item.counts" height="170px"></knob-control>
+                        <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="item.max" :size="170" v-model="item.counts" height="170px"></knob-control>
+                        <div class="maxcount">
+                            <label>最大値</label>
+                            <input aria-label="最大値" type="number" max="50" min="1" v-model="item.max" maxlength="2" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -455,7 +459,7 @@
         </div>
         <div class="fixed-bottom border-white border-top-2">
             <div class="ft_txt">
-                © 2019 Horornis.com All Rights Reserved.
+                © 2020 Horornis.com All Rights Reserved.
             </div>
         </div>
         <!-- As a heading -->
@@ -587,7 +591,8 @@
 					counts: 0,
 					visible: true,
 					minimum: false,
-					weight: 4.8
+					weight: 4.8,
+                    max: 50
 				},
 				{
 					id: 5,
@@ -598,7 +603,8 @@
 					counts: 0,
 					visible: true,
 					minimum: false,
-					weight: 7
+					weight: 7,
+					max: 50
 				},
 				{
 					id: 6,
@@ -609,7 +615,8 @@
 					counts: 0,
 					visible: false,
 					minimum: false,
-					weight: 1
+					weight: 1,
+					max: 50
 				},
 				{
 					id: 7,
@@ -620,7 +627,8 @@
 					counts: 0,
 					visible: false,
 					minimum: false,
-					weight: 1
+					weight: 1,
+					max: 50
 				},
 				{
 					id: 8,
@@ -631,7 +639,8 @@
 					counts: 0,
 					visible: false,
 					minimum: false,
-					weight: 1
+					weight: 1,
+					max: 50
 				},
 				{
 					id: 9,
@@ -642,7 +651,8 @@
 					counts: 0,
 					visible: false,
 					minimum: false,
-					weight: 1
+					weight: 1,
+					max: 50
 				}
 			]
 		};
@@ -663,6 +673,7 @@
 				if (ret && ret[i]) {
 					data.items[ret[i].id].counts = ret[i].counts;
 					data.items[ret[i].id].visible = ret[i].visible;
+					data.items[ret[i].id].max = ret[i].max ? ret[i].max : 50;
 				}
 			}
 			return data;
@@ -672,6 +683,7 @@
 			if (storejs.has(old_cookiehead + data.items[i].type)) {
 				data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
 				data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
+				data.items[ret[i].id].max = ret[i].max ? ret[i].max : 50;
 				storejs.delete(old_cookiehead + data.items[i].type);
 			}
 		}

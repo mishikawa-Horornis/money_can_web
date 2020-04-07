@@ -135,7 +135,9 @@ div.site-header {
     list-style: none;
     display: inline;
 }
-
+div.max-count {
+    display: block;
+}
 div.header3 {
     justify-content: space-between;
     align-self: center;
@@ -398,6 +400,9 @@ img.eraser {
     width: 5em;
     font-size: 12pt;
     display: inline-block;
+}
+.tbl div.maxcount {
+    display: block;
 }
 
 #hide {
