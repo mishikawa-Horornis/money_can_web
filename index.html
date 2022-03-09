@@ -526,7 +526,7 @@
 </div>
 
 <script>
-	const storejs = store;
+	// const storejs = store;
 	const cookiehead = '.Horornis-money_can-v3_0_5';
 	function screeenWidth() {
 	    console.log(screeen.width);
@@ -656,19 +656,19 @@
 				}
 			]
 		};
-		if (storejs.has(old_cookiehead2)) {
-			const ret = storejs.get(data.cookiehead);
+		if (store.has(old_cookiehead2)) {
+			const ret = store.get(data.cookiehead);
 			for (let i = 0; i < data.items.length; i++) {
 				if (ret && ret[i]) {
 					data.items[ret[i].id].counts = ret[i].counts;
 					data.items[ret[i].id].visible = ret[i].visible;
 				}
 			}
-			storejs.delete(old_cookiehead2);
+			store.remove(old_cookiehead2);
 			return data;
 		}
-		if (storejs.has(data.cookiehead)) {
-			const ret = storejs.get(data.cookiehead);
+		if (store.has(data.cookiehead)) {
+			const ret = store.get(data.cookiehead);
 			for (let i = 0; i < data.items.length; i++) {
 				if (ret && ret[i]) {
 					data.items[ret[i].id].counts = ret[i].counts;
@@ -680,11 +680,11 @@
 		}
 
 		for (let i = 0; i < data.length; i++) {
-			if (storejs.has(old_cookiehead + data.items[i].type)) {
-				data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
-				data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
+			if (store.has(old_cookiehead + data.items[i].type)) {
+				data.items[i].counts = store.get(old_cookiehead + data.items[i].type).count;
+				data.items[i].visible = !(store.get(old_cookiehead + data.items[i].type).hide);
 				data.items[ret[i].id].max = ret[i].max ? ret[i].max : 50;
-				storejs.delete(old_cookiehead + data.items[i].type);
+				store.remove(old_cookiehead + data.items[i].type);
 			}
 		}
 		return data;
@@ -702,7 +702,7 @@
 						total += this.items[i].unit * this.items[i].counts;
 					}
 				}
-				storejs.set(this.cookiehead,this.items);
+				store.set(this.cookiehead,this.items);
 				// console.log(this.cookiehead,JSON.stringify(this.items));
 				return Number(total).toLocaleString();
 			},

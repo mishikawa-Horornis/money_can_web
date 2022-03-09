@@ -1,10 +1,10 @@
 {
   "version": "1.0.10",
   "name": "うぉるかる",
-  "launch_path": "https://wallcal.horornis.com/",
+  "launch_path": "https://wallcal.jp/",
   "description": "いわゆる一つのマネーカウンター",
   "icons": {
-    "192": "/mc-vue/images/ic_money_can_round_192.png"
+    "192": "images/ic_money_can_round_192.png"
   },
   "developer": {
     "name": "Masatoshi Ishikawa",
@@ -20,7 +20,7 @@
   },
   "locales": {
     "ja": {
-      "name": "まねかん",
+      "name": "うぉるかる",
       "description": "いわゆる一つのマネーカウンター"
     }
   },
