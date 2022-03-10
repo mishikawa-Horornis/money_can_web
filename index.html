@@ -51,6 +51,8 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/Sortable.min.js"></script>
+    <script src="js/vuedraggable.umd.min.js"></script>
     <script src="js/store2.min.js"></script>
     <script src="js/clipboard.min.js"></script>
     <script src="js/vue.min.js"></script>
@@ -58,7 +60,7 @@
 <body>
 <script>
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js', {scope: 'https://wallcal.horornis.com/'})
+        navigator.serviceWorker.register('./service-worker.js', {scope: 'https://wallcal.jp/'})
             .then(function(reg) {
                 // registration worked
                 // console.log('Registration succeeded. Scope is ' + reg.scope);
@@ -435,7 +437,7 @@
     <div ref="app" class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
+             <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <div class="card">
                     <a class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
                         <div class="resize" aria-label="resize" >
@@ -526,7 +528,7 @@
 </div>
 
 <script>
-	// const storejs = store;
+	const storejs = store;
 	const cookiehead = '.Horornis-money_can-v3_0_5';
 	function screeenWidth() {
 	    console.log(screeen.width);
@@ -656,19 +658,19 @@
 				}
 			]
 		};
-		if (store.has(old_cookiehead2)) {
-			const ret = store.get(data.cookiehead);
+		if (storejs.has(old_cookiehead2)) {
+			const ret = storejs.get(data.cookiehead);
 			for (let i = 0; i < data.items.length; i++) {
 				if (ret && ret[i]) {
 					data.items[ret[i].id].counts = ret[i].counts;
 					data.items[ret[i].id].visible = ret[i].visible;
 				}
 			}
-			store.remove(old_cookiehead2);
+			storejs.delete(old_cookiehead2);
 			return data;
 		}
-		if (store.has(data.cookiehead)) {
-			const ret = store.get(data.cookiehead);
+		if (storejs.has(data.cookiehead)) {
+			const ret = storejs.get(data.cookiehead);
 			for (let i = 0; i < data.items.length; i++) {
 				if (ret && ret[i]) {
 					data.items[ret[i].id].counts = ret[i].counts;
@@ -680,16 +682,16 @@
 		}
 
 		for (let i = 0; i < data.length; i++) {
-			if (store.has(old_cookiehead + data.items[i].type)) {
-				data.items[i].counts = store.get(old_cookiehead + data.items[i].type).count;
-				data.items[i].visible = !(store.get(old_cookiehead + data.items[i].type).hide);
+			if (storejs.has(old_cookiehead + data.items[i].type)) {
+				data.items[i].counts = storejs.get(old_cookiehead + data.items[i].type).count;
+				data.items[i].visible = !(storejs.get(old_cookiehead + data.items[i].type).hide);
 				data.items[ret[i].id].max = ret[i].max ? ret[i].max : 50;
-				store.remove(old_cookiehead + data.items[i].type);
+				storejs.delete(old_cookiehead + data.items[i].type);
 			}
 		}
 		return data;
 	}
-	new Vue({
+	    new Vue({
 		el: '#app',
 		data () {
 			return initialState();
@@ -702,7 +704,7 @@
 						total += this.items[i].unit * this.items[i].counts;
 					}
 				}
-				store.set(this.cookiehead,this.items);
+				storejs.set(this.cookiehead,this.items);
 				// console.log(this.cookiehead,JSON.stringify(this.items));
 				return Number(total).toLocaleString();
 			},
@@ -765,6 +767,8 @@
 		this.blur();
 		$("button.btn-dummy").focus();
 	});
+	var el = document.getElementById('accordion');
+	var sortable = Sortable.create(el);
 </script>
 </body>
 </html>
