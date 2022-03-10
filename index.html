@@ -437,7 +437,7 @@
     <div ref="app" class="content" id="app">
         <div class="dummy"></div>
         <div class="tbl accordion" id="accordion" role="tablist" aria-multiselectable="true">
-             <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
+            <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <div class="card">
                     <a class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
                         <div class="resize" aria-label="resize" >
@@ -461,7 +461,7 @@
         </div>
         <div class="fixed-bottom border-white border-top-2">
             <div class="ft_txt">
-                © 2020 Horornis.com All Rights Reserved.
+                © 2020-2022 Horornis.com All Rights Reserved.
             </div>
         </div>
         <!-- As a heading -->
@@ -691,7 +691,9 @@
 		}
 		return data;
 	}
-	    new Vue({
+    // const draggable = require("js/vuedraggable.umd.min.js");
+    new Vue({
+	    // components: { draggable },
 		el: '#app',
 		data () {
 			return initialState();
