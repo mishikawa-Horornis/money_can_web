@@ -440,12 +440,12 @@
             <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <div class="card">
                     <a class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
-                        <div class="resize" aria-label="resize" >
+                        <div class="handle resize" aria-label="resize" >
                             <img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/>
                         </div>
                         <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><img src="images/eraser.png" aria-label="非表示" class="eraser"/></div>
                         <div v-if="subtotalMoney[index]" aria-label="小計" class="sum" align="right">&yen;{{ subtotalMoney[index].toLocaleString() }}</div>
-                    </a>
+                   </a>
                     <div class="r1st collapse" :id="'collapse' + item.id" role="tabpanel" :aria-labelledby="'heading' + item.id" data-parent="#accordion">
                         <img :aria-label="item.callName" class="image p-0 coin_picture" :src="'images/coin-' + item.unit + '.png'"/>
                         <knob-control :input-label="item.counts + '枚'" class="dial" primary-color="#344f1b" secondary-color="#D0D0D0" text-color="#344f1b" :min="0" :max="item.max" :size="170" v-model="item.counts" height="170px"></knob-control>
@@ -770,7 +770,14 @@
 		$("button.btn-dummy").focus();
 	});
 	var el = document.getElementById('accordion');
-	var sortable = Sortable.create(el);
-</script>
+    var sortable = Sortable.create(el, {
+        handle: '.handle',
+        onSort: function(evt) {
+            var items = el.querySelectorAll('li');
+            for (var i = 0; i < items.length; i++) {
+                items[i].querySelector('.no').value = i + 1;
+            }
+        }
+    });</script>
 </body>
 </html>
