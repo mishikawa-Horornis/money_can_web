@@ -51,7 +51,7 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- script src="js/Sortable.min.js"></script -->
+    <script src="js/Sortable.min.js"></script>
     <!-- script src="js/vuedraggable.umd.min.js"></script -->
     <script src="js/store2.min.js"></script>
     <script src="js/clipboard.min.js"></script>
@@ -440,7 +440,7 @@
             <div class="draggable itemrow" v-for="(item, index) in items" :alt="item.callName" v-show="item.visible" :key="item.id">
                 <div class="card">
                     <a class="r2nd card-header collapsed" role="tab" :id="'heading' + item.id" data-toggle="collapse" :data-target="'#collapse' + item.id" aria-expanded="false" :aria-controls="'collapse'+ item.id">
-                        <div class="handle resize" aria-label="resize" >
+                        <div class="resize" aria-label="resize" >
                             <img :aria-label="item.callName" class="image m-0 coin_picture_icon" :src="'images/coin-' + item.unit + '.png'"/>
                         </div>
                         <div aria-label="hidden" @click="dohide(index)" class="del col-sm-1"><img src="images/eraser.png" aria-label="非表示" class="eraser"/></div>
@@ -769,16 +769,18 @@
 		this.blur();
 		$("button.btn-dummy").focus();
 	});
-	// var el = document.getElementById('accordion');
-    /* var sortable = Sortable.create(el, {
-        handle: '.handle',
+	var el = document.getElementById('accordion');
+    var sortable = Sortable.create(el, {
+        // handle: '.handle',
+        delay: 100,
+        delayOnTouchOnly: true,
         onSort: function(evt) {
             var items = el.querySelectorAll('li');
             for (var i = 0; i < items.length; i++) {
                 items[i].querySelector('.no').value = i + 1;
             }
         }
-    }); */
+    });
 </script>
 </body>
 </html>
