@@ -1,11 +1,11 @@
 let PRECACHE = 'moneycounter-horornis-v3_0_3';
 let RUNTIME = 'runtime';
-let version = '1.10.31';
+let version = '1.10.28';
 
 // A list of local resources we always want to be cached.
 let PRECACHE_URLS = [
     'index.html',
-    'privacy-policy.html',
+    'fonts/NotoSansJP-Regular.woff2',
     'css/main.css',
     'images/ic_money_can_round_192.png',
     'images/ic_money_can_round_144.png',

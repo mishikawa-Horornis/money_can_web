@@ -78,13 +78,16 @@ ul {
     padding: 0;
     margin: 0;
 }
-
+@font-face {
+    font-family: 'NSJP';
+    src: url(../fonts/NotoSansJP-Regular.woff2);
+}
 body {
     margin: 0;
     padding: 0;
     align-content: center;
     background-color: white;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'NSJP', sans-serif;
 }
 
 #header ul {
