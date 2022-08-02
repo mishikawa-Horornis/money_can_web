@@ -39,7 +39,6 @@ let PRECACHE_URLS = [
     'bootstrap/js/bootstrap.min.js',
 ];
 
-// The install handler takes care of precaching the resources we always need.
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(PRECACHE)
@@ -48,7 +47,6 @@ self.addEventListener('install', event => {
     );
 });
 
-// The activate handler takes care of cleaning up old caches.
 self.addEventListener('activate', event => {
     const currentCaches = [PRECACHE, RUNTIME];
     event.waitUntil(
