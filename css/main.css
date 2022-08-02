@@ -78,13 +78,24 @@ ul {
     padding: 0;
     margin: 0;
 }
-
+@font-face {
+    font-family: "NSJP";
+    font-weight: 400;
+    src: url("/fonts/BUDPGR.woff2") format("woff2"),
+    url("/fonts/BUDPGR.woff") format("woff");
+}
+@font-face {
+    font-family: "NSJP";
+    font-weight: 700;
+    src: url("/fonts/BUDPGB.woff2") format("woff2"),
+    url("/fonts/BUDPGB.woff") format("woff");
+}
 body {
     margin: 0;
     padding: 0;
     align-content: center;
     background-color: white;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'NSJP', sans-serif;
 }
 
 #header ul {
@@ -177,7 +188,8 @@ div.wrap {
 }
 
 div.ft {
-    padding: 2em;
+    padding: 2rem;
+    height: auto;
     text-align: center;
     background-color: white;
 }
@@ -188,7 +200,7 @@ div.ft_txt {
     margin-left: auto;
     margin-right: auto;
     width: auto;
-    height: 2em;
+    height: auto;
     align-content: center;
     color: white;
     background-color: #344f1b;
@@ -246,7 +258,9 @@ div.sum {
     float: right;
     padding-right: 36px;
 }
-
+button.sumblock {
+    white-space: nowrap;
+}
 span.right {
     display: table-column;
 }

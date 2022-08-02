@@ -59,18 +59,6 @@
 </head>
 <body>
 <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js', {scope: 'https://wallcal.jp/'})
-            .then(function(reg) {
-                // registration worked
-                // console.log('Registration succeeded. Scope is ' + reg.scope);
-            }).catch(function(error) {
-            // registration failed
-            // console.log('Registration failed with ' + error);
-        });
-    }
-</script>
-<script>
     const RADIUS = 40;
     const MID_X = 50;
     const MID_Y = 50;
@@ -386,6 +374,18 @@
     });
 </script>
 <style>
+    @font-face {
+	    font-family: "NSJP";
+	    font-weight: 400;
+	    src: url("/fonts/BUDPGR.woff2") format("woff2"),
+		     url("/fonts/BUDPGR.woff") format("woff");
+    }
+    @font-face {
+	    font-family: "NSJP";
+	    font-weight: 700;
+	    src: url("/fonts/BUDPGB.woff2") format("woff2"),
+		     url("/fonts/BUDPGB.woff") format("woff");
+    }
     .knob-control {
         position: relative;
         margin: 0;
@@ -402,6 +402,7 @@
     /* ▼画面サイズ（横幅）が640px以上の場合に適用 */
     @media screen and (max-width: 320px) {
         .knob-control__text-input {
+            font-family: "NSJP";
             position: relative;
             left: 137px;
             top: -118px;
@@ -410,7 +411,7 @@
             background-color: transparent;
             font-size: 2.7rem;
             text-align: center;
-            font-weight: bolder;
+            font-weight: 700;
             vertical-align: middle;
             border: none;
             z-index: 1;
@@ -418,6 +419,7 @@
     }
     @media screen and (min-width: 321px) {
         .knob-control__text-input {
+            font-family: "NSJP";
             position: relative;
             left: -131px;
             top: -0px;
@@ -426,7 +428,7 @@
             background-color: transparent;
             font-size: 2.7rem;
             text-align: center;
-            font-weight: bolder;
+            font-weight: 700;
             vertical-align: middle;
             border: none;
             z-index: 1;
@@ -461,7 +463,7 @@
         </div>
         <div class="fixed-bottom border-white border-top-2">
             <div class="ft_txt">
-                © 2020-2022 Horornis.com All Rights Reserved.
+                Ⓒ2020-2022 Horornis.com All Rights Reserved. <br /><a href="./privacy-policy.html" style="color: #FFF">プライバシーポリシー</a>
             </div>
         </div>
         <!-- As a heading -->
@@ -471,7 +473,7 @@
                     <img alt="うぉるかる Powered by Horornis.com." src="images/site-logo.png" class="navbar-brand" width="300px"/>
                     <span class="right">
                         <span class="weight">{{ totalWeight }}</span>
-                        <button ref="totalValueButton" class="btn page-link text-dark d-inline-block m-0 p-0 foo" :data-clipboard-text="totalValue"><span id="sumtitle">合計</span><span id="sumresult">&yen;{{ totalMoney }} </span></button>
+                        <button ref="totalValueButton" class="btn page-link text-dark d-inline-block m-0 p-0 foo sumblock" :data-clipboard-text="totalValue" ><span id="sumtitle">合計</span><span id="sumresult">&yen;{{ totalMoney }} </span></button>
                         <button ref="allClearButton" class="btn btn-outline-danger allClear m-0" @click="doclear"><strong> C </strong></button>
                     </span>
                     <div class="bg-white header3">
@@ -772,7 +774,7 @@
 	var el = document.getElementById('accordion');
     var sortable = Sortable.create(el, {
         // handle: '.handle',
-        delay: 100,
+        delay: 200,
         delayOnTouchOnly: true,
         onSort: function(evt) {
             var items = el.querySelectorAll('li');
@@ -784,3 +786,7 @@
 </script>
 </body>
 </html>
+<script>export default {
+	components: {}
+}
+</script>
